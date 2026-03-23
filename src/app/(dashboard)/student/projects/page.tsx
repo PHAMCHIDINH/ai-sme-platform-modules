@@ -2,12 +2,9 @@ import { auth } from "@/auth";
 import { getSessionUserIdByRole } from "@/modules/auth";
 import { describeMatchScore, rankBySimilarity } from "@/modules/matching";
 import { presentStudentProjectSummary } from "@/modules/project";
+import { Badge, Button, DiscoveryResultCard, FilterSidebar } from "@/modules/shared/ui";
 import {
   ACCESS_MESSAGES,
-  Badge,
-  Button,
-  DiscoveryResultCard,
-  FilterSidebar,
   findStudentProfileWithEmbedding,
   listStudentDiscoveryProjects,
   listStudentInvitations,

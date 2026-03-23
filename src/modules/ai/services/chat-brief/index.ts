@@ -3,7 +3,8 @@ import { CHAT_BRIEF_SYSTEM_PROMPT } from "./prompt-builder";
 import { buildFallbackParsedData } from "./profile-inference";
 import { buildDeterministicResponse, normalizeResponse, safeParseJSON } from "./response-normalizer";
 export * from "./question-planner";
-import type { ChatBriefResponse, ChatMessageInput } from "./types";
+import { EMPTY_PARSED_DATA } from "./types";
+import type { ChatBriefResponse, ChatMessageInput, ParsedData } from "./types";
 
 export function parseIncomingMessages(rawMessages: unknown): ChatMessageInput[] | null {
   return parseChatMessages(rawMessages);
@@ -26,5 +27,5 @@ export function normalizeAIResponseContent(aiText: string, messages: ChatMessage
   return normalizeResponse(parsedPayload, messages);
 }
 
-export { CHAT_BRIEF_SYSTEM_PROMPT };
-export type { ChatBriefResponse, ChatMessageInput };
+export { CHAT_BRIEF_SYSTEM_PROMPT, buildDeterministicResponse, EMPTY_PARSED_DATA };
+export type { ChatBriefResponse, ChatMessageInput, ParsedData };

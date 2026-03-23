@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/modules/shared";
+import { Button } from "@/modules/shared/ui";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Building2, Layers, Search, UserRound } from "lucide-react";

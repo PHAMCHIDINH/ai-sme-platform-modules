@@ -17,6 +17,11 @@ afterEach(() => {
   vi.resetModules();
 });
 
+const mockedAiRuntimeExports = {
+  EMPTY_PARSED_DATA,
+  buildDeterministicResponse,
+};
+
 describe("chat-brief modules", () => {
   it("infers ecommerce profile from selling website intent", () => {
     const profile = inferProjectProfile(["Cần làm website bán hàng cho SME"]);
@@ -244,6 +249,7 @@ describe("chat-brief route contract", () => {
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
     vi.doMock("@/modules/ai", () => ({
+      ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
       CHAT_BRIEF_SYSTEM_PROMPT: "system prompt",
@@ -300,6 +306,7 @@ describe("chat-brief route contract", () => {
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
     vi.doMock("@/modules/ai", () => ({
+      ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
       CHAT_BRIEF_SYSTEM_PROMPT: "system prompt",
@@ -344,6 +351,7 @@ describe("chat-brief route contract", () => {
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
     vi.doMock("@/modules/ai", () => ({
+      ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
       CHAT_BRIEF_SYSTEM_PROMPT: "system prompt",
@@ -393,6 +401,7 @@ describe("chat-brief route contract", () => {
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
     vi.doMock("@/modules/ai", () => ({
+      ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: {
         chat: {
@@ -466,6 +475,7 @@ describe("chat-brief route contract", () => {
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
     vi.doMock("@/modules/ai", () => ({
+      ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: {
         chat: {

@@ -64,7 +64,11 @@ const OUTPUT_KEYWORDS: Array<{ pattern: RegExp; label: string }> = [
 ];
 
 function stripAccents(value: string) {
-  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D");
 }
 
 export function normalizeText(value: string) {

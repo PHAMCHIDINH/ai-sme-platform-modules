@@ -1,5 +1,5 @@
 import { SignOutButton } from "@/components/layout/sign-out-button";
-import { Badge, Button } from "@/modules/shared";
+import { Badge, Button } from "@/modules/shared/ui";
 
 type HeaderProps = {
   name: string;

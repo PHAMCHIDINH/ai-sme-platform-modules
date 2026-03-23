@@ -1,16 +1,20 @@
 import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
-import { chatModelStr, openaiInstance } from "@/modules/ai";
 import {
   CHAT_BRIEF_SYSTEM_PROMPT,
+  EMPTY_PARSED_DATA,
+  buildDeterministicResponse,
   buildOfflineResponse,
+  chatModelStr,
   normalizeAIResponseContent,
+  openaiInstance,
   parseIncomingMessages,
   toAIChatMessages,
+  type ChatBriefResponse,
+  type ChatMessageInput,
+  type ParsedData,
 } from "@/modules/ai";
-import { buildDeterministicResponse } from "@/modules/ai/services/chat-brief/response-normalizer";
-import { EMPTY_PARSED_DATA, type ChatBriefResponse, type ChatMessageInput, type ParsedData } from "@/modules/ai/services/chat-brief/types";
 
 const MAX_OUTBOUND_CHAT_TURNS = 16;
 const PARSED_DATA_FIELDS = Object.keys(EMPTY_PARSED_DATA) as Array<keyof ParsedData>;
