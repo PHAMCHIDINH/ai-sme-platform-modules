@@ -12,8 +12,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "VnSMEMatch | Thu hẹp khoảng cách giữa đào tạo và nhu cầu thị trường",
-  description: "Nền tảng biến nhu cầu SME thành dự án thực chiến cho sinh viên.",
+  title: "VnSMEMatch | Career Portal for Real SME Projects",
+  description:
+    "Nền tảng marketplace kết nối SME và sinh viên qua các dự án thực chiến, với discovery, matching, và execution flow nhất quán.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

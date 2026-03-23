@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { Button, cn } from "@/modules/shared";
+import { cn } from "@/modules/shared";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -48,36 +48,36 @@ export function DashboardSidebar({ role, userName }: DashboardSidebarProps) {
   }
 
   return (
-    <aside className="flex h-full w-80 flex-col bg-transparent p-4 md:p-5">
-      <div className="surface-panel mb-4 p-4">
+    <aside className="flex h-full w-80 flex-col border-r border-border/60 bg-white/70 p-4 backdrop-blur md:p-5">
+      <div className="mb-3 rounded-2xl border border-border/80 bg-white p-4 shadow-sm">
         <Link href="/" className="flex items-center gap-2">
-          <div className="rounded-xl border-2 border-black bg-violet-200 p-1.5 shadow-neo-sm">
-            <Layers className="h-5 w-5" />
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-1.5">
+            <Layers className="h-5 w-5 text-emerald-700" />
           </div>
           <div className="space-y-0.5">
-            <span className="block text-[11px] font-black uppercase tracking-[0.18em] text-foreground/60">
-              Bright editorial demo
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Career Portal
             </span>
-            <span className="text-lg font-black">
-              VnSME<span className="text-violet-700">Match</span>
+            <span className="text-lg font-semibold text-slate-900">
+              VnSME<span className="text-emerald-700">Match</span>
             </span>
           </div>
         </Link>
       </div>
 
-      <div className="mb-4 rounded-2xl border-2 border-black bg-cyan-200/85 p-4 shadow-neo-sm">
-        <div className="mb-1 text-xs font-extrabold uppercase tracking-[0.14em] text-foreground/70">
-          Workspace hiện tại
+      <div className="mb-4 rounded-2xl border border-border/80 bg-white p-4 shadow-sm">
+        <div className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Workspace
         </div>
-        <div className="truncate text-base font-black">{userName}</div>
-        <div className="mt-2 inline-flex rounded-full border-2 border-black bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.12em] shadow-neo-sm">
+        <div className="truncate text-base font-semibold text-slate-900">{userName}</div>
+        <div className="mt-2 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">
           {role === "SME" ? "Doanh nghiệp SME" : "Sinh viên thực chiến"}
         </div>
       </div>
 
-      <div className="surface-panel flex min-h-0 flex-1 flex-col p-3">
-        <div className="mb-3 px-2 text-xs font-black uppercase tracking-[0.16em] text-foreground/60">
-          Điều hướng chính
+      <div className="flex min-h-0 flex-1 flex-col rounded-2xl border border-border/80 bg-white p-3 shadow-sm">
+        <div className="mb-3 px-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Main navigation
         </div>
         <div className="flex-1 space-y-2 overflow-y-auto pr-1">
           {menuItems.map((item) => {
@@ -88,27 +88,27 @@ export function DashboardSidebar({ role, userName }: DashboardSidebarProps) {
                 item.href !== "/student/dashboard");
 
             return (
-              <Link key={item.href} href={item.href}>
-                <Button
-                  variant={isActive ? "default" : "outline"}
-                  className={cn(
-                    "h-11 w-full justify-start rounded-xl text-sm",
-                    isActive ? "bg-pink-200 hover:bg-pink-300" : "bg-white/90 hover:bg-yellow-200"
-                  )}
-                >
-                  <item.icon className="mr-2 h-4 w-4" />
-                  {item.name}
-                </Button>
+              <Link
+                className={cn(
+                  "flex h-11 items-center rounded-xl px-3 text-sm font-medium transition",
+                  isActive
+                    ? "bg-emerald-700 text-white shadow-sm"
+                    : "text-slate-700 hover:bg-emerald-50 hover:text-emerald-700"
+                )}
+                key={item.href}
+                href={item.href}
+              >
+                <item.icon className="mr-2 h-4 w-4" />
+                {item.name}
               </Link>
             );
           })}
         </div>
       </div>
 
-      <div className="mt-4 rounded-2xl border-2 border-black bg-white/90 p-3 shadow-neo-sm">
-        <Button
-          variant="destructive"
-          className="w-full justify-start rounded-xl"
+      <div className="mt-4 rounded-2xl border border-border/80 bg-white p-3 shadow-sm">
+        <button
+          className="flex h-11 w-full items-center rounded-xl bg-rose-50 px-3 text-sm font-medium text-rose-700 transition hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-70"
           onClick={handleLogout}
           disabled={loggingOut}
         >
@@ -118,7 +118,7 @@ export function DashboardSidebar({ role, userName }: DashboardSidebarProps) {
             <LogOut className="mr-2 h-4 w-4" />
           )}
           Đăng xuất
-        </Button>
+        </button>
       </div>
     </aside>
   );

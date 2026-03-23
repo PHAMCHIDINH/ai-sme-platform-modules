@@ -20,17 +20,17 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen bg-background">
-      <div className="hidden md:flex">
+      <div className="hidden lg:flex">
         <DashboardSidebar role={role} userName={userName} />
       </div>
 
       <div className="relative flex min-h-screen flex-1 flex-col overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,166,255,0.16),transparent_26%),radial-gradient(circle_at_bottom_left,rgba(166,250,255,0.18),transparent_28%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.08),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(148,163,184,0.08),transparent_36%)]" />
 
-        <header className="relative px-4 pt-4 md:hidden">
-          <div className="surface-panel flex min-h-16 items-center justify-between px-4 py-3">
-            <span className="text-base font-black">
-              VnSME<span className="text-violet-700">Match</span>
+        <header className="relative px-4 pt-4 lg:hidden">
+          <div className="flex min-h-16 items-center justify-between rounded-2xl border border-border/70 bg-white/90 px-4 py-3 shadow-sm">
+            <span className="text-base font-semibold">
+              VnSME<span className="text-emerald-700">Match</span>
             </span>
             <div className="max-w-[180px] truncate text-sm font-semibold">{userName}</div>
           </div>

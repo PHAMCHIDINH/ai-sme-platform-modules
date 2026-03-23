@@ -17,11 +17,13 @@ export function DashboardShell({ role, name, children }: DashboardShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Sidebar onClose={() => setMobileOpen(false)} open={mobileOpen} pathname={pathname} role={role} />
       <div className="lg:pl-72">
         <Header name={name} onToggleNavigation={() => setMobileOpen((current) => !current)} role={role} />
-        <main className="page-wrap py-6 md:py-8">{children}</main>
+        <main className="page-wrap py-6 md:py-8">
+          <div className="page-stack">{children}</div>
+        </main>
       </div>
     </div>
   );

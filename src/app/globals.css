@@ -5,17 +5,9 @@
 
 :root {
   color-scheme: light;
-  --neo-black: 17 17 17;
-  --paper-100: 255 252 235;
-  --paper-200: 255 244 153;
-  --paper-300: 255 232 107;
-  --radius-sm: 0.25rem;
-  --radius-md: 0.45rem;
-  --radius-lg: 1rem;
-}
-
-* {
-  border-color: rgb(var(--neo-black));
+  --radius-sm: 0.3rem;
+  --radius-md: 0.55rem;
+  --radius-lg: 1.1rem;
 }
 
 html,
@@ -26,24 +18,9 @@ body {
 body {
   background-color: hsl(var(--background));
   background-image:
-    radial-gradient(circle at 12% 14%, rgba(168, 166, 255, 0.34) 0%, transparent 28%),
-    radial-gradient(circle at 84% 8%, rgba(255, 166, 246, 0.3) 0%, transparent 30%),
-    radial-gradient(circle at 88% 82%, rgba(166, 250, 255, 0.26) 0%, transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.38) 100%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(17, 17, 17, 0.045),
-      rgba(17, 17, 17, 0.045) 1px,
-      transparent 1px,
-      transparent 36px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(17, 17, 17, 0.045),
-      rgba(17, 17, 17, 0.045) 1px,
-      transparent 1px,
-      transparent 36px
-    );
+    radial-gradient(circle at 14% 5%, rgba(16, 185, 129, 0.08), transparent 30%),
+    radial-gradient(circle at 88% 0%, rgba(148, 163, 184, 0.1), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(241, 245, 249, 0.45) 100%);
   color: hsl(var(--foreground));
   font-family: var(--font-sans), "Segoe UI", sans-serif;
 }
@@ -66,7 +43,7 @@ h4 {
   }
 
   .section-title {
-    @apply text-2xl font-black text-foreground md:text-3xl;
+    @apply text-2xl font-semibold text-foreground md:text-3xl;
   }
 
   .section-subtitle {
@@ -74,23 +51,39 @@ h4 {
   }
 
   .kicker {
-    @apply inline-flex rounded-md border-2 border-black bg-cyan-200 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-foreground shadow-neo-sm;
-  }
-
-  .glass-panel {
-    @apply surface-panel;
+    @apply inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700;
   }
 
   .surface-panel {
-    @apply rounded-2xl border-2 border-black bg-white/95 shadow-neo-md;
+    @apply rounded-2xl border border-border/70 bg-card shadow-sm;
   }
 
   .metric-panel {
-    @apply rounded-2xl border-2 border-black bg-white p-5 shadow-neo-sm;
+    @apply rounded-2xl border border-border/70 bg-card p-5 shadow-sm;
+  }
+
+  .portal-shell {
+    @apply rounded-3xl border border-border/80 bg-white/95 shadow-sm;
+  }
+
+  .portal-panel {
+    @apply rounded-2xl border border-border/80 bg-card shadow-sm;
+  }
+
+  .portal-metric {
+    @apply rounded-2xl border border-border/70 bg-muted/50 p-4;
+  }
+
+  .portal-kicker {
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700;
+  }
+
+  .portal-listing-grid {
+    @apply grid gap-5 md:grid-cols-2 xl:grid-cols-3;
   }
 
   .editorial-title {
-    @apply text-4xl font-black tracking-tight md:text-6xl;
+    @apply text-4xl font-semibold tracking-tight md:text-6xl;
   }
 
   .editorial-copy {
@@ -98,7 +91,7 @@ h4 {
   }
 
   .stat-value {
-    @apply mt-2 text-3xl font-black text-foreground;
+    @apply mt-2 text-3xl font-semibold text-foreground;
   }
 
   .fade-in {
@@ -115,7 +108,6 @@ h4 {
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -124,39 +116,39 @@ h4 {
 
 @layer base {
   :root {
-    --background: 45 100% 96%;
-    --foreground: 0 0% 7%;
+    --background: 148 16% 96%;
+    --foreground: 215 28% 17%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card-foreground: 215 28% 17%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
-    --primary: 200 100% 88%;
-    --primary-foreground: 0 0% 7%;
-    --secondary: 188 100% 88%;
-    --secondary-foreground: 0 0% 7%;
-    --muted: 54 100% 84%;
-    --muted-foreground: 0 0% 24%;
-    --accent: 320 100% 88%;
-    --accent-foreground: 0 0% 7%;
-    --destructive: 0 100% 81%;
-    --destructive-foreground: 0 0% 7%;
-    --border: 0 0% 7%;
+    --popover-foreground: 215 28% 17%;
+    --primary: 153 68% 26%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 146 22% 90%;
+    --secondary-foreground: 158 45% 22%;
+    --muted: 149 20% 93%;
+    --muted-foreground: 216 12% 40%;
+    --accent: 151 28% 88%;
+    --accent-foreground: 158 48% 22%;
+    --destructive: 0 78% 57%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 154 14% 83%;
     --input: 0 0% 100%;
-    --ring: 24 100% 68%;
-    --chart-1: 200 100% 88%;
-    --chart-2: 320 100% 88%;
-    --chart-3: 54 100% 84%;
-    --chart-4: 98 100% 81%;
-    --chart-5: 244 95% 84%;
-    --radius: 0.45rem;
-    --sidebar: 45 100% 95%;
-    --sidebar-foreground: 0 0% 7%;
-    --sidebar-primary: 200 100% 88%;
-    --sidebar-primary-foreground: 0 0% 7%;
-    --sidebar-accent: 320 100% 88%;
-    --sidebar-accent-foreground: 0 0% 7%;
-    --sidebar-border: 0 0% 7%;
-    --sidebar-ring: 20 100% 81%;
+    --ring: 153 58% 35%;
+    --chart-1: 153 58% 35%;
+    --chart-2: 170 38% 47%;
+    --chart-3: 201 44% 52%;
+    --chart-4: 31 90% 58%;
+    --chart-5: 266 45% 55%;
+    --radius: 0.7rem;
+    --sidebar: 150 18% 95%;
+    --sidebar-foreground: 215 28% 17%;
+    --sidebar-primary: 153 68% 26%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 148 22% 90%;
+    --sidebar-accent-foreground: 158 45% 22%;
+    --sidebar-border: 154 14% 83%;
+    --sidebar-ring: 153 58% 35%;
   }
 
   .theme {
