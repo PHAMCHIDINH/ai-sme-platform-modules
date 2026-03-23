@@ -54,11 +54,11 @@ export default async function SmeProfilePage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6 pb-10">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">Hồ sơ doanh nghiệp</h2>
-        <p className="text-sm text-muted-foreground">
-          Cập nhật thông tin công ty để thu hút ứng viên phù hợp với dự án.
+    <div className="mx-auto max-w-4xl space-y-6 pb-10">
+      <div className="portal-shell p-6 md:p-8">
+        <h2 className="text-3xl font-semibold tracking-tight text-slate-900">Hồ sơ doanh nghiệp</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Cập nhật thông tin công ty để tăng độ rõ ràng cho luồng sourcing và nâng chất lượng ứng viên.
         </p>
       </div>
 

@@ -49,10 +49,10 @@ export function SmeProfileForm({ initialValues, submitAction }: SmeProfileFormPr
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card className="border-none bg-white/50 shadow-sm backdrop-blur">
+      <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
         <CardHeader>
           <CardTitle className="flex items-center">
-            <Building2 className="mr-2 h-5 w-5 text-primary" />
+            <Building2 className="mr-2 h-5 w-5 text-emerald-700" />
             Thông tin doanh nghiệp
           </CardTitle>
           <CardDescription>
@@ -105,7 +105,7 @@ export function SmeProfileForm({ initialValues, submitAction }: SmeProfileFormPr
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full sm:w-auto" disabled={isPending} type="submit">
+          <Button className="h-11 w-full rounded-full border-0 bg-emerald-700 text-white hover:bg-emerald-800 sm:w-auto" disabled={isPending} type="submit">
             {isPending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (

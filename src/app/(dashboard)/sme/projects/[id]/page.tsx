@@ -82,13 +82,13 @@ export default async function SMEProjectDetailPage({
     <div className="space-y-8 pb-10">
       <div className="flex items-center gap-4">
         <Link href="/sme/projects">
-          <Button className="rounded-full" size="icon" variant="ghost">
+          <Button className="rounded-full border border-border bg-white text-slate-700 hover:bg-slate-50" size="icon" variant="outline">
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </Link>
         <div>
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-bold tracking-tight">{project.title}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900">{project.title}</h2>
             <Badge
               variant={project.status === "OPEN" ? "default" : "outline"}
               className={project.status === "OPEN" ? undefined : projectStatusClassName(project.status)}
@@ -104,7 +104,7 @@ export default async function SMEProjectDetailPage({
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
-          <Card className="border-none bg-white/50 shadow-sm backdrop-blur">
+          <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
             <CardHeader>
               <CardTitle>Nội dung dự án</CardTitle>
             </CardHeader>
@@ -113,7 +113,7 @@ export default async function SMEProjectDetailPage({
                 <h4 className="mb-2 text-sm font-semibold text-muted-foreground">
                   Mô tả bài toán
                 </h4>
-                <div className="rounded-xl bg-muted/30 p-4 text-sm leading-relaxed whitespace-pre-wrap">
+                <div className="rounded-xl border border-border/70 bg-slate-50 p-4 text-sm leading-relaxed whitespace-pre-wrap">
                   {project.description}
                 </div>
               </div>
@@ -124,14 +124,14 @@ export default async function SMEProjectDetailPage({
                     <CheckCircle2 className="mr-1 h-4 w-4" />
                     Brief đã chuẩn hóa (Bằng AI)
                   </h4>
-                  <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 text-sm leading-relaxed whitespace-pre-wrap">
+                  <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm leading-relaxed whitespace-pre-wrap">
                     {project.standardizedBrief}
                   </div>
                 </div>
               ) : null}
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-xl bg-muted/30 p-4">
+                <div className="rounded-xl border border-border/70 bg-slate-50 p-4">
                   <span className="mb-1 block text-xs font-medium tracking-wider text-muted-foreground uppercase">
                     Mức độ khó
                   </span>
@@ -143,7 +143,7 @@ export default async function SMEProjectDetailPage({
                         : "Khó"}
                   </span>
                 </div>
-                <div className="rounded-xl bg-muted/30 p-4">
+                <div className="rounded-xl border border-border/70 bg-slate-50 p-4">
                   <span className="mb-1 block text-xs font-medium tracking-wider text-muted-foreground uppercase">
                     Thời gian dự kiến
                   </span>
@@ -155,23 +155,23 @@ export default async function SMEProjectDetailPage({
         </div>
 
         <div className="space-y-6 lg:col-span-1">
-          <Card className="border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-sm backdrop-blur">
+          <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
             <CardHeader>
-              <CardTitle className="flex items-center text-blue-800">
-                <Users className="mr-2 h-5 w-5" />
+              <CardTitle className="flex items-center text-slate-900">
+                <Users className="mr-2 h-5 w-5 text-emerald-700" />
                 Ứng viên & Matching
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="py-6 text-center">
-                <div className="mb-2 text-4xl font-black text-blue-600">
+                <div className="mb-2 text-4xl font-semibold text-slate-900">
                   {project._count.applications}
                 </div>
-                <p className="mb-6 text-sm font-medium text-blue-800/70">
+                <p className="mb-6 text-sm font-medium text-slate-500">
                   Sinh viên đã ứng tuyển
                 </p>
                 <Link href={`/sme/projects/${project.id}/candidates`}>
-                  <Button className="w-full bg-blue-600 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-700">
+                  <Button className="w-full rounded-full border-0 bg-emerald-700 text-white hover:bg-emerald-800">
                     Xem ứng viên & Gợi ý AI <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
@@ -179,7 +179,7 @@ export default async function SMEProjectDetailPage({
             </CardContent>
           </Card>
 
-          <Card className="border-none bg-white/50 shadow-sm backdrop-blur">
+          <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
             <CardHeader>
               <CardTitle className="flex items-center text-base">
                 <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
@@ -223,7 +223,7 @@ export default async function SMEProjectDetailPage({
                   ) : null}
 
                   {project.progress.deliverableUrl ? (
-                    <div className="rounded-xl border bg-background/60 p-4">
+                    <div className="rounded-xl border border-border/70 bg-slate-50 p-4">
                       <p className="text-sm font-semibold">Link bàn giao</p>
                       <a
                         className="mt-2 inline-block text-sm text-primary hover:underline"
@@ -235,12 +235,12 @@ export default async function SMEProjectDetailPage({
                       </a>
                     </div>
                   ) : (
-                    <div className="rounded-xl border bg-background/60 p-4 text-sm text-muted-foreground">
+                    <div className="rounded-xl border border-border/70 bg-slate-50 p-4 text-sm text-muted-foreground">
                       Sinh viên chưa nộp link bàn giao.
                     </div>
                   )}
 
-                  <div className="rounded-xl border bg-background/60 p-4">
+                  <div className="rounded-xl border border-border/70 bg-slate-50 p-4">
                     <div className="mb-3 flex items-center gap-2 text-sm font-semibold">
                       <ListTodo className="h-4 w-4 text-primary" />
                       Milestones
@@ -252,10 +252,7 @@ export default async function SMEProjectDetailPage({
                     ) : (
                       <div className="space-y-3">
                         {milestones.map((milestone) => (
-                          <div
-                            className="rounded-xl border bg-muted/20 px-3 py-2"
-                            key={milestone.id}
-                          >
+                          <div className="rounded-xl border border-border/70 bg-white px-3 py-2" key={milestone.id}>
                             <p className="text-sm font-medium">{milestone.title}</p>
                             <p className="mt-1 text-xs text-muted-foreground">
                               {formatDateTime(milestone.createdAt)}
@@ -266,7 +263,7 @@ export default async function SMEProjectDetailPage({
                     )}
                   </div>
 
-                  <div className="rounded-xl border bg-background/60 p-4">
+                  <div className="rounded-xl border border-border/70 bg-slate-50 p-4">
                     <div className="mb-3 flex items-center gap-2 text-sm font-semibold">
                       <FileText className="h-4 w-4 text-primary" />
                       Cập nhật tiến độ
@@ -278,10 +275,7 @@ export default async function SMEProjectDetailPage({
                     ) : (
                       <div className="space-y-3">
                         {updates.map((update) => (
-                          <div
-                            className="rounded-xl border bg-muted/20 px-3 py-2"
-                            key={update.id}
-                          >
+                          <div className="rounded-xl border border-border/70 bg-white px-3 py-2" key={update.id}>
                             <p className="text-sm">{update.content}</p>
                             <p className="mt-1 text-xs text-muted-foreground">
                               {formatDateTime(update.createdAt)}

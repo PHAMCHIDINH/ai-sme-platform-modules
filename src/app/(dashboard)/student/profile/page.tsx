@@ -128,7 +128,7 @@ export default function StudentProfilePage() {
 
   if (isInitialLoading) {
     return (
-      <div className="max-w-4xl mx-auto space-y-6 pb-10">
+      <div className="mx-auto max-w-5xl space-y-6 pb-10">
         <div className="space-y-2">
           <Skeleton className="h-8 w-72" />
           <Skeleton className="h-5 w-full max-w-2xl" />
@@ -148,22 +148,22 @@ export default function StudentProfilePage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-10">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">Hồ sơ năng lực thực chiến</h2>
-        <p className="text-muted-foreground text-sm flex items-center mt-1">
-          <Sparkles className="w-4 h-4 mr-1 text-indigo-500" />
-          Hồ sơ này sẽ được AI phân tích để ghép với các bài toán số hóa phù hợp từ doanh nghiệp
+    <div className="mx-auto max-w-5xl space-y-8 pb-10">
+      <div className="portal-shell p-6 md:p-8">
+        <h2 className="text-3xl font-semibold tracking-tight text-slate-900">Hồ sơ năng lực thực chiến</h2>
+        <p className="mt-2 flex items-center text-sm text-slate-600">
+          <Sparkles className="mr-1 h-4 w-4 text-emerald-700" />
+          Hồ sơ này được dùng để AI phân tích mức phù hợp giữa kỹ năng của bạn và nhu cầu dự án.
         </p>
       </div>
 
       <form onSubmit={onSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <Card className="border-none shadow-sm bg-white/50 backdrop-blur">
+            <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <GraduationCap className="w-5 h-5 mr-2 text-primary" /> Thông tin cơ bản
+                  <GraduationCap className="mr-2 h-5 w-5 text-emerald-700" /> Thông tin cơ bản
                 </CardTitle>
                 <CardDescription>Các thông tin trường đào tạo và định hướng</CardDescription>
               </CardHeader>
@@ -194,10 +194,10 @@ export default function StudentProfilePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-sm bg-white/50 backdrop-blur border-t-4 border-t-indigo-500">
+            <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <Code2 className="w-5 h-5 mr-2 text-indigo-500" /> Kỹ năng và Công nghệ
+                  <Code2 className="mr-2 h-5 w-5 text-sky-700" /> Kỹ năng và Công nghệ
                 </CardTitle>
                 <CardDescription>Quan trọng! Dữ liệu này giúp AI ghép dự án chính xác</CardDescription>
               </CardHeader>
@@ -222,7 +222,7 @@ export default function StudentProfilePage() {
           </div>
 
           <div className="lg:col-span-1 space-y-6">
-            <Card className="border-none shadow-sm bg-white/50 backdrop-blur">
+            <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
               <CardHeader>
                 <CardTitle>Liên kết & Thời gian</CardTitle>
               </CardHeader>
@@ -245,7 +245,7 @@ export default function StudentProfilePage() {
               </CardContent>
               <CardFooter>
                 <Button
-                  className="w-full shadow-lg h-12 rounded-xl"
+                  className="h-11 w-full rounded-full border-0 bg-emerald-700 text-white hover:bg-emerald-800"
                   disabled={updateProfileMutation.isPending}
                   type="submit"
                 >
@@ -259,9 +259,9 @@ export default function StudentProfilePage() {
               </CardFooter>
             </Card>
 
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-100">
-              <h4 className="font-semibold text-indigo-800 mb-2">💡 Tips nhỏ</h4>
-              <p className="text-sm text-indigo-700/80 leading-relaxed">
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+              <h4 className="mb-2 font-semibold text-emerald-800">Gợi ý tối ưu matching</h4>
+              <p className="text-sm leading-relaxed text-emerald-700/90">
                 Hồ sơ càng chi tiết ở phần Kỹ năng và Công nghệ, AI sẽ càng gợi ý chính xác dự án có thể đáp ứng năng lực của bạn, tăng tỷ lệ matching x3.
               </p>
             </div>
