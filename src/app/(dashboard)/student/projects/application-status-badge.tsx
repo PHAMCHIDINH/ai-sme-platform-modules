@@ -14,13 +14,13 @@ const LABELS: Record<StudentProjectInteractionState, string> = {
 };
 
 const CLASS_NAMES: Record<StudentProjectInteractionState, string> = {
-  READY_TO_APPLY: "bg-lime-200",
-  PROFILE_REQUIRED: "bg-yellow-200",
-  PENDING: "bg-cyan-200",
-  INVITED: "bg-orange-200",
-  ACCEPTED: "bg-emerald-200",
-  REJECTED: "bg-red-200",
-  PROJECT_CLOSED: "bg-gray-200",
+  READY_TO_APPLY: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  PROFILE_REQUIRED: "bg-amber-50 text-amber-700 border-amber-200",
+  PENDING: "bg-sky-50 text-sky-700 border-sky-200",
+  INVITED: "bg-violet-50 text-violet-700 border-violet-200",
+  ACCEPTED: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  REJECTED: "bg-rose-50 text-rose-700 border-rose-200",
+  PROJECT_CLOSED: "bg-slate-100 text-slate-600 border-slate-200",
 };
 
 export function ApplicationStatusBadge({
@@ -31,7 +31,7 @@ export function ApplicationStatusBadge({
   className?: string;
 }) {
   return (
-    <Badge className={`${CLASS_NAMES[state]} ${className}`.trim()} variant="outline">
+    <Badge className={`rounded-full border text-xs font-medium ${CLASS_NAMES[state]} ${className}`.trim()} variant="outline">
       {LABELS[state]}
     </Badge>
   );

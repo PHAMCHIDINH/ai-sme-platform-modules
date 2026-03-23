@@ -53,7 +53,10 @@ export function ApplyButton({
 
   return (
     <Button
-      className={className || "flex-1 rounded-none shadow-none border-0 text-base font-black uppercase hover:bg-black hover:text-white transition-colors h-14"}
+      className={
+        className ||
+        "h-10 rounded-full border-0 bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
+      }
       disabled={isLoading || Boolean(disabledReason)}
       onClick={handleApply}
       type="button"

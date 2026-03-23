@@ -27,8 +27,8 @@ export function InviteAction({ projectId, studentId }: { projectId: string; stud
       size="sm" 
       onClick={handleInvite} 
       disabled={isLoading} 
-      variant="secondary" 
-      className="w-full text-indigo-700 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 font-bold uppercase tracking-wider h-10"
+      variant="outline" 
+      className="h-10 w-full rounded-full border border-violet-200 bg-violet-50 text-sm font-semibold text-violet-700 hover:bg-violet-100"
     >
       {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <MailPlus className="w-4 h-4 mr-2" />}
       Mời tham gia dự án

@@ -1,10 +1,19 @@
 import { auth } from "@/auth";
 import { getSessionUserIdByRole } from "@/modules/auth";
-import { ACCESS_MESSAGES, findStudentProfileWithEmbedding, listStudentDiscoveryProjects, listStudentInvitations } from "@/modules/shared";
-import Link from "next/link";
 import { describeMatchScore, rankBySimilarity } from "@/modules/matching";
 import { presentStudentProjectSummary } from "@/modules/project";
-import { Building2, CalendarDays, Sparkles, Flame, ArrowRight } from "lucide-react";
+import {
+  ACCESS_MESSAGES,
+  Badge,
+  Button,
+  DiscoveryResultCard,
+  FilterSidebar,
+  findStudentProfileWithEmbedding,
+  listStudentDiscoveryProjects,
+  listStudentInvitations,
+} from "@/modules/shared";
+import { ArrowRight, CalendarDays, Search, Sparkles } from "lucide-react";
+import Link from "next/link";
 import { ApplyButton } from "./apply-button";
 import { ApplicationStatusBadge } from "./application-status-badge";
 import { InvitationCard } from "./invitation-card";
@@ -37,13 +46,10 @@ export default async function StudentProjectsPage() {
   }
 
   type RankedProject = (typeof availableProjects)[number] & { matchScore: number };
-  let rankedProjects: RankedProject[] = [];
-
-  if (profile?.embedding && profile.embedding.length > 0) {
-    rankedProjects = rankBySimilarity(profile.embedding, availableProjects) as RankedProject[];
-  } else {
-    rankedProjects = availableProjects.map(p => ({ ...p, matchScore: 0 }));
-  }
+  const rankedProjects: RankedProject[] =
+    profile?.embedding && profile.embedding.length > 0
+      ? (rankBySimilarity(profile.embedding, availableProjects) as RankedProject[])
+      : availableProjects.map((project) => ({ ...project, matchScore: 0 }));
 
   const presentedProjects = rankedProjects
     .map((project) =>
@@ -54,143 +60,161 @@ export default async function StudentProjectsPage() {
     )
     .filter((project) => project.interactionState !== "INVITED" && project.interactionState !== "ACCEPTED");
 
+  const hasEmbedding = Boolean(profile?.embedding && profile.embedding.length > 0);
+
   return (
-    <div className="space-y-10 pb-20 fade-in">
-      {invitations.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-3xl font-black uppercase mb-6 flex items-center gap-3 bg-red-500 w-fit text-white px-4 py-2 border-4 border-black shadow-neo-sm transform -rotate-1">
-            <Flame className="w-8 h-8 fill-current text-yellow-300" /> THƯ CHÀO MỜI ĐỘC QUYỀN
-          </h2>
+    <div className="space-y-8 pb-12 fade-in">
+      <header className="portal-shell p-6 md:p-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-2">
+            <p className="portal-kicker">Student discovery</p>
+            <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl">Khám phá dự án phù hợp năng lực</h1>
+            <p className="max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
+              AI gợi ý mức độ phù hợp từ hồ sơ kỹ năng của bạn. Hãy bắt đầu với các dự án có scope rõ ràng và đầu ra cụ thể.
+            </p>
+          </div>
+          <Link href="/student/profile">
+            <Button className="rounded-full border border-border bg-white text-slate-700 hover:bg-slate-50" variant="outline">
+              Cập nhật hồ sơ kỹ năng
+            </Button>
+          </Link>
+        </div>
+      </header>
+
+      {invitations.length > 0 ? (
+        <section className="space-y-4">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-violet-600" />
+            <h2 className="text-xl font-semibold text-slate-900">Lời mời trực tiếp từ SME</h2>
+          </div>
           <div>
-            {invitations.map(inv => (
-              <InvitationCard key={inv.id} invitation={inv} />
+            {invitations.map((invitation) => (
+              <InvitationCard invitation={invitation} key={invitation.id} />
             ))}
           </div>
-        </div>
-      )}
-
-      {/* Brutalist Hero Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-2 border-black bg-lime-300 p-8 md:p-10 shadow-neo-md rounded-lg">
-        <div>
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-black flex items-center">
-            Việc làm gợi ý <Sparkles className="w-8 h-8 md:w-10 md:h-10 ml-3 text-black" />
-          </h2>
-          <p className="text-black font-semibold text-base mt-2 max-w-xl">
-            Các bài toán từ doanh nghiệp được AI phân tích độ phù hợp với bộ kỹ năng của bạn.
-          </p>
-        </div>
-      </div>
-
-      {!profile?.embedding || profile.embedding.length === 0 ? (
-        <div className="p-6 bg-yellow-300 border-4 border-black shadow-neo-sm text-black font-black uppercase flex flex-col md:flex-row md:items-center gap-4 transform rotate-1 hover:-rotate-1 transition-transform">
-          <div className="text-5xl border-2 border-black bg-white rounded-full p-2 h-20 w-20 flex items-center justify-center -rotate-12 shadow-neo-sm">⚠️</div>
-          <div className="text-sm md:text-base leading-snug">
-            Bạn chưa chuẩn hóa kỹ năng trên hệ thống! <br className="hidden md:block"/>Hãy <Link href="/student/profile" className="underline decoration-4 underline-offset-4 bg-black text-white px-2 hover:bg-pink-400 hover:text-black transition-colors ml-1">cập nhật Profile</Link> ngay để AI có thể phân tích và gợi ý dự án đỉnh nhất cho bạn.
-          </div>
-        </div>
+        </section>
       ) : null}
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-8">
-        {presentedProjects.length === 0 ? (
-          <div className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col items-center justify-center py-20 px-4 border-2 border-black bg-white shadow-neo-lg rounded-lg text-center transform hover:-translate-y-1 transition-transform">
-            <h3 className="text-3xl md:text-4xl font-black mb-4 uppercase text-black">Rất tiếc!</h3>
-            <p className="text-black font-bold text-lg max-w-md">Hiện chưa có dự án nào đang mở hoặc phù hợp với bạn. Hãy rèn luyện thêm kỹ năng và quay lại sau nhé.</p>
+      <div className="grid gap-6 xl:grid-cols-[280px_1fr]">
+        <FilterSidebar
+          description="Tập trung vào dự án có match score cao và thời lượng phù hợp lịch học của bạn."
+          title="Discovery filters"
+        >
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500">Hồ sơ hiện tại</p>
+            <Badge className="rounded-full border border-border bg-slate-50 text-slate-700" variant="outline">
+              {hasEmbedding ? "Đã có embedding" : "Chưa có embedding"}
+            </Badge>
+            {!hasEmbedding ? (
+              <p className="text-sm leading-6 text-slate-500">
+                Cập nhật profile để hệ thống xếp hạng theo mức phù hợp kỹ năng.
+              </p>
+            ) : (
+              <p className="text-sm leading-6 text-slate-500">
+                Danh sách hiện đã được sắp xếp theo mức tương đồng kỹ năng.
+              </p>
+            )}
           </div>
-        ) : presentedProjects.map((project, index) => {
-          const bgColors = ["bg-lime-200", "bg-cyan-200", "bg-pink-200", "bg-yellow-200", "bg-violet-200", "bg-orange-200"];
-          const cardBgColor = bgColors[index % bgColors.length];
-          const hoverColor = cardBgColor.replace('bg-', 'hover:bg-');
-          const isHighMatch = project.matchScore >= 80;
-          const fitDescription = describeMatchScore(project.matchScore, {
-            hasSignal: Boolean(profile?.embedding && profile.embedding.length > 0),
-          });
-          const canApply = project.interactionState === "READY_TO_APPLY";
-          const applyDisabledReason = !profile
-            ? "Bạn cần tạo hồ sơ sinh viên trước khi ứng tuyển."
-            : undefined;
+          <div className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500">Mẹo chọn dự án</p>
+            <ul className="space-y-2 text-sm leading-6 text-slate-500">
+              <li>Ưu tiên dự án có output rõ để bổ sung portfolio.</li>
+              <li>Đọc kỹ skill tags trước khi apply.</li>
+              <li>Theo dõi trạng thái phản hồi trong trang chi tiết.</li>
+            </ul>
+          </div>
+        </FilterSidebar>
 
-          return (
-            <div 
-              key={project.id} 
-              className={`group flex flex-col ${cardBgColor} border-2 border-black rounded-lg shadow-neo-md hover:shadow-neo-lg transition-all hover:-translate-y-1 hover:-translate-x-1 divide-y-2 divide-black overflow-hidden relative`}
-            >
-              {/* AI Match Badge (Brutalist Sticker Style) */}
-              {project.matchScore > 0 && (
-                <div className={`absolute top-2 right-2 border-2 border-black px-3 py-1 font-black text-sm uppercase shadow-neo-sm transform rotate-6 transition-transform group-hover:rotate-12 z-10 ${isHighMatch ? 'bg-red-400 text-black' : 'bg-white text-black'}`}>
-                  {project.matchScore}% Phù hợp
-                </div>
-              )}
-
-              {/* Header Section */}
-              <div className="p-5 bg-white pt-10">
-                <div className="mb-3 flex items-start justify-between gap-3">
-                  <span className="text-xs font-bold uppercase text-black flex items-center bg-gray-200 border-2 border-black px-2 py-1 shadow-neo-sm rounded-md">
-                    <Building2 className="w-3 h-3 mr-1" /> {project.companyName}
-                  </span>
-                  {project.interactionState !== "READY_TO_APPLY" ? (
-                    <ApplicationStatusBadge className="max-w-[160px] text-[10px]" state={project.interactionState} />
-                  ) : null}
-                </div>
-                <h3 className="line-clamp-2 text-xl font-black uppercase tracking-tight text-black group-hover:underline decoration-4 underline-offset-4">
-                  {project.title}
-                </h3>
-              </div>
-
-              {/* Body Section */}
-              <div className="p-5 flex-grow bg-white flex flex-col justify-between">
-                <p className="line-clamp-3 text-sm font-semibold text-black/80 mb-4 leading-relaxed">
-                  {project.expectedOutput}
+        <section className="space-y-4">
+          {!hasEmbedding ? (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+              <div className="flex items-start gap-3">
+                <Search className="mt-0.5 h-4 w-4 text-amber-700" />
+                <p className="text-sm leading-6 text-amber-700">
+                  Bạn chưa chuẩn hóa profile kỹ năng. Vẫn có thể xem danh sách dự án, nhưng chưa có thứ tự match chính xác.
                 </p>
-
-                {project.matchScore > 0 ? (
-                  <p className="mb-4 text-xs font-black uppercase tracking-wide text-black/70">
-                    {fitDescription.label}
-                  </p>
-                ) : null}
-
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.requiredSkills.slice(0, 3).map((skill: string) => (
-                    <span key={skill} className="text-xs font-bold uppercase tracking-wider border-2 border-black px-2 py-1 bg-yellow-100 text-black shadow-neo-sm rounded-md">
-                      {skill}
-                    </span>
-                  ))}
-                  {project.requiredSkills.length > 3 && (
-                    <span className="text-xs font-bold uppercase tracking-wider border-2 border-black px-2 py-1 bg-gray-200 text-black shadow-neo-sm rounded-md">
-                      +{project.requiredSkills.length - 3}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center text-xs font-black uppercase text-black border-2 border-black bg-white w-fit px-3 py-1.5 shadow-neo-sm rounded-md mt-auto">
-                  <CalendarDays className="w-4 h-4 mr-2" />
-                  {project.duration}
-                </div>
-              </div>
-
-              {/* Footer Section */}
-              <div className="flex w-full divide-x-2 divide-black">
-                <Link
-                  className="flex h-16 flex-1 items-center justify-center bg-white px-4 text-sm font-black uppercase tracking-wide text-black transition-colors hover:bg-black hover:text-white"
-                  href={`/student/projects/${project.id}`}
-                >
-                  Xem chi tiết <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-                {canApply ? (
-                  <ApplyButton 
-                    className={`flex-1 bg-white text-black text-base ${hoverColor} transition-colors border-0 h-16 uppercase font-black`}
-                    disabledReason={applyDisabledReason}
-                    matchScore={project.matchScore}
-                    projectId={project.id}
-                  />
-                ) : (
-                  <div className="flex flex-1 items-center justify-center bg-white px-3 text-center text-xs font-black uppercase text-black/70">
-                    Theo dõi trạng thái ở chi tiết
-                  </div>
-                )}
               </div>
             </div>
-          );
-        })}
+          ) : null}
+
+          {presentedProjects.length === 0 ? (
+            <div className="portal-panel flex min-h-[320px] flex-col items-center justify-center gap-3 p-8 text-center">
+              <p className="text-lg font-semibold text-slate-900">Chưa có dự án phù hợp ở thời điểm này</p>
+              <p className="max-w-md text-sm leading-6 text-slate-500">
+                Hãy cập nhật thêm kỹ năng hoặc quay lại sau khi SME mở thêm bài toán mới.
+              </p>
+            </div>
+          ) : (
+            <div className="portal-listing-grid">
+              {presentedProjects.map((project) => {
+                const fitDescription = describeMatchScore(project.matchScore, { hasSignal: hasEmbedding });
+                const canApply = project.interactionState === "READY_TO_APPLY";
+                const applyDisabledReason = !profile ? "Bạn cần tạo hồ sơ sinh viên trước khi ứng tuyển." : undefined;
+
+                return (
+                  <DiscoveryResultCard
+                    actions={
+                      <>
+                        <Link href={`/student/projects/${project.id}`}>
+                          <Button className="rounded-full border border-border bg-white text-slate-700 hover:bg-slate-50" variant="outline">
+                            Xem chi tiết <ArrowRight className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                        {canApply ? (
+                          <ApplyButton
+                            ctaLabel="Ứng tuyển"
+                            className="h-10 rounded-full border-0 bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
+                            disabledReason={applyDisabledReason}
+                            matchScore={project.matchScore}
+                            projectId={project.id}
+                          />
+                        ) : (
+                          <div className="inline-flex items-center rounded-full border border-border bg-slate-50 px-4 text-xs font-medium text-slate-600">
+                            Theo dõi trạng thái ở trang chi tiết
+                          </div>
+                        )}
+                      </>
+                    }
+                    badges={
+                      <>
+                        {project.requiredSkills.slice(0, 3).map((skill: string) => (
+                          <span
+                            className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700"
+                            key={skill}
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                        {project.requiredSkills.length > 3 ? (
+                          <span className="rounded-full border border-border bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                            +{project.requiredSkills.length - 3}
+                          </span>
+                        ) : null}
+                      </>
+                    }
+                    eyebrow={project.companyName}
+                    key={project.id}
+                    metadata={
+                      <>
+                        <span className="inline-flex items-center gap-1">
+                          <CalendarDays className="h-4 w-4" />
+                          {project.duration}
+                        </span>
+                        {project.interactionState !== "READY_TO_APPLY" ? (
+                          <ApplicationStatusBadge className="max-w-full" state={project.interactionState} />
+                        ) : null}
+                        {project.matchScore > 0 ? <span>{fitDescription.label}</span> : null}
+                      </>
+                    }
+                    score={project.matchScore > 0 ? `${project.matchScore}% match` : "No score"}
+                    summary={project.expectedOutput}
+                    title={project.title}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </section>
       </div>
     </div>
   );

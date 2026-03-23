@@ -44,7 +44,7 @@ export function CandidateActions({ projectId, studentId }: CandidateActionsProps
   return (
     <>
       <Button
-        className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+        className="h-10 flex-1 rounded-full border-0 bg-emerald-700 text-sm font-semibold text-white hover:bg-emerald-800"
         disabled={isLoading}
         onClick={() => handleAction("ACCEPTED")}
         size="sm"
@@ -58,12 +58,12 @@ export function CandidateActions({ projectId, studentId }: CandidateActionsProps
         Chấp nhận
       </Button>
       <Button
-        className="flex-1 text-red-600 hover:text-red-700"
+        className="h-10 flex-1 rounded-full border border-rose-200 bg-rose-50 text-sm font-semibold text-rose-700 hover:bg-rose-100"
         disabled={isLoading}
         onClick={() => handleAction("REJECTED")}
         size="sm"
         type="button"
-        variant="outline"
+        variant="secondary"
       >
         {loadingStatus === "REJECTED" ? (
           <Loader2 className="w-4 h-4 mr-1 animate-spin" />
