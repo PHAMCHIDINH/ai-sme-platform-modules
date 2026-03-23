@@ -433,24 +433,27 @@ export default function NewProjectPage() {
   const progressState = deriveChatProgressState(coverage, chatReadyToSubmit);
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
-      <div>
-        <h2 className="text-3xl font-black uppercase tracking-tight">Cùng Trợ Lý Tối Ưu Đề Bài</h2>
-        <p className="text-muted-foreground text-sm font-medium mt-1">
-          Chat với AI để được khai thác yêu cầu tự động, hoặc điền Form thủ công bên phải.
-        </p>
-      </div>
+    <div className="space-y-8 pb-12 fade-in">
+      <header className="portal-shell p-6 md:p-8">
+        <div className="space-y-2">
+          <p className="portal-kicker">Project creation wizard</p>
+          <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl">Tạo brief dự án cùng trợ lý AI</h1>
+          <p className="max-w-3xl text-sm leading-6 text-slate-600 md:text-base">
+            Trò chuyện với AI để làm rõ yêu cầu, sau đó kiểm tra form chuẩn hóa trước khi đăng dự án.
+          </p>
+        </div>
+      </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Col: Chat Interface */}
-        <div className="lg:col-span-5 h-[700px] flex flex-col bg-white border-2 border-black shadow-neo-md overflow-hidden rounded-xl">
-          <div className="bg-cyan-300 border-b-2 border-black p-4 space-y-3">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
+        <section className="portal-panel flex h-[700px] flex-col overflow-hidden lg:col-span-5">
+          <div className="space-y-3 border-b border-border/70 bg-slate-50 p-4">
             <div className="flex items-start justify-between gap-3">
               <div className="space-y-1">
-                <h3 className="font-bold flex items-center gap-2 uppercase">
-                  <Sparkles className="w-5 h-5 text-black fill-current" /> AI Wizard
-                </h3>
-                <p className="text-[11px] font-black uppercase tracking-wide text-black/80">
+                <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.08em] text-slate-700">
+                  <Sparkles className="h-4 w-4 text-emerald-700" />
+                  AI Brief Assistant
+                </h2>
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
                   {progressState.progressLabel}
                 </p>
               </div>
@@ -458,184 +461,204 @@ export default function NewProjectPage() {
               <div className="flex items-center gap-2">
                 <span
                   className={cn(
-                    "rounded-full border border-black px-2 py-1 text-[10px] font-black uppercase tracking-wide shadow-neo-sm",
-                    progressState.isReadyToSubmit ? "bg-lime-300 text-black" : "bg-yellow-200 text-black",
+                    "rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em]",
+                    progressState.isReadyToSubmit
+                      ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                      : "border-amber-200 bg-amber-50 text-amber-700",
                   )}
                 >
                   {progressState.statusLabel}
                 </span>
                 <Button
+                  disabled={chatMutation.isPending || createProjectMutation.isPending}
+                  onClick={handleResetChat}
+                  size="xs"
                   type="button"
                   variant="outline"
-                  size="xs"
-                  onClick={handleResetChat}
-                  disabled={chatMutation.isPending || createProjectMutation.isPending}
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  <RotateCcw className="h-3.5 w-3.5" />
                   Làm lại
                 </Button>
               </div>
             </div>
 
-            <div className="h-3 overflow-hidden rounded-full border-2 border-black bg-white/70">
+            <div className="h-2.5 overflow-hidden rounded-full bg-slate-200">
               <div
                 className={cn(
                   "h-full transition-[width] duration-300",
-                  progressState.isReadyToSubmit ? "bg-lime-300" : "bg-yellow-300",
+                  progressState.isReadyToSubmit ? "bg-emerald-500" : "bg-amber-500",
                 )}
                 style={{ width: `${progressState.percentage}%` }}
               />
             </div>
           </div>
-          
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[url('/grid.svg')] bg-center">
+
+          <div className="flex-1 space-y-4 overflow-y-auto bg-slate-50/60 p-4">
             {messages.map((msg, index) => (
-              <div key={msg.id} className={cn("flex flex-col max-w-[90%]", msg.role === "user" ? "ml-auto items-end" : "mr-auto items-start")}>
-                <div className={cn(
-                  "p-3 rounded-2xl border-2 border-black text-sm",
-                  msg.role === "user" 
-                    ? "bg-lime-300 rounded-br-sm shadow-neo-sm" 
-                    : "bg-white rounded-bl-sm shadow-neo-sm"
-                )}>
+              <div
+                className={cn(
+                  "flex max-w-[92%] flex-col",
+                  msg.role === "user" ? "ml-auto items-end" : "mr-auto items-start",
+                )}
+                key={msg.id}
+              >
+                <div
+                  className={cn(
+                    "rounded-2xl border px-3 py-2 text-sm leading-6",
+                    msg.role === "user"
+                      ? "rounded-br-sm border-emerald-200 bg-emerald-50 text-emerald-900"
+                      : "rounded-bl-sm border-border bg-white text-slate-700",
+                  )}
+                >
                   {msg.content}
                 </div>
-                
-                {msg.role === "assistant" && msg.suggestions && msg.suggestions.length > 0 && index === messages.length - 1 && (
-                  <div className="flex flex-wrap gap-2 mt-3 mb-2">
+
+                {msg.role === "assistant" && msg.suggestions && msg.suggestions.length > 0 && index === messages.length - 1 ? (
+                  <div className="mb-2 mt-3 flex flex-wrap gap-2">
                     {msg.suggestions.map((sug, i) => (
                       <button
+                        className="rounded-full border border-border bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-emerald-200 hover:text-emerald-700"
+                        disabled={chatMutation.isPending}
                         key={i}
                         onClick={() => handleSendMessage(sug)}
-                        disabled={chatMutation.isPending}
-                        className="bg-yellow-300 hover:bg-yellow-400 border-2 border-black px-3 py-1.5 text-xs font-bold rounded-full shadow-neo-sm transition-transform active:translate-y-[2px] active:shadow-none"
+                        type="button"
                       >
                         {sug}
                       </button>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
             ))}
-            {chatMutation.isPending && (
-              <div className="flex max-w-[90%] mr-auto items-start">
-                <div className="p-3 bg-white rounded-2xl rounded-bl-sm border-2 border-black shadow-neo-sm">
-                  <Loader2 className="w-4 h-4 animate-spin" />
+
+            {chatMutation.isPending ? (
+              <div className="flex max-w-[92%] items-start">
+                <div className="rounded-2xl rounded-bl-sm border border-border bg-white p-3">
+                  <Loader2 className="h-4 w-4 animate-spin text-slate-500" />
                 </div>
               </div>
-            )}
+            ) : null}
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="p-4 bg-white border-t-2 border-black">
-            <form 
-              onSubmit={(e) => { e.preventDefault(); handleSendMessage(chatInput); }}
+          <div className="border-t border-border/70 bg-white p-4">
+            <form
               className="flex gap-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage(chatInput);
+              }}
             >
-              <Input 
-                value={chatInput}
+              <Input
+                className="rounded-full border-border bg-white"
+                disabled={chatMutation.isPending}
                 onChange={(e) => {
                   hasUserInteractedRef.current = true;
                   setChatInput(e.target.value);
                 }}
-                placeholder="Nhập câu trả lời..." 
-                className="rounded-full shadow-neo-sm focus-visible:ring-0 focus-visible:bg-gray-50 bg-white"
-                disabled={chatMutation.isPending}
+                placeholder="Nhập câu trả lời..."
+                value={chatInput}
               />
-              <Button 
-                type="submit" 
+              <Button
+                className="rounded-full border-0 bg-emerald-700 text-white hover:bg-emerald-800"
                 disabled={!chatInput.trim() || chatMutation.isPending}
-                size="icon" 
-                className="rounded-full shadow-neo-sm hover:-translate-y-0.5 active:translate-y-[2px]"
+                size="icon"
+                type="submit"
               >
-                <Send className="w-4 h-4" />
+                <Send className="h-4 w-4" />
               </Button>
             </form>
           </div>
-        </div>
+        </section>
 
-        {/* Right Col: Form Interface */}
-        <form onSubmit={onSubmit} className="lg:col-span-7 bg-white border-2 border-black p-6 rounded-xl shadow-neo-md gap-6 flex flex-col">
-           <div className="flex items-center justify-between border-b-2 border-black pb-4 mb-2">
-            <h3 className="font-bold text-xl uppercase tracking-tight flex items-center gap-2">
-              <CheckCircle2 className="w-6 h-6 text-green-500 fill-current" /> Form Tự Động
-            </h3>
-            <span className="text-xs font-bold bg-pink-300 text-black px-2 py-1 border border-black shadow-neo-sm rounded-full">LIVE PREVIEW</span>
-           </div>
+        <form className="portal-panel flex flex-col gap-6 p-6 lg:col-span-7" onSubmit={onSubmit}>
+          <div className="mb-1 flex items-center justify-between border-b border-border/70 pb-4">
+            <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
+              <CheckCircle2 className="h-5 w-5 text-emerald-700" />
+              Form chuẩn hóa dự án
+            </h2>
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-emerald-700">
+              Live prefill
+            </span>
+          </div>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-             <div className="md:col-span-2 space-y-2">
-               <Label htmlFor="title" className="font-bold">Tên dự án</Label>
-               <Input id="title" className="shadow-none bg-gray-50 focus-visible:bg-white" placeholder="Sẽ tự động điền bởi AI" {...register("title")} />
-               <FieldError message={errors.title?.message} />
-             </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="space-y-2 md:col-span-2">
+              <Label className="font-semibold" htmlFor="title">Tên dự án</Label>
+              <Input id="title" placeholder="Sẽ tự động điền bởi AI" {...register("title")} />
+              <FieldError message={errors.title?.message} />
+            </div>
 
-             <div className="md:col-span-2 space-y-2">
-               <Label htmlFor="standardizedBrief" className="font-bold flex items-center text-indigo-700">Mô tả chuẩn hoá <Sparkles className="w-3 h-3 ml-1" /></Label>
-               <Textarea 
-                id="standardizedBrief" 
-                className="shadow-none bg-indigo-50/50 min-h-[100px] font-medium" 
-                placeholder="AI sẽ sinh ra mô tả 4 bước chuyên nghiệp ở đây" 
-                {...register("standardizedBrief")} 
-               />
-               <FieldError message={errors.standardizedBrief?.message} />
-             </div>
+            <div className="space-y-2 md:col-span-2">
+              <Label className="flex items-center font-semibold text-indigo-700" htmlFor="standardizedBrief">
+                Mô tả chuẩn hóa
+                <Sparkles className="ml-1 h-3 w-3" />
+              </Label>
+              <Textarea
+                className="min-h-[100px] border-indigo-200 bg-indigo-50/50"
+                id="standardizedBrief"
+                placeholder="AI sẽ sinh mô tả dự án rõ mục tiêu, phạm vi, đầu ra và tiêu chí đánh giá"
+                {...register("standardizedBrief")}
+              />
+              <FieldError message={errors.standardizedBrief?.message} />
+            </div>
 
-             <div className="md:col-span-2 space-y-2">
-               <Label htmlFor="description" className="font-bold">Nhật ký thô thuật (Ẩn với Dev)</Label>
-               <Textarea id="description" className="shadow-none bg-gray-50 h-20 text-xs" readOnly {...register("description")} />
-             </div>
+            <div className="space-y-2 md:col-span-2">
+              <Label className="font-semibold" htmlFor="description">Mô tả hội thoại thô</Label>
+              <Textarea className="h-20 bg-slate-50 text-xs" id="description" readOnly {...register("description")} />
+            </div>
 
-             <div className="space-y-2">
-               <Label htmlFor="expectedOutput" className="font-bold">Kết quả bàn giao</Label>
-               <Input id="expectedOutput" className="shadow-none" placeholder="VD: Website, Báo cáo" {...register("expectedOutput")} />
-               <FieldError message={errors.expectedOutput?.message} />
-             </div>
+            <div className="space-y-2">
+              <Label className="font-semibold" htmlFor="expectedOutput">Kết quả bàn giao</Label>
+              <Input id="expectedOutput" placeholder="VD: Website, báo cáo, dashboard..." {...register("expectedOutput")} />
+              <FieldError message={errors.expectedOutput?.message} />
+            </div>
 
-             <div className="space-y-2">
-               <Label htmlFor="requiredSkills" className="font-bold">Kỹ năng cần có</Label>
-               <Input id="requiredSkills" className="shadow-none" placeholder="VD: React, Node.js" {...register("requiredSkills")} />
-               <FieldError message={errors.requiredSkills?.message} />
-             </div>
-             
-             <div className="space-y-2">
-               <Label htmlFor="difficulty" className="font-bold">Mức độ khó</Label>
-               <Controller
-                 control={control}
-                 name="difficulty"
-                 render={({ field }) => (
-                   <Select onValueChange={field.onChange} value={field.value}>
-                     <SelectTrigger className="shadow-none bg-white">
-                       <SelectValue placeholder="Chọn mức độ" />
-                     </SelectTrigger>
-                     <SelectContent>
-                       <SelectItem value="EASY">Dễ (1-2 tuần)</SelectItem>
-                       <SelectItem value="MEDIUM">Vừa (2-4 tuần)</SelectItem>
-                       <SelectItem value="HARD">Khó (4-8 tuần)</SelectItem>
-                     </SelectContent>
-                   </Select>
-                 )}
-               />
-             </div>
+            <div className="space-y-2">
+              <Label className="font-semibold" htmlFor="requiredSkills">Kỹ năng cần có</Label>
+              <Input id="requiredSkills" placeholder="VD: React, Node.js, UI/UX..." {...register("requiredSkills")} />
+              <FieldError message={errors.requiredSkills?.message} />
+            </div>
 
-             <div className="space-y-2">
-               <Label htmlFor="duration" className="font-bold">Thời gian triển khai</Label>
-               <Input id="duration" className="shadow-none" placeholder="VD: 3 tuần" {...register("duration")} />
-             </div>
+            <div className="space-y-2">
+              <Label className="font-semibold" htmlFor="difficulty">Mức độ khó</Label>
+              <Controller
+                control={control}
+                name="difficulty"
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder="Chọn mức độ" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="EASY">Dễ (1-2 tuần)</SelectItem>
+                      <SelectItem value="MEDIUM">Vừa (2-4 tuần)</SelectItem>
+                      <SelectItem value="HARD">Khó (4-8 tuần)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
 
-             <div className="md:col-span-2 space-y-2">
-               <Label htmlFor="budget" className="font-bold">Ngân sách / Quyền lợi</Label>
-               <Input id="budget" className="shadow-none" placeholder="VD: Bằng khen / 1tr VNĐ" {...register("budget")} />
-               <FieldError message={errors.budget?.message} />
-             </div>
-           </div>
+            <div className="space-y-2">
+              <Label className="font-semibold" htmlFor="duration">Thời gian triển khai</Label>
+              <Input id="duration" placeholder="VD: 3 tuần" {...register("duration")} />
+            </div>
 
-           <Button 
-             className="w-full h-14 text-lg font-black uppercase tracking-widest bg-lime-400 hover:bg-lime-500 text-black border-2 border-black rounded-none shadow-neo-lg hover:shadow-neo-lg hover:-translate-y-1 active:translate-y-[2px] active:shadow-none transition-all mt-4" 
-             disabled={createProjectMutation.isPending} 
-             type="submit"
-           >
-             {createProjectMutation.isPending ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : "Chốt Đăng Nhanh"}
-           </Button>
+            <div className="space-y-2 md:col-span-2">
+              <Label className="font-semibold" htmlFor="budget">Ngân sách / Quyền lợi</Label>
+              <Input id="budget" placeholder="VD: 5-10 triệu VNĐ hoặc quyền lợi tương đương" {...register("budget")} />
+              <FieldError message={errors.budget?.message} />
+            </div>
+          </div>
+
+          <Button
+            className="mt-2 h-12 w-full rounded-full border-0 bg-emerald-700 text-base font-semibold text-white hover:bg-emerald-800"
+            disabled={createProjectMutation.isPending}
+            type="submit"
+          >
+            {createProjectMutation.isPending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : "Đăng dự án"}
+          </Button>
         </form>
       </div>
     </div>
