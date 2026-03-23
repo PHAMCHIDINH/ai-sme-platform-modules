@@ -100,7 +100,7 @@ function readStoredReadyFlag(draft: ChatDraft) {
   return isCoverageComplete(draft.coverage);
 }
 
-export function deriveChatProgressState(coverage: ChatDraft["coverage"], isReadyToSubmit?: boolean | null) {
+function deriveChatProgressState(coverage: ChatDraft["coverage"], isReadyToSubmit?: boolean | null) {
   const completedGroups = coverage ? COVERAGE_KEYS.filter((key) => coverage[key] === "complete").length : 0;
   const percentage = Math.round((completedGroups / COVERAGE_KEYS.length) * 100);
   const ready = isReadyToSubmit === true;
