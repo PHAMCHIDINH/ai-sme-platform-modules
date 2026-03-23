@@ -6,7 +6,11 @@ import { auth } from "@/auth";
 import { getSessionUserIdByRole } from "@/modules/auth";
 import { ACCESS_MESSAGES } from "@/modules/shared";
 import { actionFailure, type FormActionResult } from "@/modules/shared";
-import { createSmeEvaluation, findOwnedProjectForEvaluation, findSmeProjectForEvaluationPage } from "@/modules/shared";
+import {
+  createSmeEvaluation,
+  findOwnedProjectForEvaluation,
+  findSmeProjectForEvaluationPage,
+} from "@/modules/shared";
 import { Button } from "@/modules/shared/ui";
 import { Card, CardContent, CardHeader, CardTitle } from "@/modules/shared/ui";
 import { EvaluateForm } from "./evaluate-form";
@@ -115,68 +119,73 @@ export default async function EvaluatePage({ params }: { params: { id: string } 
   const studentName = project.progress.student.user.name;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6 pb-10">
-      <div className="flex items-center gap-4">
-        <Link href={`/sme/projects/${params.id}`}>
-          <Button className="rounded-full" size="icon" variant="ghost">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">Đánh giá sinh viên</h2>
-          <p className="text-sm text-muted-foreground">
-            Dự án: {project.title} · Sinh viên: {studentName}
-          </p>
+    <div className="mx-auto max-w-3xl space-y-8 pb-12 fade-in">
+      <header className="portal-shell p-6 md:p-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-2">
+            <p className="portal-kicker">SME evaluation</p>
+            <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl">Đánh giá sinh viên sau dự án</h1>
+            <p className="text-sm leading-6 text-slate-600 md:text-base">
+              Ghi nhận mức độ đáp ứng và hiệu quả hợp tác để hoàn tất vòng đời dự án.
+            </p>
+          </div>
+          <Link href={`/sme/projects/${params.id}`}>
+            <Button className="rounded-full border border-border bg-white text-slate-700 hover:bg-slate-50" variant="outline">
+              <ArrowLeft className="h-4 w-4" />
+              Quay lại dự án
+            </Button>
+          </Link>
         </div>
-      </div>
+      </header>
+
+      <section className="portal-panel p-5 md:p-6">
+        <p className="text-sm text-slate-500">
+          Dự án: <span className="font-semibold text-slate-700">{project.title}</span>
+        </p>
+        <p className="text-sm text-slate-500">
+          Sinh viên: <span className="font-semibold text-slate-700">{studentName}</span>
+        </p>
+      </section>
 
       {existingEvaluation ? (
-        <Card className="border-none bg-white/50 shadow-sm backdrop-blur">
+        <Card className="portal-panel border-border/70 shadow-none">
           <CardHeader>
             <CardTitle>Bạn đã gửi đánh giá cho sinh viên này</CardTitle>
-            <p className="text-sm text-muted-foreground">
-              Thời gian gửi: {formatCreatedAt(existingEvaluation.createdAt)}
-            </p>
+            <p className="text-sm text-slate-500">Thời gian gửi: {formatCreatedAt(existingEvaluation.createdAt)}</p>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border bg-background/60 p-3">
-                Chất lượng đầu ra:{" "}
-                <strong>{existingEvaluation.outputQuality}/5</strong>
+              <div className="rounded-xl border border-border/70 bg-slate-50 p-3">
+                Chất lượng đầu ra: <strong>{existingEvaluation.outputQuality}/5</strong>
               </div>
-              <div className="rounded-xl border bg-background/60 p-3">
+              <div className="rounded-xl border border-border/70 bg-slate-50 p-3">
                 Đúng tiến độ: <strong>{existingEvaluation.onTime}/5</strong>
               </div>
-              <div className="rounded-xl border bg-background/60 p-3">
+              <div className="rounded-xl border border-border/70 bg-slate-50 p-3">
                 Chủ động: <strong>{existingEvaluation.proactiveness}/5</strong>
               </div>
-              <div className="rounded-xl border bg-background/60 p-3">
+              <div className="rounded-xl border border-border/70 bg-slate-50 p-3">
                 Giao tiếp: <strong>{existingEvaluation.communication}/5</strong>
               </div>
-              <div className="rounded-xl border bg-background/60 p-3 sm:col-span-2">
+              <div className="rounded-xl border border-border/70 bg-slate-50 p-3 sm:col-span-2">
                 Tổng thể: <strong>{existingEvaluation.overallFit}/5</strong>
               </div>
             </div>
 
             {existingEvaluation.comment ? (
-              <div className="rounded-xl border bg-background/60 p-4">
+              <div className="rounded-xl border border-border/70 bg-slate-50 p-4">
                 <p className="mb-1 font-medium">Nhận xét</p>
-                <p className="whitespace-pre-wrap text-muted-foreground">
-                  {existingEvaluation.comment}
-                </p>
+                <p className="whitespace-pre-wrap text-slate-600">{existingEvaluation.comment}</p>
               </div>
             ) : (
-              <div className="rounded-xl border bg-background/60 p-4 text-muted-foreground">
+              <div className="rounded-xl border border-border/70 bg-slate-50 p-4 text-slate-500">
                 Không có nhận xét bổ sung.
               </div>
             )}
           </CardContent>
         </Card>
       ) : (
-        <EvaluateForm
-          studentName={studentName}
-          submitAction={submitEvaluation}
-        />
+        <EvaluateForm studentName={studentName} submitAction={submitEvaluation} />
       )}
     </div>
   );

@@ -184,18 +184,25 @@ export default async function StudentMyProjectsPage() {
   const progressEntries = await listProgressEntriesByStudentId(profile.id, studentUserId);
 
   return (
-    <div className="space-y-6 pb-10">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">Dự án đang tham gia</h2>
-        <p className="text-muted-foreground text-sm">Cập nhật tiến độ và bàn giao sản phẩm</p>
-      </div>
+    <div className="space-y-8 pb-12 fade-in">
+      <header className="portal-shell p-6 md:p-8">
+        <div className="space-y-2">
+          <p className="portal-kicker">Student execution</p>
+          <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl">Dự án đang tham gia</h1>
+          <p className="max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
+            Cập nhật milestone, tiến độ thực thi và bàn giao đầu ra theo timeline đã cam kết với SME.
+          </p>
+        </div>
+      </header>
 
       {progressEntries.length === 0 ? (
-        <Card className="flex flex-col items-center justify-center p-12 text-center bg-muted/20 border-dashed">
-          <Clock className="w-12 h-12 text-muted-foreground opacity-50 mb-4" />
-          <p className="text-muted-foreground mb-4">Bạn chưa tham gia dự án nào.</p>
+        <Card className="portal-panel flex min-h-[320px] flex-col items-center justify-center p-12 text-center">
+          <Clock className="mb-4 h-12 w-12 text-slate-400" />
+          <p className="mb-4 text-slate-500">Bạn chưa tham gia dự án nào.</p>
           <Link href="/student/projects">
-            <Button>Tìm dự án ngay</Button>
+            <Button className="h-11 rounded-full border-0 bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800">
+              Tìm dự án ngay
+            </Button>
           </Link>
         </Card>
       ) : (
@@ -208,7 +215,7 @@ export default async function StudentMyProjectsPage() {
             return (
               <Card
                 key={entry.id}
-                className="border border-border/50 shadow-sm bg-white/50 backdrop-blur overflow-hidden"
+                className="portal-panel overflow-hidden border-border/70 shadow-none"
               >
                 <div className={`h-2 w-full ${progressStatusBarClassName(entry.status)}`} />
                 <CardContent className="p-6">
@@ -229,26 +236,26 @@ export default async function StudentMyProjectsPage() {
                       </p>
 
                       <div className="grid gap-4 lg:grid-cols-2">
-                        <div className="rounded-2xl border bg-background/60 p-4">
+                        <div className="rounded-2xl border border-border/70 bg-slate-50 p-4">
                           <div className="mb-3 flex items-center gap-2 text-sm font-semibold">
                             <ListTodo className="h-4 w-4 text-primary" />
                             Milestones
                           </div>
                           {milestones.length === 0 ? (
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-slate-500">
                               Chưa có milestone nào.
                             </p>
                           ) : (
                             <div className="space-y-3">
                               {milestones.map((milestone) => (
                                 <div
-                                  className="rounded-xl border bg-muted/20 px-3 py-2"
+                                  className="rounded-xl border border-border/70 bg-white px-3 py-2"
                                   key={milestone.id}
                                 >
                                   <p className="text-sm font-medium">
                                     {milestone.title}
                                   </p>
-                                  <p className="mt-1 text-xs text-muted-foreground">
+                                  <p className="mt-1 text-xs text-slate-500">
                                     {formatDateTime(milestone.createdAt)}
                                   </p>
                                 </div>
@@ -257,24 +264,24 @@ export default async function StudentMyProjectsPage() {
                           )}
                         </div>
 
-                        <div className="rounded-2xl border bg-background/60 p-4">
+                        <div className="rounded-2xl border border-border/70 bg-slate-50 p-4">
                           <div className="mb-3 flex items-center gap-2 text-sm font-semibold">
                             <FileText className="h-4 w-4 text-primary" />
                             Cập nhật tiến độ
                           </div>
                           {updates.length === 0 ? (
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-slate-500">
                               Chưa có cập nhật nào.
                             </p>
                           ) : (
                             <div className="space-y-3">
                               {updates.map((update) => (
                                 <div
-                                  className="rounded-xl border bg-muted/20 px-3 py-2"
+                                  className="rounded-xl border border-border/70 bg-white px-3 py-2"
                                   key={update.id}
                                 >
                                   <p className="text-sm">{update.content}</p>
-                                  <p className="mt-1 text-xs text-muted-foreground">
+                                  <p className="mt-1 text-xs text-slate-500">
                                     {formatDateTime(update.createdAt)}
                                   </p>
                                 </div>
@@ -284,7 +291,7 @@ export default async function StudentMyProjectsPage() {
                         </div>
                       </div>
 
-                      <div className="mt-2 rounded-2xl border bg-background/60 p-4 space-y-2">
+                      <div className="mt-2 space-y-2 rounded-2xl border border-border/70 bg-slate-50 p-4">
                         <p className="text-sm">
                           <strong>Hạn chót:</strong>{" "}
                           {new Date(entry.deadline).toLocaleDateString("vi-VN")}
@@ -293,7 +300,7 @@ export default async function StudentMyProjectsPage() {
                           <p className="text-sm">
                             <strong>Link bàn giao:</strong>{" "}
                             <a
-                              className="text-primary hover:underline"
+                              className="text-emerald-700 hover:underline"
                               href={entry.deliverableUrl}
                               rel="noreferrer"
                               target="_blank"
@@ -309,7 +316,7 @@ export default async function StudentMyProjectsPage() {
                       {entry.status === "COMPLETED" ? (
                         <>
                           <Button
-                            className="text-green-600 border-green-200 bg-green-50 hover:bg-green-100"
+                            className="border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                             variant="outline"
                           >
                             <CheckCircle2 className="w-4 h-4 mr-2" />
@@ -318,7 +325,7 @@ export default async function StudentMyProjectsPage() {
 
                           {hasSmeEvaluation ? (
                             <Button
-                              className="border-green-200 text-green-700 bg-green-50 hover:bg-green-100"
+                              className="border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                               variant="outline"
                             >
                               Đã đánh giá ✓
@@ -336,7 +343,7 @@ export default async function StudentMyProjectsPage() {
                         </>
                       ) : entry.status === "SUBMITTED" ? (
                         <Button
-                          className="border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100"
+                          className="border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100"
                           variant="outline"
                         >
                           Đã nộp, chờ SME nghiệm thu

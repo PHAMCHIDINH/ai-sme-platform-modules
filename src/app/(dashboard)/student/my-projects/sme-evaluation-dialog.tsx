@@ -84,10 +84,14 @@ export function SmeEvaluationDialog({
 
   return (
     <Dialog onOpenChange={setDialogOpen} open={dialogOpen}>
-      <DialogTrigger render={<Button className="w-full" variant="outline" />}>
+      <DialogTrigger
+        render={
+          <Button className="w-full rounded-full border border-border bg-white text-slate-700 hover:bg-slate-100" variant="outline" />
+        }
+      >
         Đánh giá doanh nghiệp
       </DialogTrigger>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl border-border/70">
         <DialogHeader>
           <DialogTitle>Đánh giá doanh nghiệp</DialogTitle>
           <DialogDescription>
@@ -104,7 +108,7 @@ export function SmeEvaluationDialog({
 
           {criteria.map((item) => (
             <div
-              className="flex flex-col justify-between gap-2 rounded-lg border bg-muted/20 p-3 sm:flex-row sm:items-center"
+              className="flex flex-col justify-between gap-2 rounded-xl border border-border/70 bg-slate-50 p-3 sm:flex-row sm:items-center"
               key={item.key}
             >
               <span className="text-sm font-medium">{item.label}</span>
@@ -121,7 +125,7 @@ export function SmeEvaluationDialog({
                       className={`h-6 w-6 transition-colors ${
                         value <= ratings[item.key]
                           ? "fill-amber-400 text-amber-400"
-                          : "text-muted-foreground/30 hover:text-amber-200"
+                          : "text-slate-300 hover:text-amber-200"
                       }`}
                     />
                   </button>
@@ -141,7 +145,11 @@ export function SmeEvaluationDialog({
             />
           </div>
 
-          <Button className="w-full" disabled={isPending || hasEmptyRating} type="submit">
+          <Button
+            className="h-11 w-full rounded-full border-0 bg-emerald-700 font-semibold text-white hover:bg-emerald-800"
+            disabled={isPending || hasEmptyRating}
+            type="submit"
+          >
             {isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

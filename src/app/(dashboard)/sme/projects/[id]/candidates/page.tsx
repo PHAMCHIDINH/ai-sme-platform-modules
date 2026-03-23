@@ -4,9 +4,8 @@ import { ACCESS_MESSAGES } from "@/modules/shared";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/modules/shared/ui";
-import { Card, CardContent } from "@/modules/shared/ui";
 import { Badge } from "@/modules/shared/ui";
-import { ArrowLeft, Sparkles, Code2, GraduationCap, Users } from "lucide-react";
+import { ArrowLeft, Code2, GraduationCap, Sparkles, Users } from "lucide-react";
 import { rankBySimilarity } from "@/modules/matching";
 import { findProjectWithApplications, listApplicantProfilesByIds, listSuggestionProfilesExcludingIds } from "@/modules/shared";
 import { CandidateActions } from "./candidate-actions";
@@ -41,49 +40,65 @@ export default async function CandidatesPage({ params }: { params: { id: string 
   const suggestions = rankBySimilarity(project.embedding, suggestionsPool).slice(0, 5);
 
   return (
-    <div className="space-y-6 pb-10">
-      <div className="flex items-center gap-4">
-        <Link href={`/sme/projects/${project.id}`}>
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-        </Link>
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">Ứng viên & Matching</h2>
-          <p className="text-muted-foreground text-sm">Quản lý ứng viên cho dự án: {project.title}</p>
+    <div className="space-y-8 pb-12 fade-in">
+      <header className="portal-shell p-6 md:p-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-2">
+            <p className="portal-kicker">Candidate pipeline</p>
+            <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl">Ứng viên cho dự án {project.title}</h1>
+            <p className="max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
+              Xem danh sách ứng tuyển, so sánh độ phù hợp kỹ năng và gửi lời mời trực tiếp cho các hồ sơ tiềm năng.
+            </p>
+          </div>
+          <Link href={`/sme/projects/${project.id}`}>
+            <Button className="rounded-full border border-border bg-white text-slate-700 hover:bg-slate-50" variant="outline">
+              <ArrowLeft className="h-4 w-4" />
+              Quay lại chi tiết dự án
+            </Button>
+          </Link>
         </div>
-      </div>
+      </header>
 
-      <div className="space-y-6">
-        <h3 className="text-xl font-bold flex items-center">
-          <Users className="w-6 h-6 mr-2 text-primary" /> Sinh viên đã ứng tuyển ({applicants.length})
-        </h3>
-        
+      <section className="space-y-4">
+        <div className="flex items-center gap-2">
+          <Users className="h-5 w-5 text-slate-700" />
+          <h2 className="text-xl font-semibold text-slate-900">Sinh viên đã ứng tuyển ({applicants.length})</h2>
+        </div>
         {applicants.length === 0 ? (
-          <div className="p-8 text-center bg-muted/30 rounded-2xl border border-dashed">
-            <p className="text-muted-foreground">Chưa có sinh viên nào ứng tuyển dự án này.</p>
+          <div className="portal-panel p-8 text-center">
+            <p className="text-sm leading-6 text-slate-500">Chưa có sinh viên nào ứng tuyển dự án này.</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="portal-listing-grid">
             {applicants.map(student => (
-              <StudentCard key={student.id} student={student} projectId={project.id} />
+              <StudentCard
+                key={student.id}
+                projectId={project.id}
+                student={student}
+              />
             ))}
           </div>
         )}
-      </div>
+      </section>
 
-      <div className="space-y-6 mt-12">
-        <h3 className="text-xl font-bold flex items-center">
-          <Sparkles className="w-6 h-6 mr-2 text-indigo-500" /> Gợi ý từ AI 
-          <Badge className="ml-3 bg-indigo-100 text-indigo-700 hover:bg-indigo-200 border-none transition-colors">Top Match</Badge>
-        </h3>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="space-y-4">
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-5 w-5 text-amber-600" />
+          <h2 className="text-xl font-semibold text-slate-900">Gợi ý AI ({suggestions.length})</h2>
+          <Badge className="rounded-full border border-amber-200 bg-amber-50 text-amber-700" variant="outline">
+            Top match
+          </Badge>
+        </div>
+        <div className="portal-listing-grid">
           {suggestions.map(student => (
-            <StudentCard key={student.id} student={student} projectId={project.id} />
+            <StudentCard
+              key={student.id}
+              projectId={project.id}
+              student={student}
+            />
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
@@ -100,67 +115,95 @@ type CandidateStudent = {
   applicationData?: ProjectApplication;
 };
 
-function StudentCard({ student, projectId }: { student: CandidateStudent, projectId: string }) {
-  // Lấy % match (nếu 0 thì chỉ hiển thị "N/A" hoặc 0%)
+function matchTone(matchScore: number) {
+  if (matchScore >= 80) return "text-emerald-700";
+  if (matchScore >= 60) return "text-amber-700";
+  return "text-slate-500";
+}
+
+function statusBlock(applicationData?: ProjectApplication) {
+  if (!applicationData) return null;
+
+  if (applicationData.status === "INVITED") {
+    return "Đã gửi lời mời";
+  }
+
+  if (applicationData.status === "ACCEPTED") {
+    return "Đã nhận vào dự án";
+  }
+
+  if (applicationData.status === "REJECTED") {
+    return "Đã từ chối";
+  }
+
+  return null;
+}
+
+function StudentCard({ student, projectId }: { student: CandidateStudent; projectId: string }) {
   const matchScore = student.matchScore;
-  let colorClass = "text-muted-foreground";
-  if (matchScore >= 80) colorClass = "text-green-600";
-  else if (matchScore >= 60) colorClass = "text-amber-600";
+  const blockingStatus = statusBlock(student.applicationData);
 
   return (
-    <Card className="border-none shadow-sm bg-white/60 backdrop-blur hover:shadow-md transition-shadow">
-      <CardContent className="p-5">
-        <div className="flex justify-between items-start mb-4">
+    <article className="portal-panel p-5">
+      <div className="space-y-5">
+        <div className="flex items-start justify-between gap-4">
           <div className="flex gap-3 items-center">
-            <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-lg font-semibold text-emerald-700">
               {student.user.name.charAt(0).toUpperCase()}
             </div>
             <div>
-              <h4 className="font-bold text-lg leading-tight">{student.user.name}</h4>
-              <p className="text-sm text-muted-foreground flex items-center">
-                <GraduationCap className="w-3 h-3 mr-1" /> {student.university || "Chưa cập nhật trường"}
+              <h3 className="text-base font-semibold text-slate-900">{student.user.name}</h3>
+              <p className="inline-flex items-center gap-1 text-xs text-slate-500">
+                <GraduationCap className="h-3.5 w-3.5" />
+                {student.university || "Chưa cập nhật trường"}
               </p>
             </div>
           </div>
           <div className="flex flex-col items-end">
-            <span className={`text-xl font-black ${colorClass}`}>{matchScore}%</span>
-            <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">Độ phù hợp</span>
+            <span className={`text-2xl font-semibold ${matchTone(matchScore)}`}>{matchScore}%</span>
+            <span className="text-[10px] uppercase tracking-[0.08em] text-slate-500">Độ phù hợp</span>
           </div>
         </div>
 
-        <div className="mb-4">
-          <p className="text-xs text-muted-foreground font-semibold mb-2 flex items-center">
-            <Code2 className="w-3 h-3 mr-1" /> Kỹ năng nổi bật
+        <div className="space-y-2">
+          <p className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+            <Code2 className="h-3.5 w-3.5" />
+            Kỹ năng nổi bật
           </p>
           <div className="flex flex-wrap gap-1.5">
             {student.skills && student.skills.length > 0 ? (
               student.skills.slice(0, 4).map((skill: string) => (
-                <Badge key={skill} variant="secondary" className="text-[10px] px-1.5 font-normal bg-muted">
+                <Badge className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700" key={skill} variant="outline">
                   {skill}
                 </Badge>
               ))
             ) : (
-              <span className="text-xs text-muted-foreground italic">Chưa cập nhật kỹ năng</span>
+              <span className="text-xs italic text-slate-500">Chưa cập nhật kỹ năng</span>
             )}
-            {student.skills && student.skills.length > 4 && <Badge variant="secondary" className="text-[10px] px-1.5">+{student.skills.length - 4}</Badge>}
+            {student.skills && student.skills.length > 4 ? (
+              <Badge className="rounded-full border border-border bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600" variant="outline">
+                +{student.skills.length - 4}
+              </Badge>
+            ) : null}
           </div>
         </div>
 
-        <div className="flex gap-2 mt-5">
-          {student.applicationData ? (
-             student.applicationData.status === "PENDING" ? (
-                <CandidateActions projectId={projectId} studentId={student.id} />
-             ) : (
-                <div className="w-full text-center p-3 rounded-md font-black uppercase text-xs border-2 border-black bg-gray-100 shadow-neo-sm">
-                  {student.applicationData.status === "INVITED" ? "Đã gửi lời mời" : 
-                   student.applicationData.status === "ACCEPTED" ? "Đã NHẬN VÀO DỰ ÁN" : "Đã từ chối"}
-                </div>
-             )
-          ) : (
+        <div className="flex gap-2">
+          {student.applicationData?.status === "PENDING" ? (
+            <CandidateActions projectId={projectId} studentId={student.id} />
+          ) : null}
+
+          {!student.applicationData ? (
             <InviteAction projectId={projectId} studentId={student.id} />
-          )}
+          ) : null}
+
+          {blockingStatus ? (
+            <div className="inline-flex h-10 w-full items-center justify-center rounded-full border border-slate-200 bg-slate-100 px-4 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">
+              {blockingStatus}
+            </div>
+          ) : null}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }

@@ -80,15 +80,15 @@ export function ProjectProgressActions({
   return (
     <>
       <Dialog onOpenChange={setProgressDialogOpen} open={progressDialogOpen}>
-        <DialogTrigger
-          render={
-            <Button className="w-full bg-blue-600 hover:bg-blue-700" />
-          }
-        >
+      <DialogTrigger
+        render={
+            <Button className="h-10 w-full rounded-full border-0 bg-emerald-700 text-white hover:bg-emerald-800" />
+        }
+      >
           <PlusCircle className="w-4 h-4 mr-2" />
           Cập nhật tiến độ
         </DialogTrigger>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg border-border/70">
           <DialogHeader>
             <DialogTitle>Cập nhật tiến độ dự án</DialogTitle>
             <DialogDescription>
@@ -98,7 +98,7 @@ export function ProjectProgressActions({
 
           <div className="space-y-5">
             <form
-              className="space-y-3 rounded-xl border bg-muted/20 p-4"
+              className="space-y-3 rounded-xl border border-border/70 bg-slate-50 p-4"
               onSubmit={(event) =>
                 handleSubmit(event, "milestone", addMilestoneAction, () =>
                   setProgressDialogOpen(false),
@@ -116,7 +116,7 @@ export function ProjectProgressActions({
                 />
               </div>
               <Button
-                className="w-full"
+                className="h-10 w-full rounded-full border-0 bg-emerald-700 text-white hover:bg-emerald-800"
                 disabled={pendingAction !== null}
                 type="submit"
               >
@@ -132,7 +132,7 @@ export function ProjectProgressActions({
             </form>
 
             <form
-              className="space-y-3 rounded-xl border bg-muted/20 p-4"
+              className="space-y-3 rounded-xl border border-border/70 bg-slate-50 p-4"
               onSubmit={(event) =>
                 handleSubmit(event, "update", addProgressUpdateAction, () =>
                   setProgressDialogOpen(false),
@@ -150,7 +150,7 @@ export function ProjectProgressActions({
                 />
               </div>
               <Button
-                className="w-full"
+                className="h-10 w-full rounded-full border border-border bg-white text-slate-700 hover:bg-slate-100"
                 disabled={pendingAction !== null}
                 type="submit"
                 variant="secondary"
@@ -177,7 +177,7 @@ export function ProjectProgressActions({
           <Send className="w-4 h-4 mr-2" />
           Nộp sản phẩm
         </DialogTrigger>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg border-border/70">
           <DialogHeader>
             <DialogTitle>Nộp sản phẩm bàn giao</DialogTitle>
             <DialogDescription>
@@ -204,7 +204,11 @@ export function ProjectProgressActions({
                 type="url"
               />
             </div>
-            <Button className="w-full" disabled={pendingAction !== null} type="submit">
+            <Button
+              className="h-10 w-full rounded-full border-0 bg-emerald-700 text-white hover:bg-emerald-800"
+              disabled={pendingAction !== null}
+              type="submit"
+            >
               {pendingAction === "deliverable" ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />

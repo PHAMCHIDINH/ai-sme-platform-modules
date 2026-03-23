@@ -71,7 +71,7 @@ export function EvaluateForm({ studentName, submitAction }: EvaluateFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card className="border-none bg-white/50 shadow-sm backdrop-blur">
+      <Card className="portal-panel border-border/70 shadow-none">
         <CardHeader>
           <CardTitle>Tiêu chí đánh giá</CardTitle>
           <CardDescription>
@@ -87,7 +87,7 @@ export function EvaluateForm({ studentName, submitAction }: EvaluateFormProps) {
 
           {criteria.map((item) => (
             <div
-              className="flex flex-col justify-between gap-2 rounded-lg p-3 transition-colors hover:bg-muted/50 sm:flex-row sm:items-center"
+              className="flex flex-col justify-between gap-2 rounded-xl border border-border/70 bg-slate-50 p-3 transition-colors hover:bg-slate-100 sm:flex-row sm:items-center"
               key={item.key}
             >
               <span className="text-sm font-medium">{item.label}</span>
@@ -104,7 +104,7 @@ export function EvaluateForm({ studentName, submitAction }: EvaluateFormProps) {
                       className={`h-6 w-6 transition-colors ${
                         value <= ratings[item.key]
                           ? "fill-amber-400 text-amber-400"
-                          : "text-muted-foreground/30 hover:text-amber-200"
+                          : "text-slate-300 hover:text-amber-200"
                       }`}
                     />
                   </button>
@@ -113,7 +113,7 @@ export function EvaluateForm({ studentName, submitAction }: EvaluateFormProps) {
             </div>
           ))}
 
-          <div className="space-y-3 border-t pt-4">
+          <div className="space-y-3 border-t border-border/70 pt-4">
             <label className="block text-sm font-medium">
               Nhận xét chi tiết (Tùy chọn)
             </label>
@@ -128,7 +128,7 @@ export function EvaluateForm({ studentName, submitAction }: EvaluateFormProps) {
         </CardContent>
         <CardFooter>
           <Button
-            className="w-full"
+            className="h-11 w-full rounded-full border-0 bg-emerald-700 font-semibold text-white hover:bg-emerald-800"
             disabled={isPending || hasEmptyRating}
             type="submit"
           >
