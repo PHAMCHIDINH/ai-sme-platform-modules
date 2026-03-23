@@ -1,0 +1,173 @@
+@import "tw-animate-css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --neo-black: 17 17 17;
+  --paper-100: 255 252 235;
+  --paper-200: 255 244 153;
+  --paper-300: 255 232 107;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.45rem;
+  --radius-lg: 1rem;
+}
+
+* {
+  border-color: rgb(var(--neo-black));
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: hsl(var(--background));
+  background-image:
+    radial-gradient(circle at 12% 14%, rgba(168, 166, 255, 0.34) 0%, transparent 28%),
+    radial-gradient(circle at 84% 8%, rgba(255, 166, 246, 0.3) 0%, transparent 30%),
+    radial-gradient(circle at 88% 82%, rgba(166, 250, 255, 0.26) 0%, transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.38) 100%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(17, 17, 17, 0.045),
+      rgba(17, 17, 17, 0.045) 1px,
+      transparent 1px,
+      transparent 36px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(17, 17, 17, 0.045),
+      rgba(17, 17, 17, 0.045) 1px,
+      transparent 1px,
+      transparent 36px
+    );
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+@layer components {
+  .page-wrap {
+    @apply mx-auto w-full max-w-7xl px-4 md:px-8;
+  }
+
+  .page-stack {
+    @apply space-y-6 md:space-y-8;
+  }
+
+  .section-title {
+    @apply text-2xl font-black text-foreground md:text-3xl;
+  }
+
+  .section-subtitle {
+    @apply text-sm font-medium text-muted-foreground md:text-base;
+  }
+
+  .kicker {
+    @apply inline-flex rounded-md border-2 border-black bg-cyan-200 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-foreground shadow-neo-sm;
+  }
+
+  .glass-panel {
+    @apply surface-panel;
+  }
+
+  .surface-panel {
+    @apply rounded-2xl border-2 border-black bg-white/95 shadow-neo-md;
+  }
+
+  .metric-panel {
+    @apply rounded-2xl border-2 border-black bg-white p-5 shadow-neo-sm;
+  }
+
+  .editorial-title {
+    @apply text-4xl font-black tracking-tight md:text-6xl;
+  }
+
+  .editorial-copy {
+    @apply text-base font-medium leading-7 text-muted-foreground md:text-lg;
+  }
+
+  .stat-value {
+    @apply mt-2 text-3xl font-black text-foreground;
+  }
+
+  .fade-in {
+    animation: fadeIn 360ms ease-out both;
+  }
+
+  .form-grid {
+    @apply grid gap-4 md:grid-cols-2;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer base {
+  :root {
+    --background: 45 100% 96%;
+    --foreground: 0 0% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 200 100% 88%;
+    --primary-foreground: 0 0% 7%;
+    --secondary: 188 100% 88%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 54 100% 84%;
+    --muted-foreground: 0 0% 24%;
+    --accent: 320 100% 88%;
+    --accent-foreground: 0 0% 7%;
+    --destructive: 0 100% 81%;
+    --destructive-foreground: 0 0% 7%;
+    --border: 0 0% 7%;
+    --input: 0 0% 100%;
+    --ring: 24 100% 68%;
+    --chart-1: 200 100% 88%;
+    --chart-2: 320 100% 88%;
+    --chart-3: 54 100% 84%;
+    --chart-4: 98 100% 81%;
+    --chart-5: 244 95% 84%;
+    --radius: 0.45rem;
+    --sidebar: 45 100% 95%;
+    --sidebar-foreground: 0 0% 7%;
+    --sidebar-primary: 200 100% 88%;
+    --sidebar-primary-foreground: 0 0% 7%;
+    --sidebar-accent: 320 100% 88%;
+    --sidebar-accent-foreground: 0 0% 7%;
+    --sidebar-border: 0 0% 7%;
+    --sidebar-ring: 20 100% 81%;
+  }
+
+  .theme {
+    --font-sans: var(--font-sans);
+  }
+
+  * {
+    @apply outline-none;
+  }
+
+  html {
+    @apply font-sans;
+  }
+}

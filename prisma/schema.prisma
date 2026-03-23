@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SME
+  STUDENT
+}
+
+enum ProjectStatus {
+  DRAFT
+  OPEN
+  IN_PROGRESS
+  SUBMITTED
+  COMPLETED
+}
+
+enum ApplicationStatus {
+  PENDING
+  INVITED
+  ACCEPTED
+  REJECTED
+}
+
+enum Initiator {
+  SME
+  STUDENT
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  SUBMITTED
+  COMPLETED
+}
+
+enum EvalType {
+  SME_TO_STUDENT
+  STUDENT_TO_SME
+}
+
+model User {
+  id                  String         @id @default(cuid())
+  email               String         @unique
+  password            String
+  name                String
+  role                Role
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  smeProfile          SMEProfile?
+  studentProfile      StudentProfile?
+  evaluationsGiven    Evaluation[]   @relation("Evaluator")
+  evaluationsReceived Evaluation[]   @relation("Evaluatee")
+}
+
+model SMEProfile {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  companyName String
+  industry    String
+  companySize String
+  description String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projects    Project[]
+}
+
+model StudentProfile {
+  id              String            @id @default(cuid())
+  userId          String            @unique
+  university      String
+  major           String
+  skills          String[]          @default([])
+  technologies    String[]          @default([])
+  githubUrl       String?
+  portfolioUrl    String?
+  availability    String
+  description     String            @default("")
+  interests       String[]          @default([])
+  embedding       Float[]           @default([])
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applications    Application[]
+  progressEntries ProjectProgress[]
+}
+
+model Project {
+  id                String         @id @default(cuid())
+  smeId             String
+  title             String
+  description       String
+  standardizedBrief String?
+  expectedOutput    String
+  requiredSkills    String[]       @default([])
+  difficulty        Difficulty
+  duration          String
+  budget            String?
+  deadline          DateTime?
+  status            ProjectStatus  @default(DRAFT)
+  embedding         Float[]        @default([])
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  sme               SMEProfile     @relation(fields: [smeId], references: [id], onDelete: Cascade)
+  applications      Application[]
+  progress          ProjectProgress?
+  evaluations       Evaluation[]
+}
+
+model Application {
+  id         String            @id @default(cuid())
+  projectId  String
+  studentId  String
+  status     ApplicationStatus @default(PENDING)
+  initiatedBy Initiator        @default(STUDENT)
+  matchScore Float             @default(0)
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  project    Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  student    StudentProfile    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, studentId])
+}
+
+model ProjectProgress {
+  id             String         @id @default(cuid())
+  projectId      String         @unique
+  studentId      String
+  status         ProgressStatus @default(NOT_STARTED)
+  milestones     Json           @default("[]")
+  updates        Json           @default("[]")
+  deliverableUrl String?
+  deadline       DateTime
+  project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  student        StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+model Evaluation {
+  id           String   @id @default(cuid())
+  projectId    String
+  evaluatorId  String
+  evaluateeId  String
+  type         EvalType
+  outputQuality Int
+  onTime       Int
+  proactiveness Int
+  communication Int
+  overallFit    Int
+  comment      String?
+  createdAt    DateTime @default(now())
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  evaluator    User     @relation("Evaluator", fields: [evaluatorId], references: [id], onDelete: Cascade)
+  evaluatee    User     @relation("Evaluatee", fields: [evaluateeId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, evaluatorId, type])
+}
