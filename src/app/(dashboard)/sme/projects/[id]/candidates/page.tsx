@@ -110,6 +110,7 @@ type CandidateStudent = {
   };
   university: string;
   skills: string[];
+  avatarUrl?: string | null;
   embedding: number[];
   matchScore: number;
   applicationData?: ProjectApplication;
@@ -148,9 +149,18 @@ function StudentCard({ student, projectId }: { student: CandidateStudent; projec
       <div className="space-y-5">
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-3 items-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-lg font-semibold text-emerald-700">
-              {student.user.name.charAt(0).toUpperCase()}
-            </div>
+            {student.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                alt={`Ảnh đại diện của ${student.user.name}`}
+                className="h-12 w-12 rounded-full border border-emerald-200 object-cover"
+                src={student.avatarUrl}
+              />
+            ) : (
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-lg font-semibold text-emerald-700">
+                {student.user.name.charAt(0).toUpperCase()}
+              </div>
+            )}
             <div>
               <h3 className="text-base font-semibold text-slate-900">{student.user.name}</h3>
               <p className="inline-flex items-center gap-1 text-xs text-slate-500">

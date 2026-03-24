@@ -82,6 +82,7 @@ model StudentProfile {
   major           String
   skills          String[]          @default([])
   technologies    String[]          @default([])
+  avatarUrl       String?
   githubUrl       String?
   portfolioUrl    String?
   availability    String

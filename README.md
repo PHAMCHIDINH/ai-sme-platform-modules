@@ -71,6 +71,17 @@ Vi du OpenAI:
 - `OPENAI_CHAT_MODEL=gpt-4o-mini`
 - `OPENAI_EMBEDDING_MODEL=text-embedding-3-small`
 
+### Cau hinh upload anh (Cloudinary)
+
+Can them 3 bien moi truong:
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+
+Luong upload avatar su dung signed upload:
+- Frontend goi `POST /api/cloudinary/sign` de lay `timestamp + signature`.
+- Browser upload truc tiep len Cloudinary, sau do luu `secure_url` vao `avatarUrl`.
+
 ## Trien khai bang Docker
 
 ### 1) Chuan bi bien moi truong

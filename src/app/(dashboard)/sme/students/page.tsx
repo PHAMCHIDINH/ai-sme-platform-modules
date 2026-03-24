@@ -5,6 +5,7 @@ import { Loader2, Search, Send, Star, UserRoundSearch } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { inviteStudent } from "@/modules/application";
+import { Avatar, AvatarFallback, AvatarImage } from "@/modules/shared/ui";
 import { Badge, Button, DiscoveryResultCard, FilterSidebar, Input } from "@/modules/shared/ui";
 
 type Student = {
@@ -12,6 +13,7 @@ type Student = {
   university: string;
   major: string;
   skills: string[];
+  avatarUrl?: string | null;
   matchScore?: number;
   user: { name: string; email: string };
 };
@@ -156,6 +158,14 @@ export default function SmeStudentsPage() {
                   }
                   eyebrow={student.user.email}
                   key={student.id}
+                  leading={
+                    <Avatar className="size-11">
+                      <AvatarImage alt={`Ảnh đại diện của ${student.user.name}`} src={student.avatarUrl ?? undefined} />
+                      <AvatarFallback className="bg-emerald-100 font-semibold text-emerald-700">
+                        {student.user.name.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  }
                   metadata={
                     <>
                       <span>{student.university}</span>

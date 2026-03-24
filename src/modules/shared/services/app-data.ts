@@ -19,6 +19,7 @@ type UpsertStudentProfileInput = {
   major: string;
   skills: string[];
   technologies: string[];
+  avatarUrl: string;
   githubUrl: string;
   portfolioUrl: string;
   availability: string;
@@ -142,6 +143,7 @@ export async function findStudentProfileForApi(userId: string) {
       major: true,
       skills: true,
       technologies: true,
+      avatarUrl: true,
       githubUrl: true,
       portfolioUrl: true,
       availability: true,
@@ -173,6 +175,7 @@ export async function upsertStudentProfile(input: UpsertStudentProfileInput) {
       major: input.major,
       skills: input.skills,
       technologies: input.technologies,
+      avatarUrl: input.avatarUrl,
       githubUrl: input.githubUrl,
       portfolioUrl: input.portfolioUrl,
       availability: input.availability,
@@ -186,6 +189,7 @@ export async function upsertStudentProfile(input: UpsertStudentProfileInput) {
       major: input.major,
       skills: input.skills,
       technologies: input.technologies,
+      avatarUrl: input.avatarUrl,
       githubUrl: input.githubUrl,
       portfolioUrl: input.portfolioUrl,
       availability: input.availability,
@@ -350,6 +354,7 @@ export async function listApplicantProfilesByIds(ids: string[]) {
       id: true,
       university: true,
       skills: true,
+      avatarUrl: true,
       embedding: true,
       user: {
         select: {
@@ -375,6 +380,7 @@ export async function listSuggestionProfilesExcludingIds(ids: string[]) {
       id: true,
       university: true,
       skills: true,
+      avatarUrl: true,
       embedding: true,
       user: {
         select: {

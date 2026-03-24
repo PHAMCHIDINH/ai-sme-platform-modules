@@ -4,6 +4,7 @@ import { cn } from "../kernel/utils";
 
 type DiscoveryResultCardProps = {
   eyebrow?: ReactNode;
+  leading?: ReactNode;
   title: string;
   summary?: string;
   metadata?: ReactNode;
@@ -15,6 +16,7 @@ type DiscoveryResultCardProps = {
 
 export function DiscoveryResultCard({
   eyebrow,
+  leading,
   title,
   summary,
   metadata,
@@ -27,9 +29,12 @@ export function DiscoveryResultCard({
     <article className={cn("overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm", className)}>
       <div className="space-y-4 p-5">
         <div className="flex items-start justify-between gap-3">
-          <div className="space-y-2">
-            {eyebrow ? <div className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500">{eyebrow}</div> : null}
-            <h3 className="text-lg font-semibold leading-snug text-slate-900">{title}</h3>
+          <div className="flex min-w-0 items-start gap-3">
+            {leading ? <div className="shrink-0">{leading}</div> : null}
+            <div className="min-w-0 space-y-2">
+              {eyebrow ? <div className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500">{eyebrow}</div> : null}
+              <h3 className="text-lg font-semibold leading-snug text-slate-900">{title}</h3>
+            </div>
           </div>
           {score ? <div className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">{score}</div> : null}
         </div>

@@ -13,6 +13,7 @@ export const studentProfileSchema = z.object({
   major: z.string().trim().min(1, "Vui lòng nhập chuyên ngành."),
   skills: z.string().trim().min(1, "Vui lòng nhập kỹ năng chuyên môn."),
   technologies: z.string().trim().min(1, "Vui lòng nhập công nghệ hoặc công cụ."),
+  avatarUrl: optionalUrlSchema,
   githubUrl: optionalUrlSchema,
   portfolioUrl: optionalUrlSchema,
   availability: z.string().trim().min(1, "Vui lòng nhập khả năng đáp ứng thời gian."),
