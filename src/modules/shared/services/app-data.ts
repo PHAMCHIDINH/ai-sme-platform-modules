@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "../kernel/prisma";
 
 type CreateProjectInput = {
@@ -48,6 +49,130 @@ type SmeProfileUpsertData = {
   companySize: string;
   description: string;
 };
+
+type StudentDiscoveryProjectApplication = {
+  status: "PENDING" | "INVITED" | "ACCEPTED" | "REJECTED";
+  initiatedBy: "SME" | "STUDENT";
+};
+
+type StudentDiscoveryProjectLike = {
+  applications?: StudentDiscoveryProjectApplication[];
+  [key: string]: unknown;
+};
+
+type StudentDiscoveryProjectSelect = {
+  id: true;
+  title: true;
+  description: true;
+  standardizedBrief: true;
+  expectedOutput: true;
+  requiredSkills: true;
+  duration: true;
+  budget: true;
+  difficulty: true;
+  status: true;
+  deadline: true;
+  createdAt: true;
+  embedding: true;
+  _count: {
+    select: {
+      applications: true;
+    };
+  };
+  sme: {
+    select: {
+      companyName: true;
+      avatarUrl: true;
+      industry: true;
+      description: true;
+    };
+  };
+  applications?: {
+    where: {
+      studentId: string;
+    };
+    select: {
+      status: true;
+      initiatedBy: true;
+    };
+    take: 1;
+  };
+};
+
+export function buildStudentDiscoveryVisibilityWhere(studentId: string | null): Prisma.ProjectWhereInput {
+  return {
+    OR: [
+      { status: "OPEN" as const },
+      ...(studentId
+        ? [
+            {
+              applications: {
+                some: {
+                  studentId,
+                },
+              },
+            },
+          ]
+        : []),
+    ],
+  };
+}
+
+const studentDiscoveryProjectSelectBase = {
+  id: true,
+  title: true,
+  description: true,
+  standardizedBrief: true,
+  expectedOutput: true,
+  requiredSkills: true,
+  duration: true,
+  budget: true,
+  difficulty: true,
+  status: true,
+  deadline: true,
+  createdAt: true,
+  embedding: true,
+  _count: {
+    select: {
+      applications: true,
+    },
+  },
+  sme: {
+    select: {
+      companyName: true,
+      avatarUrl: true,
+      industry: true,
+      description: true,
+    },
+  },
+} satisfies Omit<StudentDiscoveryProjectSelect, "applications">;
+
+export function buildStudentDiscoveryProjectSelect(studentId: string | null): StudentDiscoveryProjectSelect {
+  return studentId
+    ? {
+        ...studentDiscoveryProjectSelectBase,
+        applications: {
+          where: { studentId },
+          select: {
+            status: true,
+            initiatedBy: true,
+          },
+          take: 1,
+        },
+      }
+    : studentDiscoveryProjectSelectBase;
+}
+
+export function normalizeStudentDiscoveryProject<T extends StudentDiscoveryProjectLike>(project: T) {
+  return {
+    ...project,
+    applications: project.applications ?? [],
+  };
+}
+
+export function normalizeStudentDiscoveryProjects<T extends StudentDiscoveryProjectLike>(projects: T[]) {
+  return projects.map(normalizeStudentDiscoveryProject);
+}
 
 export async function findSmeProfileByUserId(userId: string) {
   return prisma.sMEProfile.findUnique({
@@ -500,190 +625,25 @@ export async function listAvailableProjectsForStudent(studentId: string | null) 
 }
 
 export async function listStudentDiscoveryProjects(studentId: string | null) {
-  if (!studentId) {
-    const projects = await prisma.project.findMany({
-      where: { status: "OPEN" },
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        standardizedBrief: true,
-        expectedOutput: true,
-        requiredSkills: true,
-        duration: true,
-        budget: true,
-        difficulty: true,
-        status: true,
-        deadline: true,
-        createdAt: true,
-        embedding: true,
-        _count: {
-          select: {
-            applications: true,
-          },
-        },
-        sme: {
-          select: {
-            companyName: true,
-            avatarUrl: true,
-            industry: true,
-            description: true,
-          },
-        },
-      },
-    });
-
-    return projects.map((project) => ({
-      ...project,
-      applications: [],
-    }));
-  }
-
-  return prisma.project.findMany({
-    where: {
-      OR: [
-        { status: "OPEN" },
-        {
-          applications: {
-            some: { studentId },
-          },
-        },
-      ],
-    },
+  const projects = await prisma.project.findMany({
+    where: buildStudentDiscoveryVisibilityWhere(studentId),
     orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      title: true,
-      description: true,
-      standardizedBrief: true,
-      expectedOutput: true,
-      requiredSkills: true,
-      duration: true,
-      budget: true,
-      difficulty: true,
-      status: true,
-      deadline: true,
-      createdAt: true,
-      embedding: true,
-      _count: {
-        select: {
-          applications: true,
-        },
-      },
-      sme: {
-        select: {
-          companyName: true,
-          avatarUrl: true,
-          industry: true,
-          description: true,
-        },
-      },
-      applications: {
-        where: { studentId },
-        select: {
-          status: true,
-          initiatedBy: true,
-        },
-        take: 1,
-      },
-    },
+    select: buildStudentDiscoveryProjectSelect(studentId),
   });
+
+  return normalizeStudentDiscoveryProjects(projects);
 }
 
 export async function findStudentDiscoveryProjectById(projectId: string, studentId: string | null) {
-  if (!studentId) {
-    const project = await prisma.project.findFirst({
-      where: {
-        id: projectId,
-        status: "OPEN",
-      },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        standardizedBrief: true,
-        expectedOutput: true,
-        requiredSkills: true,
-        duration: true,
-        budget: true,
-        difficulty: true,
-        status: true,
-        deadline: true,
-        createdAt: true,
-        embedding: true,
-        _count: {
-          select: {
-            applications: true,
-          },
-        },
-        sme: {
-          select: {
-            companyName: true,
-            avatarUrl: true,
-            industry: true,
-            description: true,
-          },
-        },
-      },
-    });
-
-    return project ? { ...project, applications: [] } : null;
-  }
-
-  return prisma.project.findFirst({
+  const project = await prisma.project.findFirst({
     where: {
       id: projectId,
-      OR: [
-        { status: "OPEN" },
-        ...(studentId
-          ? [
-              {
-                applications: {
-                  some: { studentId },
-                },
-              },
-            ]
-          : []),
-      ],
+      ...buildStudentDiscoveryVisibilityWhere(studentId),
     },
-    select: {
-      id: true,
-      title: true,
-      description: true,
-      standardizedBrief: true,
-      expectedOutput: true,
-      requiredSkills: true,
-      duration: true,
-      budget: true,
-      difficulty: true,
-      status: true,
-      deadline: true,
-      createdAt: true,
-      embedding: true,
-      _count: {
-        select: {
-          applications: true,
-        },
-      },
-      sme: {
-        select: {
-          companyName: true,
-          avatarUrl: true,
-          industry: true,
-          description: true,
-        },
-      },
-      applications: {
-        where: { studentId },
-        select: {
-          status: true,
-          initiatedBy: true,
-        },
-        take: 1,
-      },
-    },
+    select: buildStudentDiscoveryProjectSelect(studentId),
   });
+
+  return project ? normalizeStudentDiscoveryProject(project) : null;
 }
 
 export async function listStudentInvitations(studentId: string) {
