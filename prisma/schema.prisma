@@ -68,6 +68,7 @@ model SMEProfile {
   id          String    @id @default(cuid())
   userId      String    @unique
   companyName String
+  avatarUrl   String?
   industry    String
   companySize String
   description String

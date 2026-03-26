@@ -43,6 +43,7 @@ type CreateSmeEvaluationInput = {
 
 type SmeProfileUpsertData = {
   companyName: string;
+  avatarUrl: string;
   industry: string;
   companySize: string;
   description: string;
@@ -216,6 +217,7 @@ export async function findSmeDashboardProfile(userId: string) {
     select: {
       id: true,
       companyName: true,
+      avatarUrl: true,
       _count: {
         select: {
           projects: true,
@@ -282,6 +284,7 @@ export async function findSmeProfileForEdit(userId: string) {
     where: { userId },
     select: {
       companyName: true,
+      avatarUrl: true,
       industry: true,
       companySize: true,
       description: true,
@@ -489,6 +492,7 @@ export async function listAvailableProjectsForStudent(studentId: string | null) 
       sme: {
         select: {
           companyName: true,
+          avatarUrl: true,
         },
       },
     },
@@ -527,6 +531,7 @@ export async function listStudentDiscoveryProjects(studentId: string | null) {
       sme: {
         select: {
           companyName: true,
+          avatarUrl: true,
           industry: true,
           description: true,
         },
@@ -577,6 +582,7 @@ export async function findStudentDiscoveryProjectById(projectId: string, student
       sme: {
         select: {
           companyName: true,
+          avatarUrl: true,
           industry: true,
           description: true,
         },

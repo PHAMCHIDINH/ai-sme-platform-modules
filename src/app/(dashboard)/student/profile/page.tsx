@@ -252,7 +252,13 @@ export default function StudentProfilePage() {
   return (
     <div className="mx-auto max-w-5xl space-y-8 pb-10">
       <div className="portal-shell p-6 md:p-8">
-        <h2 className="text-3xl font-semibold tracking-tight text-slate-900">Hồ sơ năng lực thực chiến</h2>
+        <div className="flex items-center gap-3">
+          <Avatar className="size-14">
+            <AvatarImage alt="Ảnh đại diện sinh viên" src={avatarUrl || undefined} />
+            <AvatarFallback className="bg-emerald-100 text-base font-semibold text-emerald-700">SV</AvatarFallback>
+          </Avatar>
+          <h2 className="text-3xl font-semibold tracking-tight text-slate-900">Hồ sơ năng lực thực chiến</h2>
+        </div>
         <p className="mt-2 flex items-center text-sm text-slate-600">
           <Sparkles className="mr-1 h-4 w-4 text-emerald-700" />
           Hồ sơ này được dùng để AI phân tích mức phù hợp giữa kỹ năng của bạn và nhu cầu dự án.

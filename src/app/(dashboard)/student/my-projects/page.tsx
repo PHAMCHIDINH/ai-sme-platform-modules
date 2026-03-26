@@ -231,9 +231,21 @@ export default async function StudentMyProjectsPage() {
                         </Badge>
                       </div>
 
-                      <p className="text-sm font-medium text-muted-foreground">
-                        Khách hàng: {entry.project.sme.companyName}
-                      </p>
+                      <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                        {entry.project.sme.avatarUrl ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            alt={`Avatar của ${entry.project.sme.companyName}`}
+                            className="h-8 w-8 rounded-full border border-emerald-200 object-cover"
+                            src={entry.project.sme.avatarUrl}
+                          />
+                        ) : (
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-xs font-semibold text-emerald-700">
+                            {entry.project.sme.companyName.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                        <p>Khách hàng: {entry.project.sme.companyName}</p>
+                      </div>
 
                       <div className="grid gap-4 lg:grid-cols-2">
                         <div className="rounded-2xl border border-border/70 bg-slate-50 p-4">

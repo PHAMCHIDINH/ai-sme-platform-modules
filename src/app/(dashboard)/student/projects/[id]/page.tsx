@@ -76,6 +76,18 @@ export default async function StudentProjectDetailPage({
           <Card className="!rounded-2xl !border !border-border/70 !bg-white !shadow-sm">
             <CardContent className="space-y-6 p-6">
               <div className="flex flex-wrap items-center gap-3">
+                {project.companyAvatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    alt={`Avatar của ${project.companyName}`}
+                    className="h-10 w-10 rounded-full border border-emerald-200 object-cover"
+                    src={project.companyAvatarUrl}
+                  />
+                ) : (
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-sm font-semibold text-emerald-700">
+                    {project.companyName.charAt(0).toUpperCase()}
+                  </div>
+                )}
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-slate-600">
                   <Building2 className="h-3.5 w-3.5" />
                   {project.companyName}
@@ -130,6 +142,21 @@ export default async function StudentProjectDetailPage({
               {project.companyDescription ? (
                 <div className="space-y-2">
                   <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-500">Giới thiệu doanh nghiệp</h2>
+                  <div className="flex items-center gap-2">
+                    {project.companyAvatarUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        alt={`Avatar của ${project.companyName}`}
+                        className="h-9 w-9 rounded-full border border-emerald-200 object-cover"
+                        src={project.companyAvatarUrl}
+                      />
+                    ) : (
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-xs font-semibold text-emerald-700">
+                        {project.companyName.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <p className="text-sm font-medium text-slate-700">{project.companyName}</p>
+                  </div>
                   <p className="text-sm leading-relaxed text-slate-700">
                     {project.companyDescription}
                   </p>

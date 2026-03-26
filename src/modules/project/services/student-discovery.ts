@@ -31,6 +31,7 @@ type StudentDiscoveryProjectRaw = {
   embedding: number[];
   sme: {
     companyName: string;
+    avatarUrl?: string | null;
     industry?: string;
     description?: string;
   } | null;
@@ -66,6 +67,7 @@ export function presentStudentProjectSummary(
     requiredSkills: raw.requiredSkills,
     duration: raw.duration,
     companyName: raw.sme?.companyName ?? "Doanh nghiệp SME",
+    companyAvatarUrl: raw.sme?.avatarUrl ?? "",
     matchScore: options.matchScore,
     interactionState: deriveStudentProjectInteractionState({
       hasStudentProfile: options.hasStudentProfile,

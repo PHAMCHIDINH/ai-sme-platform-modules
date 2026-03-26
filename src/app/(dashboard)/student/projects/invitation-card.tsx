@@ -16,6 +16,7 @@ type Invitation = {
     duration: string;
     sme: {
       companyName: string;
+      avatarUrl?: string | null;
     };
   };
 };
@@ -44,6 +45,18 @@ export function InvitationCard({ invitation }: { invitation: Invitation }) {
           <Sparkles className="h-3.5 w-3.5" /> Lời mời trực tiếp từ SME
         </div>
         <div className="flex items-center gap-2">
+          {invitation.project.sme.avatarUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              alt={`Avatar của ${invitation.project.sme.companyName}`}
+              className="h-8 w-8 rounded-full border border-emerald-200 object-cover"
+              src={invitation.project.sme.avatarUrl}
+            />
+          ) : (
+            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-xs font-semibold text-emerald-700">
+              {invitation.project.sme.companyName.charAt(0).toUpperCase()}
+            </div>
+          )}
           <span className="inline-flex items-center gap-1 rounded-full border border-border bg-slate-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.08em] text-slate-600">
             <Building2 className="h-3.5 w-3.5" /> {invitation.project.sme.companyName}
           </span>

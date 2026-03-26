@@ -80,4 +80,29 @@ describe("student discovery presenter", () => {
 
     expect(summary.interactionState).toBe("REJECTED");
   });
+
+  it("passes through company avatar url when present", async () => {
+    const projectModule = await import("@/modules/project");
+
+    const detail = projectModule.presentStudentProjectDetail(
+      {
+        id: "project-2",
+        title: "CRM mini app",
+        expectedOutput: "Web app",
+        requiredSkills: ["Next.js"],
+        duration: "4 tuần",
+        embedding: [],
+        sme: {
+          companyName: "XYZ SME",
+          industry: "Retail",
+          description: "Mô tả",
+          avatarUrl: "https://example.com/sme-avatar.png",
+        },
+        applications: [],
+      },
+      { hasStudentProfile: true, matchScore: 55 },
+    );
+
+    expect(detail.companyAvatarUrl).toBe("https://example.com/sme-avatar.png");
+  });
 });

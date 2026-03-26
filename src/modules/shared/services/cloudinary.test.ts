@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { buildCloudinarySignature, getCloudinaryUploadConfig } from "./cloudinary";
 
 describe("buildCloudinarySignature", () => {
-  it("creates deterministic SHA1 signature with sorted params", () => {
-    const signature = buildCloudinarySignature(
+  it("creates deterministic SHA1 signature with sorted params", async () => {
+    const signature = await buildCloudinarySignature(
       {
         timestamp: 1710000000,
         folder: "student-avatars",
@@ -14,8 +14,8 @@ describe("buildCloudinarySignature", () => {
     expect(signature).toBe("17767d3adbeea8f33a2a4e22b205e3b443d6db10");
   });
 
-  it("ignores empty params", () => {
-    const signature = buildCloudinarySignature(
+  it("ignores empty params", async () => {
+    const signature = await buildCloudinarySignature(
       {
         timestamp: 1710000000,
         folder: "",

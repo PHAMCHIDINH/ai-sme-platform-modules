@@ -25,6 +25,7 @@ type StudentInvitation = {
     duration: string;
     sme: {
       companyName: string;
+      avatarUrl?: string | null;
     };
   };
 };
@@ -191,6 +192,20 @@ export default async function StudentProjectsPage() {
                     }
                     eyebrow={project.companyName}
                     key={project.id}
+                    leading={
+                      project.companyAvatarUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          alt={`Avatar của ${project.companyName}`}
+                          className="h-10 w-10 rounded-full border border-emerald-200 object-cover"
+                          src={project.companyAvatarUrl}
+                        />
+                      ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-sm font-semibold text-emerald-700">
+                          {project.companyName.charAt(0).toUpperCase()}
+                        </div>
+                      )
+                    }
                     metadata={
                       <>
                         <span className="inline-flex items-center gap-1">

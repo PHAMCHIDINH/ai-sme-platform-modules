@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { getSessionUserIdByRole } from "@/modules/auth";
 import { unauthorizedResponse } from "@/modules/shared";
-import { buildCloudinarySignature, getCloudinaryUploadConfig } from "@/modules/shared/services/cloudinary";
+import { buildCloudinarySignature, getCloudinaryUploadConfig } from "@/modules/shared";
 
 function resolveFolder(rawFolder: unknown) {
   if (typeof rawFolder !== "string") {
@@ -22,8 +22,9 @@ export async function POST(req: Request) {
   try {
     const session = await auth();
     const studentUserId = getSessionUserIdByRole(session, "STUDENT");
+    const smeUserId = getSessionUserIdByRole(session, "SME");
 
-    if (!studentUserId) {
+    if (!studentUserId && !smeUserId) {
       return unauthorizedResponse();
     }
 
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
     const folderInput = typeof body === "object" && body !== null && "folder" in body ? body.folder : undefined;
     const folder = resolveFolder(folderInput);
     const timestamp = Math.floor(Date.now() / 1000);
-    const signature = buildCloudinarySignature({ folder, timestamp }, cloudinary.apiSecret);
+    const signature = await buildCloudinarySignature({ folder, timestamp }, cloudinary.apiSecret);
 
     return NextResponse.json({
       cloudName: cloudinary.cloudName,

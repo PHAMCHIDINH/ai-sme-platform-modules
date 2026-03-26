@@ -1,5 +1,3 @@
-import crypto from "node:crypto";
-
 type CloudinaryEnv = {
   [key: string]: string | undefined;
   CLOUDINARY_CLOUD_NAME?: string;
@@ -29,7 +27,7 @@ export function getCloudinaryUploadConfig(env: CloudinaryEnv = process.env): Clo
   };
 }
 
-export function buildCloudinarySignature(
+export async function buildCloudinarySignature(
   params: Record<string, string | number | null | undefined>,
   apiSecret: string,
 ) {
@@ -39,8 +37,12 @@ export function buildCloudinarySignature(
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
 
-  return crypto
-    .createHash("sha1")
-    .update(`${canonical}${apiSecret}`)
-    .digest("hex");
+  const digest = await globalThis.crypto.subtle.digest(
+    "SHA-1",
+    new TextEncoder().encode(`${canonical}${apiSecret}`),
+  );
+
+  return Array.from(new Uint8Array(digest))
+    .map((value) => value.toString(16).padStart(2, "0"))
+    .join("");
 }

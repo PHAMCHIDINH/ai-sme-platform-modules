@@ -52,6 +52,24 @@ export default async function SMEDashboardPage() {
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
             <p className="portal-kicker">SME workspace</p>
+            <div className="flex items-center gap-3">
+              {smeProfile.avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  alt={`Avatar của ${smeProfile.companyName}`}
+                  className="h-12 w-12 rounded-full border border-emerald-200 object-cover"
+                  src={smeProfile.avatarUrl}
+                />
+              ) : (
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50 text-lg font-semibold text-emerald-700">
+                  {smeProfile.companyName.charAt(0).toUpperCase()}
+                </div>
+              )}
+              <div className="space-y-1">
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">Doanh nghiệp</p>
+                <p className="text-sm font-semibold text-slate-700">{smeProfile.companyName}</p>
+              </div>
+            </div>
             <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl">Pipeline dự án và ứng viên</h1>
             <p className="max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
               Theo dõi luồng dự án đang mở, số lượng ứng viên và hành động cần làm tiếp theo.
