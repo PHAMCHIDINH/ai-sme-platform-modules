@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   type StudentProjectDetailRaw,
   presentStudentProjectDetail,
-} from "@/modules/project/services/student-project-detail";
+} from "@/modules/project";
 
 describe("student project detail presenter", () => {
   const detailContractFixture = {
