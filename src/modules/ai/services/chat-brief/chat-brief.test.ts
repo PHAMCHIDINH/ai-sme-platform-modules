@@ -13,7 +13,7 @@ import {
 afterEach(() => {
   vi.restoreAllMocks();
   vi.unmock("@/auth");
-  vi.unmock("@/modules/ai");
+  vi.unmock("@/modules/ai/services/chat-brief/runtime");
   vi.resetModules();
 });
 
@@ -248,7 +248,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai", () => ({
+    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
@@ -259,8 +259,8 @@ describe("chat-brief route contract", () => {
       toAIChatMessages: vi.fn(),
     }));
 
-    const { POST } = await import("@/app/api/ai/chat-brief/route");
-    const response = await POST(
+    const { handleChatBriefRequest } = await import("./handler");
+    const response = await handleChatBriefRequest(
       new Request("http://localhost/api/ai/chat-brief", {
         method: "POST",
         body: JSON.stringify({
@@ -305,7 +305,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai", () => ({
+    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
@@ -316,8 +316,8 @@ describe("chat-brief route contract", () => {
       toAIChatMessages: vi.fn(),
     }));
 
-    const { POST } = await import("@/app/api/ai/chat-brief/route");
-    const response = await POST(
+    const { handleChatBriefRequest } = await import("./handler");
+    const response = await handleChatBriefRequest(
       new Request("http://localhost/api/ai/chat-brief", {
         method: "POST",
         body: JSON.stringify({ messages: fullHistory }),
@@ -350,7 +350,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai", () => ({
+    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
@@ -365,8 +365,8 @@ describe("chat-brief route contract", () => {
       toAIChatMessages: vi.fn(),
     }));
 
-    const { POST } = await import("@/app/api/ai/chat-brief/route");
-    const response = await POST(
+    const { handleChatBriefRequest } = await import("./handler");
+    const response = await handleChatBriefRequest(
       new Request("http://localhost/api/ai/chat-brief", {
         method: "POST",
         body: JSON.stringify({ messages: [{ role: "user", content: "Cần website bán hàng cho shop nhỏ" }] }),
@@ -400,7 +400,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai", () => ({
+    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: {
@@ -422,8 +422,8 @@ describe("chat-brief route contract", () => {
       toAIChatMessages: vi.fn().mockReturnValue([{ role: "user", content: "Cần app quản lý kho" }]),
     }));
 
-    const { POST } = await import("@/app/api/ai/chat-brief/route");
-    const response = await POST(
+    const { handleChatBriefRequest } = await import("./handler");
+    const response = await handleChatBriefRequest(
       new Request("http://localhost/api/ai/chat-brief", {
         method: "POST",
         body: JSON.stringify({ messages: [{ role: "user", content: "Cần app quản lý kho" }] }),
@@ -474,7 +474,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai", () => ({
+    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: {
@@ -491,8 +491,8 @@ describe("chat-brief route contract", () => {
       toAIChatMessages,
     }));
 
-    const { POST } = await import("@/app/api/ai/chat-brief/route");
-    const response = await POST(
+    const { handleChatBriefRequest } = await import("./handler");
+    const response = await handleChatBriefRequest(
       new Request("http://localhost/api/ai/chat-brief", {
         method: "POST",
         body: JSON.stringify({ messages: fullHistory }),
