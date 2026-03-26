@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { generateEmbedding } from "@/modules/ai";
 import { TimeoutError, validateEmbeddingText, withTimeout } from "@/modules/ai";
+import { buildRateLimitKey, enforceRateLimit, getClientIp } from "@/modules/shared";
 
 const schema = z.object({
   text: z.string().min(1),
@@ -10,6 +11,19 @@ const schema = z.object({
 
 export async function POST(request: Request) {
   try {
+    const rateLimit = await enforceRateLimit({
+      key: buildRateLimitKey("ai-generate-embedding", getClientIp(request)),
+      limit: 40,
+      window: "1 m",
+    });
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Bạn đang gửi quá nhiều yêu cầu. Vui lòng thử lại sau." },
+        { status: 429 },
+      );
+    }
+
     const body = await request.json();
     const parsed = schema.safeParse(body);
 

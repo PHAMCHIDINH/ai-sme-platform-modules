@@ -53,6 +53,21 @@ Luu y:
 - Neu dang chay `next dev`, su dung `npm run db:push` (da `--skip-generate`) de tranh loi khoa file Prisma engine tren Windows.
 - De bat AI on dinh, can set day du bo bien OPENAI (khong chi `OPENAI_API_KEY`).
 
+### Bao mat va quan sat
+
+Biến moi truong khuyen nghi:
+- `SENTRY_DSN` (server)
+- `NEXT_PUBLIC_SENTRY_DSN` (client)
+- `SENTRY_TRACES_SAMPLE_RATE` (mac dinh `0.1`)
+- `UPSTASH_REDIS_REST_URL`
+- `UPSTASH_REDIS_REST_TOKEN`
+- `INNGEST_EVENT_KEY`
+
+Tinh nang da duoc bat:
+- Rate limit cho API AI (`/api/ai/chat-brief`, `/api/ai/standardize-brief`, `/api/ai/generate-embedding`) qua Upstash.
+- Sentry cho client/server/edge (auto bat khi co DSN).
+- Inngest worker route tai `/api/inngest` va trigger backfill embedding tai `POST /api/ai/embedding-backfill` (SME only).
+
 ### Cau hinh AI env (local va Docker can dong bo)
 
 Bat buoc:
@@ -96,6 +111,9 @@ Cap nhat gia tri:
 - `OPENAI_API_KEY`
 - `AUTH_SECRET`
 - `NEXTAUTH_SECRET` (nen dung cung gia tri voi `AUTH_SECRET` de tranh loi giai ma session JWT)
+- `SENTRY_DSN` (neu dung)
+- `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (neu dung rate limit phan tan)
+- `INNGEST_EVENT_KEY` (neu dung job nen)
 
 ### 2) Build va chay
 
@@ -134,6 +152,7 @@ docker compose down -v
 npm run db:up
 npm run db:down
 npm run analyze
+npm run security:audit
 npm run docker:up
 npm run docker:logs
 npm run docker:down

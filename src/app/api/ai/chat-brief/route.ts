@@ -15,6 +15,7 @@ import {
   type ChatMessageInput,
   type ParsedData,
 } from "@/modules/ai";
+import { buildRateLimitKey, enforceRateLimit, getClientIp } from "@/modules/shared";
 
 const MAX_OUTBOUND_CHAT_TURNS = 16;
 const PARSED_DATA_FIELDS = Object.keys(EMPTY_PARSED_DATA) as Array<keyof ParsedData>;
@@ -101,6 +102,20 @@ export async function POST(req: Request) {
     const session = await auth();
     if (!session?.user) {
       return NextResponse.json({ error: "Bạn chưa đăng nhập." }, { status: 401 });
+    }
+
+    const rateLimitIdentifier = session.user.email ?? getClientIp(req);
+    const rateLimit = await enforceRateLimit({
+      key: buildRateLimitKey("ai-chat-brief", rateLimitIdentifier),
+      limit: 20,
+      window: "1 m",
+    });
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Bạn đang gửi quá nhiều yêu cầu. Vui lòng thử lại sau." },
+        { status: 429 },
+      );
     }
 
     const body = await req.json();

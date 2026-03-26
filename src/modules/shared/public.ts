@@ -7,3 +7,4 @@ export * from "./http/prisma-api";
 export * from "./services/app-data";
 export * from "./services/cloudinary";
 export * from "./services/investor-demo-content";
+export * from "./services/rate-limit";
