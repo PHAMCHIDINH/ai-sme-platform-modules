@@ -70,6 +70,7 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
     .filter((project) => project.interactionState !== "INVITED" && project.interactionState !== "ACCEPTED");
 
   const hasEmbedding = Boolean(profile?.embedding && profile.embedding.length > 0);
+  const sortFilterValue = filters.sort === "relevance" ? "match" : filters.sort;
 
   return (
     <div className="space-y-8 pb-12 fade-in">
@@ -106,9 +107,64 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
 
       <div className="grid gap-6 xl:grid-cols-[280px_1fr]">
         <FilterSidebar
-          description="Tập trung vào dự án có match score cao và thời lượng phù hợp lịch học của bạn."
+          description="Thu hẹp danh sách theo keyword, độ khó, và cách sắp xếp."
           title="Discovery filters"
         >
+          <form className="space-y-3" method="GET">
+            <div className="space-y-2">
+              <label className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500" htmlFor="student-project-q">
+                Từ khóa
+              </label>
+              <input
+                className="h-10 w-full rounded-xl border border-border bg-white px-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500"
+                defaultValue={filters.q ?? ""}
+                id="student-project-q"
+                name="q"
+                placeholder="Tìm theo tên dự án hoặc SME"
+                type="search"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label
+                className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500"
+                htmlFor="student-project-difficulty"
+              >
+                Mức độ khó
+              </label>
+              <select
+                className="h-10 w-full rounded-xl border border-border bg-white px-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500"
+                defaultValue={filters.difficulty ?? ""}
+                id="student-project-difficulty"
+                name="difficulty"
+              >
+                <option value="">ALL</option>
+                <option value="EASY">Dễ</option>
+                <option value="MEDIUM">Trung bình</option>
+                <option value="HARD">Khó</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500" htmlFor="student-project-sort">
+                Sắp xếp
+              </label>
+              <select
+                className="h-10 w-full rounded-xl border border-border bg-white px-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500"
+                defaultValue={sortFilterValue}
+                id="student-project-sort"
+                name="sort"
+              >
+                <option value="match">match</option>
+                <option value="newest">newest</option>
+              </select>
+            </div>
+
+            <Button className="w-full rounded-full" type="submit">
+              Áp dụng bộ lọc
+            </Button>
+          </form>
+
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-slate-500">Hồ sơ hiện tại</p>
             <Badge className="rounded-full border border-border bg-slate-50 text-slate-700" variant="outline">
