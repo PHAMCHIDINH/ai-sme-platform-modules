@@ -30,7 +30,7 @@ export function InvitationCard({ invitation }: { invitation: Invitation }) {
       return res;
     },
     onSuccess: (_, status) => {
-      toast.success(status === "ACCEPTED" ? "Đã NHẬN DỰ ÁN thành công!" : "Đã từ chối lời mời.");
+      toast.success(status === "ACCEPTED" ? "Đã chấp nhận lời mời." : "Đã từ chối lời mời.");
       router.refresh();
     },
     onError: (err) => {
@@ -42,7 +42,7 @@ export function InvitationCard({ invitation }: { invitation: Invitation }) {
     <div className="mb-5 flex flex-col justify-between gap-6 rounded-2xl border border-violet-200 bg-white p-5 shadow-sm md:flex-row md:items-center">
       <div className="flex-1 space-y-2">
         <div className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-medium text-violet-700">
-          <Sparkles className="h-3.5 w-3.5" /> Lời mời trực tiếp từ SME
+          <Sparkles className="h-3.5 w-3.5" /> SME đã mời bạn
         </div>
         <div className="flex items-center gap-2">
           {invitation.project.sme.avatarUrl ? (
@@ -85,7 +85,7 @@ export function InvitationCard({ invitation }: { invitation: Invitation }) {
           className="h-10 flex-1 rounded-full border-0 bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
         >
           {respondMutation.isPending && respondMutation.variables === "ACCEPTED" ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Check className="mr-1 h-4 w-4" /> }
-          Nhận lời mời
+          Chấp nhận
         </Button>
       </div>
     </div>

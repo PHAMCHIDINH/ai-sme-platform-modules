@@ -54,4 +54,19 @@ describe("student project detail presenter", () => {
 
     expect(detail.interactionState).toBe("READY_TO_APPLY");
   });
+
+  it("keeps closed projects in the closed interaction state", () => {
+    const closedProject = {
+      ...detailContractFixture,
+      status: "COMPLETED",
+      applications: [],
+    } satisfies StudentProjectDetailRaw;
+
+    const detail = presentStudentProjectDetail(closedProject, {
+      hasStudentProfile: true,
+      matchScore: 82,
+    });
+
+    expect(detail.interactionState).toBe("PROJECT_CLOSED");
+  });
 });

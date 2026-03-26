@@ -5,12 +5,12 @@ import { Badge } from "@/modules/shared/ui";
 
 const LABELS: Record<StudentProjectInteractionState, string> = {
   READY_TO_APPLY: "Có thể ứng tuyển",
-  PROFILE_REQUIRED: "Cần cập nhật hồ sơ",
-  PENDING: "Đang chờ SME phản hồi",
-  INVITED: "Đã được SME mời",
+  PROFILE_REQUIRED: "Cần hồ sơ hoàn chỉnh",
+  PENDING: "Đang chờ phản hồi",
+  INVITED: "SME đã mời bạn",
   ACCEPTED: "Đã được nhận",
-  REJECTED: "Đã bị từ chối",
-  PROJECT_CLOSED: "Dự án không còn mở",
+  REJECTED: "Không được chọn",
+  PROJECT_CLOSED: "Không còn mở tuyển",
 };
 
 const CLASS_NAMES: Record<StudentProjectInteractionState, string> = {
