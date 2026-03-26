@@ -60,65 +60,7 @@ type StudentDiscoveryProjectLike = {
   [key: string]: unknown;
 };
 
-type StudentDiscoveryProjectSelect = {
-  id: true;
-  title: true;
-  description: true;
-  standardizedBrief: true;
-  expectedOutput: true;
-  requiredSkills: true;
-  duration: true;
-  budget: true;
-  difficulty: true;
-  status: true;
-  deadline: true;
-  createdAt: true;
-  embedding: true;
-  _count: {
-    select: {
-      applications: true;
-    };
-  };
-  sme: {
-    select: {
-      companyName: true;
-      avatarUrl: true;
-      industry: true;
-      description: true;
-    };
-  };
-  applications?: {
-    where: {
-      studentId: string;
-    };
-    select: {
-      status: true;
-      initiatedBy: true;
-    };
-    take: 1;
-  };
-};
-
-export function buildStudentDiscoveryVisibilityWhere(studentId: string | null): Prisma.ProjectWhereInput {
-  return {
-    OR: [
-      { status: "OPEN" as const },
-      ...(studentId
-        ? [
-            {
-              applications: {
-                some: {
-                  studentId,
-                },
-              },
-            },
-          ]
-        : []),
-    ],
-  };
-}
-
-const studentDiscoveryProjectSelectBase = {
+const studentDiscoveryProjectSelectBase = Prisma.validator<Prisma.ProjectSelect>()({
   id: true,
   title: true,
   description: true,
@@ -145,32 +87,53 @@ const studentDiscoveryProjectSelectBase = {
       description: true,
     },
   },
-} satisfies Omit<StudentDiscoveryProjectSelect, "applications">;
+});
 
-export function buildStudentDiscoveryProjectSelect(studentId: string | null): StudentDiscoveryProjectSelect {
-  return studentId
-    ? {
-        ...studentDiscoveryProjectSelectBase,
-        applications: {
-          where: { studentId },
-          select: {
-            status: true,
-            initiatedBy: true,
-          },
-          take: 1,
-        },
-      }
-    : studentDiscoveryProjectSelectBase;
+function buildStudentDiscoveryVisibilityWhere(studentId: string | null): Prisma.ProjectWhereInput {
+  return {
+    OR: [
+      { status: "OPEN" as const },
+      ...(studentId
+        ? [
+            {
+              applications: {
+                some: {
+                  studentId,
+                },
+              },
+            },
+          ]
+        : []),
+    ],
+  };
 }
 
-export function normalizeStudentDiscoveryProject<T extends StudentDiscoveryProjectLike>(project: T) {
+function buildStudentDiscoveryProjectSelect(studentId: string | null) {
+  return Prisma.validator<Prisma.ProjectSelect>()({
+    ...studentDiscoveryProjectSelectBase,
+    ...(studentId
+      ? {
+          applications: {
+            where: { studentId },
+            select: {
+              status: true,
+              initiatedBy: true,
+            },
+            take: 1,
+          },
+        }
+      : {}),
+  });
+}
+
+function normalizeStudentDiscoveryProject<T extends StudentDiscoveryProjectLike>(project: T) {
   return {
     ...project,
     applications: project.applications ?? [],
   };
 }
 
-export function normalizeStudentDiscoveryProjects<T extends StudentDiscoveryProjectLike>(projects: T[]) {
+function normalizeStudentDiscoveryProjects<T extends StudentDiscoveryProjectLike>(projects: T[]) {
   return projects.map(normalizeStudentDiscoveryProject);
 }
 
