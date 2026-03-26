@@ -13,7 +13,7 @@ import {
 afterEach(() => {
   vi.restoreAllMocks();
   vi.unmock("@/auth");
-  vi.unmock("@/modules/ai/services/chat-brief/runtime");
+  vi.unmock("./runtime");
   vi.resetModules();
 });
 
@@ -248,7 +248,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
+    vi.doMock("./runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
@@ -305,7 +305,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
+    vi.doMock("./runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
@@ -350,7 +350,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
+    vi.doMock("./runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: null,
@@ -400,7 +400,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
+    vi.doMock("./runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: {
@@ -474,7 +474,7 @@ describe("chat-brief route contract", () => {
     vi.doMock("@/auth", () => ({
       auth: vi.fn().mockResolvedValue({ user: { id: "u-1" } }),
     }));
-    vi.doMock("@/modules/ai/services/chat-brief/runtime", () => ({
+    vi.doMock("./runtime", () => ({
       ...mockedAiRuntimeExports,
       chatModelStr: "test-model",
       openaiInstance: {

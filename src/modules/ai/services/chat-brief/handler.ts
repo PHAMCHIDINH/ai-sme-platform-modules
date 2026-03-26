@@ -15,7 +15,7 @@ import {
   type ChatBriefResponse,
   type ChatMessageInput,
   type ParsedData,
-} from "@/modules/ai/services/chat-brief/runtime";
+} from "./runtime";
 
 const MAX_OUTBOUND_CHAT_TURNS = 16;
 const PARSED_DATA_FIELDS = Object.keys(EMPTY_PARSED_DATA) as Array<keyof ParsedData>;
