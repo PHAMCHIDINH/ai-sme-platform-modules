@@ -1,8 +1,38 @@
 import { ProjectStatus } from "@prisma/client";
-import type { StudentProjectDetailRaw } from "./student-project-detail";
 
 type ApplicationStatus = "PENDING" | "INVITED" | "ACCEPTED" | "REJECTED";
 type Initiator = "SME" | "STUDENT";
+
+type StudentProjectApplication = {
+  status: ApplicationStatus;
+  initiatedBy: Initiator;
+};
+
+export type StudentDiscoveryProjectRaw = {
+  id: string;
+  title: string;
+  description?: string;
+  standardizedBrief?: string | null;
+  expectedOutput: string;
+  requiredSkills: string[];
+  duration: string;
+  budget?: string | null;
+  difficulty?: "EASY" | "MEDIUM" | "HARD";
+  status?: ProjectStatus;
+  deadline: Date | null;
+  createdAt: Date;
+  embedding: number[];
+  sme: {
+    companyName: string;
+    avatarUrl?: string | null;
+    industry?: string;
+    description?: string;
+  } | null;
+  applications: StudentProjectApplication[] | false;
+  _count: {
+    applications: number;
+  };
+};
 
 export type StudentProjectInteractionState =
   | "READY_TO_APPLY"
@@ -33,7 +63,7 @@ export function deriveStudentProjectInteractionState(input: {
 }
 
 export function presentStudentProjectSummary(
-  raw: StudentProjectDetailRaw,
+  raw: StudentDiscoveryProjectRaw,
   options: { hasStudentProfile: boolean; matchScore: number },
 ) {
   const application = Array.isArray(raw.applications) ? raw.applications[0] ?? null : null;
