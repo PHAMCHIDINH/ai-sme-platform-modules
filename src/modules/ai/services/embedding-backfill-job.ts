@@ -1,4 +1,4 @@
-import { inngest } from "../../shared/services/inngest";
+import { inngest } from "@/modules/shared";
 import {
   EMBEDDING_BACKFILL_EVENT,
   backfillProjectEmbeddings,
