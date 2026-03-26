@@ -11,24 +11,24 @@ type StudentProjectApplication = {
 export type StudentDiscoveryProjectRaw = {
   id: string;
   title: string;
-  description?: string;
-  standardizedBrief?: string | null;
+  description: string;
+  standardizedBrief: string | null;
   expectedOutput: string;
   requiredSkills: string[];
   duration: string;
-  budget?: string | null;
-  difficulty?: "EASY" | "MEDIUM" | "HARD";
-  status?: ProjectStatus;
+  budget: string | null;
+  difficulty: "EASY" | "MEDIUM" | "HARD";
+  status: ProjectStatus;
   deadline: Date | null;
   createdAt: Date;
   embedding: number[];
   sme: {
     companyName: string;
-    avatarUrl?: string | null;
-    industry?: string;
-    description?: string;
-  } | null;
-  applications: StudentProjectApplication[] | false;
+    avatarUrl: string | null;
+    industry: string;
+    description: string;
+  };
+  applications: StudentProjectApplication[];
   _count: {
     applications: number;
   };
@@ -66,7 +66,7 @@ export function presentStudentProjectSummary(
   raw: StudentDiscoveryProjectRaw,
   options: { hasStudentProfile: boolean; matchScore: number },
 ) {
-  const application = Array.isArray(raw.applications) ? raw.applications[0] ?? null : null;
+  const application = raw.applications[0] ?? null;
 
   return {
     id: raw.id,
@@ -74,12 +74,12 @@ export function presentStudentProjectSummary(
     expectedOutput: raw.expectedOutput,
     requiredSkills: raw.requiredSkills,
     duration: raw.duration,
-    companyName: raw.sme?.companyName ?? "Doanh nghiệp SME",
-    companyAvatarUrl: raw.sme?.avatarUrl ?? "",
+    companyName: raw.sme.companyName,
+    companyAvatarUrl: raw.sme.avatarUrl ?? "",
     matchScore: options.matchScore,
     interactionState: deriveStudentProjectInteractionState({
       hasStudentProfile: options.hasStudentProfile,
-      projectStatus: raw.status ?? "OPEN",
+      projectStatus: raw.status,
       application,
     }),
   };

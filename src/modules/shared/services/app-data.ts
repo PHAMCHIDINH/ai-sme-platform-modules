@@ -500,19 +500,55 @@ export async function listAvailableProjectsForStudent(studentId: string | null) 
 }
 
 export async function listStudentDiscoveryProjects(studentId: string | null) {
+  if (!studentId) {
+    const projects = await prisma.project.findMany({
+      where: { status: "OPEN" },
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        standardizedBrief: true,
+        expectedOutput: true,
+        requiredSkills: true,
+        duration: true,
+        budget: true,
+        difficulty: true,
+        status: true,
+        deadline: true,
+        createdAt: true,
+        embedding: true,
+        _count: {
+          select: {
+            applications: true,
+          },
+        },
+        sme: {
+          select: {
+            companyName: true,
+            avatarUrl: true,
+            industry: true,
+            description: true,
+          },
+        },
+      },
+    });
+
+    return projects.map((project) => ({
+      ...project,
+      applications: [],
+    }));
+  }
+
   return prisma.project.findMany({
     where: {
       OR: [
         { status: "OPEN" },
-        ...(studentId
-          ? [
-              {
-                applications: {
-                  some: { studentId },
-                },
-              },
-            ]
-          : []),
+        {
+          applications: {
+            some: { studentId },
+          },
+        },
       ],
     },
     orderBy: { createdAt: "desc" },
@@ -543,21 +579,58 @@ export async function listStudentDiscoveryProjects(studentId: string | null) {
           description: true,
         },
       },
-      applications: studentId
-        ? {
-            where: { studentId },
-            select: {
-              status: true,
-              initiatedBy: true,
-            },
-            take: 1,
-          }
-        : false,
+      applications: {
+        where: { studentId },
+        select: {
+          status: true,
+          initiatedBy: true,
+        },
+        take: 1,
+      },
     },
   });
 }
 
 export async function findStudentDiscoveryProjectById(projectId: string, studentId: string | null) {
+  if (!studentId) {
+    const project = await prisma.project.findFirst({
+      where: {
+        id: projectId,
+        status: "OPEN",
+      },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        standardizedBrief: true,
+        expectedOutput: true,
+        requiredSkills: true,
+        duration: true,
+        budget: true,
+        difficulty: true,
+        status: true,
+        deadline: true,
+        createdAt: true,
+        embedding: true,
+        _count: {
+          select: {
+            applications: true,
+          },
+        },
+        sme: {
+          select: {
+            companyName: true,
+            avatarUrl: true,
+            industry: true,
+            description: true,
+          },
+        },
+      },
+    });
+
+    return project ? { ...project, applications: [] } : null;
+  }
+
   return prisma.project.findFirst({
     where: {
       id: projectId,
@@ -601,16 +674,14 @@ export async function findStudentDiscoveryProjectById(projectId: string, student
           description: true,
         },
       },
-      applications: studentId
-        ? {
-            where: { studentId },
-            select: {
-              status: true,
-              initiatedBy: true,
-            },
-            take: 1,
-          }
-        : false,
+      applications: {
+        where: { studentId },
+        select: {
+          status: true,
+          initiatedBy: true,
+        },
+        take: 1,
+      },
     },
   });
 }

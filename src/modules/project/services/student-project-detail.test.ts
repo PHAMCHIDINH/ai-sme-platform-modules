@@ -40,18 +40,18 @@ describe("student project detail presenter", () => {
     expect(detail.applicationCount).toBe(8);
   });
 
-  it("marks hidden projects as closed for students", () => {
-    const hiddenProject = {
+  it("keeps open projects actionable for students with a profile", () => {
+    const openProject = {
       ...detailContractFixture,
-      status: "DRAFT",
-      applications: false,
+      status: "OPEN",
+      applications: [],
     } satisfies StudentProjectDetailRaw;
 
-    const detail = presentStudentProjectDetail(hiddenProject, {
+    const detail = presentStudentProjectDetail(openProject, {
       hasStudentProfile: true,
-      matchScore: 0,
+      matchScore: 82,
     });
 
-    expect(detail.interactionState).toBe("PROJECT_CLOSED");
+    expect(detail.interactionState).toBe("READY_TO_APPLY");
   });
 });
