@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { getSessionUserIdByRole } from "@/modules/auth";
 import { describeMatchScore, rankBySimilarity } from "@/modules/matching";
-import { presentStudentProjectSummary } from "@/modules/project";
+import { applyStudentProjectFilters, normalizeStudentProjectFilters, presentStudentProjectSummary } from "@/modules/project";
 import { Badge, Button, DiscoveryResultCard, FilterSidebar } from "@/modules/shared/ui";
 import {
   ACCESS_MESSAGES,
@@ -30,7 +30,15 @@ type StudentInvitation = {
   };
 };
 
-export default async function StudentProjectsPage() {
+type StudentProjectsPageProps = {
+  searchParams?: {
+    q?: string | string[];
+    difficulty?: string | string[];
+    sort?: string | string[];
+  };
+};
+
+export default async function StudentProjectsPage({ searchParams }: StudentProjectsPageProps) {
   const session = await auth();
   const studentUserId = getSessionUserIdByRole(session, "STUDENT");
   if (!studentUserId) return <div>{ACCESS_MESSAGES.UNAUTHORIZED_PAGE}</div>;
@@ -46,10 +54,13 @@ export default async function StudentProjectsPage() {
   type RankedProject = (typeof availableProjects)[number] & { matchScore: number };
   const rankedProjects: RankedProject[] =
     profile?.embedding && profile.embedding.length > 0
-      ? (rankBySimilarity(profile.embedding, availableProjects) as RankedProject[])
-      : availableProjects.map((project) => ({ ...project, matchScore: 0 }));
+    ? (rankBySimilarity(profile.embedding, availableProjects) as RankedProject[])
+    : availableProjects.map((project) => ({ ...project, matchScore: 0 }));
 
-  const presentedProjects = rankedProjects
+  const filters = normalizeStudentProjectFilters(searchParams ?? {});
+  const filteredProjects = applyStudentProjectFilters(rankedProjects, filters);
+
+  const presentedProjects = filteredProjects
     .map((project) =>
       presentStudentProjectSummary(project, {
         hasStudentProfile: Boolean(profile),
