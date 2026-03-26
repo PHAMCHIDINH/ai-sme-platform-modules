@@ -527,7 +527,14 @@ export async function listStudentDiscoveryProjects(studentId: string | null) {
       budget: true,
       difficulty: true,
       status: true,
+      deadline: true,
+      createdAt: true,
       embedding: true,
+      _count: {
+        select: {
+          applications: true,
+        },
+      },
       sme: {
         select: {
           companyName: true,
@@ -578,7 +585,14 @@ export async function findStudentDiscoveryProjectById(projectId: string, student
       budget: true,
       difficulty: true,
       status: true,
+      deadline: true,
+      createdAt: true,
       embedding: true,
+      _count: {
+        select: {
+          applications: true,
+        },
+      },
       sme: {
         select: {
           companyName: true,
