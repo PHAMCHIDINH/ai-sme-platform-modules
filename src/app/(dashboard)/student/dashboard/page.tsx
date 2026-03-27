@@ -1,13 +1,12 @@
 import { auth } from "@/auth";
 import { getSessionUserIdByRole } from "@/modules/auth";
-import { ACCESS_MESSAGES } from "@/modules/shared";
-import { findStudentDashboardData } from "@/modules/shared";
+import { ACCESS_MESSAGES, findStudentDashboardDataCached, measureAsync } from "@/modules/shared";
 import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, DiscoveryMetricStrip } from "@/modules/shared/ui";
 import { ArrowRight, BookOpen, Sparkles, Star } from "lucide-react";
 import Link from "next/link";
 
 export default async function StudentDashboardPage() {
-  const session = await auth();
+  const session = await measureAsync("auth.student.dashboard", () => auth());
   const studentUserId = getSessionUserIdByRole(session, "STUDENT");
   if (!studentUserId) return <div>{ACCESS_MESSAGES.UNAUTHORIZED_PAGE}</div>;
 
@@ -21,7 +20,9 @@ export default async function StudentDashboardPage() {
   let avgRating = "Chưa có";
 
   try {
-    const { profileResult, evaluationSummary } = await findStudentDashboardData(studentUserId);
+    const { profileResult, evaluationSummary } = await measureAsync("data.student.dashboard", () =>
+      findStudentDashboardDataCached(studentUserId),
+    );
 
     profile = profileResult;
     avgRating =

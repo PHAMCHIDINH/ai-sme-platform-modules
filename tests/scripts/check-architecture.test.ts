@@ -96,6 +96,10 @@ describe("check-architecture rule engine", () => {
         file: "src/modules/project/ui/card.tsx",
         content: 'import { Button } from "@/modules/shared/ui";',
       },
+      {
+        file: "src/modules/ai/services/embedding-backfill-job.ts",
+        content: 'import { inngest } from "@/modules/shared/server";',
+      },
     ]);
 
     expect(rules).toEqual([]);

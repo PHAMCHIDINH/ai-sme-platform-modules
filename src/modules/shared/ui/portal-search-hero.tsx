@@ -108,7 +108,7 @@ export function PortalSearchHero({
           <Link
             className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-emerald-300 hover:text-emerald-700"
             href={link.href}
-            key={link.href}
+            key={`${link.href}:${link.label}`}
           >
             {link.label}
           </Link>

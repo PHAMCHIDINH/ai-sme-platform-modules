@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { getSessionUserIdByRole } from "@/modules/auth";
-import { handlePrismaApiError, unauthorizedResponse } from "@/modules/shared";
+import { handlePrismaApiError, listStudentsForSmeSearchCached, measureAsync, unauthorizedResponse } from "@/modules/shared";
 import { generateEmbedding, canGenerateEmbedding } from "@/modules/ai";
-import { listStudentsForSmeSearch } from "@/modules/shared";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +22,7 @@ function cosineSimilarity(A: number[], B: number[]) {
 
 export async function GET(req: Request) {
   try {
-    const session = await auth();
+    const session = await measureAsync("auth.sme.students", () => auth());
     const userId = getSessionUserIdByRole(session, "SME");
 
     if (!userId) {
@@ -34,7 +33,7 @@ export async function GET(req: Request) {
     const q = searchParams.get("q");
 
     // Lấy toàn bộ sinh viên
-    const students = await listStudentsForSmeSearch();
+    const students = await measureAsync("data.sme.students", () => listStudentsForSmeSearchCached());
 
     if (!q || !canGenerateEmbedding()) {
       // Nếu không có query hoặc không có AI, trả về toàn bộ
@@ -42,7 +41,7 @@ export async function GET(req: Request) {
     }
 
     // Nếu có query, dùng AI để matching
-    const queryEmbedding = await generateEmbedding(q);
+    const queryEmbedding = await measureAsync("ai.sme.students.embedding", () => generateEmbedding(q));
     if (!queryEmbedding.length) {
       return NextResponse.json(students);
     }

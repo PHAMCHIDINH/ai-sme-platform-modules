@@ -7,13 +7,25 @@ import { describeMatchScore, rankBySimilarity } from "@/modules/matching";
 import {
   ACCESS_MESSAGES,
   findStudentDiscoveryProjectById,
-  findStudentProfileWithEmbedding,
+  findStudentProfileWithEmbeddingCached,
 } from "@/modules/shared";
 import { Card, CardContent } from "@/modules/shared/ui";
 import { Button } from "@/modules/shared/ui";
 import { presentStudentProjectDetail } from "@/modules/project";
 import { ApplyButton } from "../apply-button";
 import { ApplicationStatusBadge } from "../application-status-badge";
+
+function formatDeadlineLabel(deadline: Date | null) {
+  if (!deadline) {
+    return "Chưa đặt";
+  }
+
+  return new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(deadline);
+}
 
 export default async function StudentProjectDetailPage({
   params,
@@ -27,7 +39,7 @@ export default async function StudentProjectDetailPage({
     return <div>{ACCESS_MESSAGES.UNAUTHORIZED_PAGE}</div>;
   }
 
-  const profile = await findStudentProfileWithEmbedding(studentUserId);
+  const profile = await findStudentProfileWithEmbeddingCached(studentUserId);
   const rawProject = await findStudentDiscoveryProjectById(params.id, profile?.id ?? null);
 
   if (!rawProject) {
@@ -187,8 +199,16 @@ export default async function StudentProjectDetailPage({
                   <span>{project.duration}</span>
                 </div>
                 <div className="flex items-center justify-between rounded-xl border border-border bg-slate-50 px-3 py-2 text-slate-700">
+                  <span className="uppercase">Hạn chót</span>
+                  <span>{formatDeadlineLabel(project.deadline)}</span>
+                </div>
+                <div className="flex items-center justify-between rounded-xl border border-border bg-slate-50 px-3 py-2 text-slate-700">
                   <span className="uppercase">Ngân sách</span>
                   <span>{project.budget || "Thỏa thuận"}</span>
+                </div>
+                <div className="flex items-center justify-between rounded-xl border border-border bg-slate-50 px-3 py-2 text-slate-700">
+                  <span className="uppercase">Lượt ứng tuyển</span>
+                  <span>{project.applicationCount}</span>
                 </div>
                 <div className="flex items-center justify-between rounded-xl border border-border bg-slate-50 px-3 py-2 text-slate-700">
                   <span className="inline-flex items-center gap-2 uppercase">

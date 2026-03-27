@@ -76,6 +76,10 @@ function isAllowedEntrypointSubPath(moduleName, subPath) {
     return true;
   }
 
+  if (moduleName === "shared" && (subPath === "server" || subPath.startsWith("server/"))) {
+    return true;
+  }
+
   return false;
 }
 

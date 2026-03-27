@@ -3,6 +3,37 @@ import { ProjectStatus } from "@prisma/client";
 type ApplicationStatus = "PENDING" | "INVITED" | "ACCEPTED" | "REJECTED";
 type Initiator = "SME" | "STUDENT";
 
+type StudentProjectApplication = {
+  status: ApplicationStatus;
+  initiatedBy: Initiator;
+};
+
+export type StudentDiscoveryProjectRaw = {
+  id: string;
+  title: string;
+  description: string;
+  standardizedBrief: string | null;
+  expectedOutput: string;
+  requiredSkills: string[];
+  duration: string;
+  budget: string | null;
+  difficulty: "EASY" | "MEDIUM" | "HARD";
+  status: ProjectStatus;
+  deadline: Date | null;
+  createdAt: Date;
+  embedding: number[];
+  sme: {
+    companyName: string;
+    avatarUrl: string | null;
+    industry: string;
+    description: string;
+  };
+  applications: StudentProjectApplication[];
+  _count: {
+    applications: number;
+  };
+};
+
 export type StudentProjectInteractionState =
   | "READY_TO_APPLY"
   | "PROFILE_REQUIRED"
@@ -12,36 +43,13 @@ export type StudentProjectInteractionState =
   | "REJECTED"
   | "PROJECT_CLOSED";
 
-type StudentProjectApplication = {
-  status: ApplicationStatus;
-  initiatedBy: Initiator;
-};
-
-type StudentDiscoveryProjectRaw = {
-  id: string;
-  title: string;
-  description?: string;
-  standardizedBrief?: string | null;
-  expectedOutput: string;
-  requiredSkills: string[];
-  duration: string;
-  budget?: string | null;
-  difficulty?: "EASY" | "MEDIUM" | "HARD";
-  status?: ProjectStatus;
-  embedding: number[];
-  sme: {
-    companyName: string;
-    avatarUrl?: string | null;
-    industry?: string;
-    description?: string;
-  } | null;
-  applications: StudentProjectApplication[];
-};
-
 export function deriveStudentProjectInteractionState(input: {
   hasStudentProfile: boolean;
   projectStatus: ProjectStatus;
-  application: StudentProjectApplication | null;
+  application: {
+    status: ApplicationStatus;
+    initiatedBy: Initiator;
+  } | null;
 }): StudentProjectInteractionState {
   if (!input.hasStudentProfile) {
     return "PROFILE_REQUIRED";
@@ -66,30 +74,13 @@ export function presentStudentProjectSummary(
     expectedOutput: raw.expectedOutput,
     requiredSkills: raw.requiredSkills,
     duration: raw.duration,
-    companyName: raw.sme?.companyName ?? "Doanh nghiệp SME",
-    companyAvatarUrl: raw.sme?.avatarUrl ?? "",
+    companyName: raw.sme.companyName,
+    companyAvatarUrl: raw.sme.avatarUrl ?? "",
     matchScore: options.matchScore,
     interactionState: deriveStudentProjectInteractionState({
       hasStudentProfile: options.hasStudentProfile,
-      projectStatus: raw.status ?? "OPEN",
+      projectStatus: raw.status,
       application,
     }),
-  };
-}
-
-export function presentStudentProjectDetail(
-  raw: StudentDiscoveryProjectRaw,
-  options: { hasStudentProfile: boolean; matchScore: number },
-) {
-  const summary = presentStudentProjectSummary(raw, options);
-
-  return {
-    ...summary,
-    description: raw.description ?? "",
-    standardizedBrief: raw.standardizedBrief ?? null,
-    budget: raw.budget ?? null,
-    difficulty: raw.difficulty ?? "MEDIUM",
-    companyIndustry: raw.sme?.industry ?? "",
-    companyDescription: raw.sme?.description ?? "",
   };
 }

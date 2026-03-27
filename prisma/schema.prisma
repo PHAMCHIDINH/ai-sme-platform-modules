@@ -116,6 +116,9 @@ model Project {
   applications      Application[]
   progress          ProjectProgress?
   evaluations       Evaluation[]
+
+  @@index([status, createdAt(sort: Desc)])
+  @@index([smeId, createdAt(sort: Desc)])
 }
 
 model Application {
@@ -131,6 +134,8 @@ model Application {
   student    StudentProfile    @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@unique([projectId, studentId])
+  @@index([studentId, status, initiatedBy])
+  @@index([projectId, status])
 }
 
 model ProjectProgress {
@@ -146,6 +151,8 @@ model ProjectProgress {
   student        StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
   aiInsights     Json?          @default("{}")
   chatMessages   ChatMessage[]
+
+  @@index([studentId, status])
 }
 
 model ChatMessage {
@@ -177,4 +184,5 @@ model Evaluation {
   evaluatee    User     @relation("Evaluatee", fields: [evaluateeId], references: [id], onDelete: Cascade)
 
   @@unique([projectId, evaluatorId, type])
+  @@index([evaluateeId, type])
 }
