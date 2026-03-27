@@ -62,6 +62,7 @@ model User {
   studentProfile      StudentProfile?
   evaluationsGiven    Evaluation[]   @relation("Evaluator")
   evaluationsReceived Evaluation[]   @relation("Evaluatee")
+  chatMessages        ChatMessage[]
 }
 
 model SMEProfile {
@@ -143,6 +144,19 @@ model ProjectProgress {
   deadline       DateTime
   project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
   student        StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  aiInsights     Json?          @default("{}")
+  chatMessages   ChatMessage[]
+}
+
+model ChatMessage {
+  id                String          @id @default(cuid())
+  projectProgressId String
+  senderId          String
+  role              String          // 'user' or 'assistant'
+  content           String
+  createdAt         DateTime        @default(now())
+  projectProgress   ProjectProgress @relation(fields: [projectProgressId], references: [id], onDelete: Cascade)
+  sender            User            @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
 
 model Evaluation {

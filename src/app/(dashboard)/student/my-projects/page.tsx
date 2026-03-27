@@ -10,6 +10,7 @@ import { actionFailure, actionSuccess, type FormActionResult } from "@/modules/s
 import { Card, CardContent } from "@/modules/shared/ui";
 import { Button } from "@/modules/shared/ui";
 import { Badge } from "@/modules/shared/ui";
+import { Chatbot } from "@/modules/assistant";
 import { ProjectProgressActions } from "./project-progress-actions";
 import { SmeEvaluationDialog } from "./sme-evaluation-dialog";
 
@@ -184,7 +185,9 @@ export default async function StudentMyProjectsPage() {
   const progressEntries = await listProgressEntriesByStudentId(profile.id, studentUserId);
 
   return (
-    <div className="space-y-8 pb-12 fade-in">
+    <>
+      {progressEntries.length > 0 && progressEntries[0]?.id && <Chatbot projectProgressId={progressEntries[0].id} />}
+      <div className="space-y-8 pb-12 fade-in">
       <header className="portal-shell p-6 md:p-8">
         <div className="space-y-2">
           <p className="portal-kicker">Student execution</p>
@@ -382,5 +385,6 @@ export default async function StudentMyProjectsPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

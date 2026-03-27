@@ -12,6 +12,7 @@ import { actionFailure, actionSuccess, type FormActionResult } from "@/modules/s
 import { Badge } from "@/modules/shared/ui";
 import { Button } from "@/modules/shared/ui";
 import { Card, CardContent, CardHeader, CardTitle } from "@/modules/shared/ui";
+import { Chatbot } from "@/modules/assistant";
 import { AcceptDeliverableButton } from "./accept-deliverable-button";
 
 function formatDateTime(value: string | Date) {
@@ -95,7 +96,9 @@ export default async function SMEProjectDetailPage({
   const hasStudentEvaluation = project.evaluations.length > 0;
 
   return (
-    <div className="space-y-8 pb-12 fade-in">
+    <>
+      {project.progress && <Chatbot projectProgressId={project.progress.id} />}
+      <div className="space-y-8 pb-12 fade-in">
       <header className="portal-shell p-6 md:p-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
@@ -331,5 +334,6 @@ export default async function SMEProjectDetailPage({
         </div>
       </div>
     </div>
+    </>
   );
 }
