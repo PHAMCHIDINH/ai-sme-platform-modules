@@ -45,7 +45,7 @@ npm run db:push
 npm run dev
 ```
 
-Ung dung chay tai [http://localhost:3000](http://localhost:3000).
+Ung dung chay tai [http://localhost:3100](http://localhost:3100).
 
 Luu y:
 - Local dev van can PostgreSQL o `localhost:5432` (duoc chay boi `db` service).
@@ -123,7 +123,7 @@ docker compose --env-file .env.docker up --build -d
 
 Dich vu duoc tao:
 - `db`: PostgreSQL 16 (`localhost:5432`)
-- `app`: Next.js app (`http://localhost:3000`)
+- `app`: Next.js app (`http://localhost:3100`)
 
 App se tu dong chay `prisma db push` khi start de dong bo schema.
 

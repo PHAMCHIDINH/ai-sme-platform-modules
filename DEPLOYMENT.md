@@ -38,6 +38,6 @@ Nếu có máy chủ riêng (VPS) hoặc chạy ở máy tính cá nhân qua Doc
   docker exec -it ai-sme-app npm run db:push
   docker exec -it ai-sme-app npm run db:seed
   ```
-- Truy cập `http://localhost:3000` để trải nghiệm web với dữ liệu mẫu.
+- Truy cập `http://localhost:3100` để trải nghiệm web với dữ liệu mẫu.
 
 > **⚠️ LƯU Ý QUAN TRỌNG:** Lệnh seed (`npm run db:seed`) chứa hàm `deleteMany()`. Nó sẽ **XÓA SẠCH** dữ liệu cũ trước khi nạp dữ liệu mẫu. Chỉ nên dùng cho môi trường Demo / Portfolio. Không dùng cho môi trường Production thực tế có chứa dữ liệu thật.

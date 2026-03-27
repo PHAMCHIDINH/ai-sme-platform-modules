@@ -1,0 +1,28 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - link "VnSMEMatch" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e9]
+        - generic [ref=e13]: VnSMEMatch
+      - generic [ref=e14]:
+        - heading "Đăng nhập workspace" [level=1] [ref=e15]
+        - paragraph [ref=e16]: Tiếp tục flow discovery và quản lý dự án của bạn.
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]: Email
+        - textbox "Email" [ref=e20]:
+          - /placeholder: name@example.com
+      - generic [ref=e21]:
+        - generic [ref=e22]:
+          - generic [ref=e23]: Mật khẩu
+          - generic [ref=e24]: Quên mật khẩu? (Sắp có)
+        - textbox "Mật khẩu" [ref=e25]
+      - button "Đăng nhập" [ref=e26] [cursor=pointer]:
+        - text: Đăng nhập
+        - img
+    - paragraph [ref=e27]:
+      - text: Chưa có tài khoản?
+      - link "Đăng ký ngay" [ref=e28] [cursor=pointer]:
+        - /url: /register
+  - alert [ref=e29]

@@ -1,0 +1,51 @@
+[   23362ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3100/:0
+[   23772ms] Error: Cannot find module './9085.js'
+Require stack:
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\webpack-runtime.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\app\_not-found\page.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\require.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\load-components.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\build\utils.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\lib\router-server.js
+- D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\lib\start-server.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1207:15)
+    at <unknown> (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\require-hook.js:55:36)
+    at Module._load (node:internal/modules/cjs/loader:1038:27)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at mod.require (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at __webpack_require__.f.require (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\webpack-runtime.js:206:28)
+    at <unknown> (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\webpack-runtime.js:119:40)
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\webpack-runtime.js:118:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\webpack-runtime.js:170:22)
+    at <unknown> (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\app\page.js:1:20732)
+    at Object.<anonymous> (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\.next\server\app\page.js:1:20831)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Module.require (node:internal/modules/cjs/loader:1289:19)
+    at mod.require (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:182:18)
+    at requirePage (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\require.js:109:84)
+    at <unknown> (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\load-components.js:103:84)
+    at async loadComponentsImpl (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\base-server.js:818:17)
+    at async (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\dev\next-dev-server.js:339:20)
+    at async Span.traceAsyncFn (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (file://D:\AI kết nối sinh viên với bài tập thực chiến từ doanh nghiệp SME\ai-sme-platform-modules\node_modules\next\dist\server\lib\start-server.js:141:13)

@@ -1,0 +1,27 @@
+- dialog "Unhandled Runtime Error" [ref=e133]:
+  - generic [ref=e134]:
+    - generic [ref=e135]:
+      - generic [ref=e136]:
+        - navigation [ref=e137]:
+          - button "previous" [disabled] [ref=e138]:
+            - img "previous" [ref=e139]
+          - button "next" [disabled] [ref=e141]:
+            - img "next" [ref=e142]
+          - generic [ref=e144]: 1 of 1 error
+          - generic [ref=e145]:
+            - text: Next.js (14.2.35) is outdated
+            - link "(learn more)" [ref=e147] [cursor=pointer]:
+              - /url: https://nextjs.org/docs/messages/version-staleness
+        - button "Close" [ref=e148] [cursor=pointer]:
+          - img [ref=e150]
+      - heading "Unhandled Runtime Error" [level=1] [ref=e153]
+      - paragraph [ref=e154]: "Error: b.createdAt.getTime is not a function"
+    - generic [ref=e155]:
+      - heading "Source" [level=2] [ref=e156]
+      - generic [ref=e157]:
+        - link "src\\modules\\project\\services\\student-project-filters.ts (84:19) @ getTime" [ref=e159] [cursor=pointer]:
+          - generic [ref=e160]: src\modules\project\services\student-project-filters.ts (84:19) @ getTime
+          - img [ref=e161]
+        - generic [ref=e165]: "82 | function compareByRelevance(a: StudentDiscoveryProjectWithMatchScore, b: StudentDiscoveryProjectWithMatchScore) { 83 | if (b.matchScore !== a.matchScore) return b.matchScore - a.matchScore; > 84 | if (b.createdAt.getTime() !== a.createdAt.getTime()) return b.createdAt.getTime() - a.createdAt.getTime(); | ^ 85 | const titleComparison = a.title.localeCompare(b.title); 86 | if (titleComparison !== 0) return titleComparison; 87 | return a.id.localeCompare(b.id);"
+      - heading "Call Stack" [level=2] [ref=e166]
+      - button "Show collapsed frames" [ref=e167] [cursor=pointer]

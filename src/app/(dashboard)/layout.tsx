@@ -36,8 +36,8 @@ export default async function DashboardLayout({
           </div>
         </header>
 
-        <main className="relative flex-1 overflow-y-auto px-4 pb-8 pt-4 md:px-8 md:pb-10 md:pt-6">
-          <div className="mx-auto h-full max-w-6xl space-y-8">{children}</div>
+        <main className="relative flex-1 overflow-y-auto px-4 pb-8 pt-4 md:px-6 md:pb-10 md:pt-6 xl:px-8">
+          <div className="mx-auto h-full max-w-7xl space-y-8">{children}</div>
         </main>
       </div>
     </div>

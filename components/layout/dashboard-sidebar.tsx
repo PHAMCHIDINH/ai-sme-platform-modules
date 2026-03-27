@@ -48,7 +48,7 @@ export function DashboardSidebar({ role, userName }: DashboardSidebarProps) {
   }
 
   return (
-    <aside className="flex h-full w-80 flex-col border-r border-border/60 bg-white/70 p-4 backdrop-blur md:p-5">
+    <aside className="flex h-full w-72 flex-col border-r border-border/60 bg-white/70 p-4 backdrop-blur md:p-5">
       <div className="mb-3 rounded-2xl border border-border/80 bg-white p-4 shadow-sm">
         <Link href="/" className="flex items-center gap-2">
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-1.5">
