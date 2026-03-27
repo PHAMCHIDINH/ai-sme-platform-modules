@@ -30,11 +30,11 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/ai_sme_platform?schema=public
-      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_URL: http://localhost:3100
       AUTH_TRUST_HOST: "true"
       NODE_ENV: production
     ports:
-      - "3000:3000"
+      - "3100:3100"
 
 volumes:
   postgres_data:

@@ -1,0 +1,88 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e165]:
+    - complementary [ref=e167]:
+      - link "Career Portal VnSMEMatch" [ref=e169] [cursor=pointer]:
+        - /url: /
+        - img [ref=e171]
+        - generic [ref=e175]:
+          - generic [ref=e176]: Career Portal
+          - generic [ref=e177]: VnSMEMatch
+      - generic [ref=e178]:
+        - generic [ref=e179]: Workspace
+        - generic [ref=e180]: Nguyễn Minh Anh
+        - generic [ref=e181]: Sinh viên thực chiến
+      - generic [ref=e182]:
+        - generic [ref=e183]: Main navigation
+        - generic [ref=e184]:
+          - link "Tổng quan" [ref=e185] [cursor=pointer]:
+            - /url: /student/dashboard
+            - img [ref=e186]
+            - text: Tổng quan
+          - link "Việc làm gợi ý" [ref=e191] [cursor=pointer]:
+            - /url: /student/projects
+            - img [ref=e192]
+            - text: Việc làm gợi ý
+          - link "Dự án đang làm" [ref=e194] [cursor=pointer]:
+            - /url: /student/my-projects
+            - img [ref=e195]
+            - text: Dự án đang làm
+          - link "Hồ sơ năng lực" [ref=e199] [cursor=pointer]:
+            - /url: /student/profile
+            - img [ref=e200]
+            - text: Hồ sơ năng lực
+      - button "Đăng xuất" [ref=e205] [cursor=pointer]:
+        - img [ref=e206]
+        - text: Đăng xuất
+    - main [ref=e210]:
+      - generic [ref=e212]:
+        - generic [ref=e214]:
+          - paragraph [ref=e215]: Student workspace
+          - heading "Tổng quan hành trình thực chiến" [level=1] [ref=e216]
+          - paragraph [ref=e217]: Theo dõi tiến độ dự án, mức độ hoàn thiện hồ sơ và các gợi ý tiếp theo để nâng chất lượng portfolio.
+        - generic [ref=e218]:
+          - article [ref=e219]:
+            - paragraph [ref=e220]: Dự án đang thực hiện
+            - paragraph [ref=e221]: "1"
+            - paragraph [ref=e222]: Bao gồm IN_PROGRESS và SUBMITTED
+          - article [ref=e223]:
+            - paragraph [ref=e224]: Đơn đã ứng tuyển
+            - paragraph [ref=e225]: "4"
+            - paragraph [ref=e226]: Từ luồng discovery
+          - article [ref=e227]:
+            - paragraph [ref=e228]: Dự án hoàn thành
+            - paragraph [ref=e229]: "1"
+            - paragraph [ref=e230]: Đã có đầu ra
+          - article [ref=e231]:
+            - paragraph [ref=e232]: Đánh giá trung bình
+            - paragraph [ref=e233]: 5.0/5
+            - paragraph [ref=e234]: Từ SME
+        - generic [ref=e235]:
+          - generic [ref=e236]:
+            - generic [ref=e237]:
+              - generic [ref=e238]: Recommended
+              - generic [ref=e239]:
+                - img [ref=e240]
+                - text: Dự án gợi ý mới nhất
+              - generic [ref=e243]: Khám phá các project phù hợp kỹ năng và mục tiêu nghề nghiệp.
+            - generic [ref=e244]:
+              - paragraph [ref=e246]: Danh sách được ưu tiên theo mức tương đồng kỹ năng và trạng thái tuyển đang mở.
+              - link "Mở trang discovery" [ref=e247] [cursor=pointer]:
+                - /url: /student/projects
+                - button "Mở trang discovery" [ref=e248]:
+                  - text: Mở trang discovery
+                  - img
+          - generic [ref=e249]:
+            - generic [ref=e250]:
+              - generic [ref=e251]: Readiness
+              - generic [ref=e252]:
+                - img [ref=e253]
+                - text: Mức độ sẵn sàng hồ sơ
+              - generic [ref=e255]: Hồ sơ đầy đủ hơn sẽ giúp hệ thống match chính xác hơn.
+            - generic [ref=e256]:
+              - generic [ref=e258]:
+                - generic [ref=e259]: Profile completion
+                - generic [ref=e260]: 80%
+              - generic [ref=e263]:
+                - img [ref=e264]
+                - text: Hồ sơ đã có tín hiệu match
+  - alert [ref=e164]

@@ -1,0 +1,587 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e4]:
+      - link "Career Portal VnSMEMatch" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e12]:
+          - generic [ref=e13]: Career Portal
+          - generic [ref=e14]: VnSMEMatch
+      - generic [ref=e15]:
+        - generic [ref=e16]: Workspace
+        - generic [ref=e17]: Nguyễn Minh Anh
+        - generic [ref=e18]: Sinh viên thực chiến
+      - generic [ref=e19]:
+        - generic [ref=e20]: Main navigation
+        - generic [ref=e21]:
+          - link "Tổng quan" [ref=e22] [cursor=pointer]:
+            - /url: /student/dashboard
+            - img [ref=e23]
+            - text: Tổng quan
+          - link "Việc làm gợi ý" [ref=e28] [cursor=pointer]:
+            - /url: /student/projects
+            - img [ref=e29]
+            - text: Việc làm gợi ý
+          - link "Dự án đang làm" [ref=e31] [cursor=pointer]:
+            - /url: /student/my-projects
+            - img [ref=e32]
+            - text: Dự án đang làm
+          - link "Hồ sơ năng lực" [ref=e36] [cursor=pointer]:
+            - /url: /student/profile
+            - img [ref=e37]
+            - text: Hồ sơ năng lực
+      - button "Đăng xuất" [ref=e42] [cursor=pointer]:
+        - img [ref=e43]
+        - text: Đăng xuất
+    - main [ref=e47]:
+      - generic [ref=e49]:
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - paragraph [ref=e53]: Student discovery
+            - heading "Khám phá dự án phù hợp năng lực" [level=1] [ref=e54]
+            - paragraph [ref=e55]: AI gợi ý mức độ phù hợp từ hồ sơ kỹ năng của bạn. Hãy bắt đầu với các dự án có scope rõ ràng và đầu ra cụ thể.
+            - generic [ref=e56]:
+              - generic [ref=e57]: 20 dự án đang hiển thị
+              - generic [ref=e58]: AI match đã bật
+          - link "Cập nhật hồ sơ kỹ năng" [ref=e59] [cursor=pointer]:
+            - /url: /student/profile
+            - button "Cập nhật hồ sơ kỹ năng" [ref=e60]
+        - generic [ref=e61]:
+          - complementary [ref=e62]:
+            - generic [ref=e63]:
+              - heading "Discovery filters" [level=2] [ref=e64]
+              - paragraph [ref=e65]: Thu hẹp danh sách theo keyword, độ khó, và cách sắp xếp.
+            - generic [ref=e66]:
+              - generic [ref=e67]:
+                - generic [ref=e68]:
+                  - text: Từ khóa
+                  - searchbox "Từ khóa" [ref=e69]
+                - generic [ref=e70]:
+                  - text: Mức độ khó
+                  - combobox "Mức độ khó" [ref=e71]:
+                    - option "ALL" [selected]
+                    - option "Dễ"
+                    - option "Trung bình"
+                    - option "Khó"
+                - generic [ref=e72]:
+                  - text: Sắp xếp
+                  - combobox "Sắp xếp" [ref=e73]:
+                    - option "match" [selected]
+                    - option "newest"
+                - button "Áp dụng bộ lọc" [ref=e74] [cursor=pointer]
+              - generic [ref=e75]:
+                - paragraph [ref=e76]: Hồ sơ hiện tại
+                - generic [ref=e77]: Đã có embedding
+                - paragraph [ref=e78]: Danh sách hiện đã được sắp xếp theo mức tương đồng kỹ năng.
+              - generic [ref=e79]:
+                - paragraph [ref=e80]: Mẹo chọn dự án
+                - list [ref=e81]:
+                  - listitem [ref=e82]: Ưu tiên dự án có output rõ để bổ sung portfolio.
+                  - listitem [ref=e83]: Đọc kỹ skill tags trước khi apply.
+                  - listitem [ref=e84]: Theo dõi trạng thái phản hồi trong trang chi tiết.
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - paragraph [ref=e88]: 20 dự án phù hợp để xem tiếp
+                - paragraph [ref=e89]: Ưu tiên đọc title, thời lượng, trạng thái và kỹ năng yêu cầu trước khi mở chi tiết.
+              - generic [ref=e90]: "Sort: Match"
+            - generic [ref=e91]:
+              - article [ref=e92]:
+                - generic [ref=e93]:
+                  - generic [ref=e94]:
+                    - generic [ref=e95]:
+                      - generic [ref=e97]: H
+                      - generic [ref=e98]:
+                        - generic [ref=e99]: HomeNest Interior
+                        - heading "Website portfolio thiết kế nội thất có 3D preview" [level=3] [ref=e100]
+                    - generic [ref=e101]: 100% match
+                  - paragraph [ref=e102]: Website portfolio Next.js với gallery dự án, tích hợp model 3D nhúng bằng Three.js hoặc Sketchfab
+                  - generic [ref=e103]:
+                    - generic [ref=e104]:
+                      - img [ref=e105]
+                      - text: 3 tuần
+                    - generic [ref=e107]: Rất phù hợp
+                    - generic [ref=e108]: Đang chờ phản hồi
+                  - generic [ref=e109]:
+                    - generic [ref=e110]: Next.js
+                    - generic [ref=e111]: Three.js hoặc Sketchfab API
+                    - generic [ref=e112]: UI/UX
+                - generic [ref=e114]:
+                  - link "Xem chi tiết" [ref=e115] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2kqe0025by7svy45813n
+                    - button "Xem chi tiết" [ref=e116]:
+                      - text: Xem chi tiết
+                      - img
+                  - generic [ref=e117]: Theo dõi trạng thái ở trang chi tiết
+              - article [ref=e118]:
+                - generic [ref=e119]:
+                  - generic [ref=e120]:
+                    - generic [ref=e121]:
+                      - generic [ref=e123]: G
+                      - generic [ref=e124]:
+                        - generic [ref=e125]: GreenClean Services
+                        - heading "Website booking dịch vụ vệ sinh online" [level=3] [ref=e126]
+                    - generic [ref=e127]: 100% match
+                  - paragraph [ref=e128]: Website với form đặt lịch, chọn gói dịch vụ, thanh toán qua VNPay, nhân viên nhận thông báo
+                  - generic [ref=e129]:
+                    - generic [ref=e130]:
+                      - img [ref=e131]
+                      - text: 4 tuần
+                    - generic [ref=e133]: Rất phù hợp
+                  - generic [ref=e134]:
+                    - generic [ref=e135]: Web Development
+                    - generic [ref=e136]: VNPay API
+                    - generic [ref=e137]: Email/SMS
+                - generic [ref=e139]:
+                  - link "Xem chi tiết" [ref=e140] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2hyu001vby7s25sjmo4e
+                    - button "Xem chi tiết" [ref=e141]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e142] [cursor=pointer]
+              - article [ref=e143]:
+                - generic [ref=e144]:
+                  - generic [ref=e145]:
+                    - generic [ref=e146]:
+                      - generic [ref=e148]: G
+                      - generic [ref=e149]:
+                        - generic [ref=e150]: GreenClean Services
+                        - heading "App nhân viên nhận và xác nhận lịch vệ sinh" [level=3] [ref=e151]
+                    - generic [ref=e152]: 100% match
+                  - paragraph [ref=e153]: App Flutter cho nhân viên xem lịch công việc, check-in/check-out với GPS, ghi chú phòng
+                  - generic [ref=e154]:
+                    - generic [ref=e155]:
+                      - img [ref=e156]
+                      - text: 4 tuần
+                    - generic [ref=e158]: Rất phù hợp
+                  - generic [ref=e159]:
+                    - generic [ref=e160]: Flutter
+                    - generic [ref=e161]: GPS
+                    - generic [ref=e162]: Firebase
+                - generic [ref=e164]:
+                  - link "Xem chi tiết" [ref=e165] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2hs5001tby7ssm0dak5h
+                    - button "Xem chi tiết" [ref=e166]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e167] [cursor=pointer]
+              - article [ref=e168]:
+                - generic [ref=e169]:
+                  - generic [ref=e170]:
+                    - generic [ref=e171]:
+                      - generic [ref=e173]: E
+                      - generic [ref=e174]:
+                        - generic [ref=e175]: EduStar Language School
+                        - heading "App luyện từ vựng tiếng Anh theo bài học" [level=3] [ref=e176]
+                    - generic [ref=e177]: 100% match
+                  - paragraph [ref=e178]: Mobile app hoặc web app flashcard từ vựng, spaced repetition, liên kết Google Sheet
+                  - generic [ref=e179]:
+                    - generic [ref=e180]:
+                      - img [ref=e181]
+                      - text: 3 tuần
+                    - generic [ref=e183]: Rất phù hợp
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: React hoặc Flutter
+                    - generic [ref=e186]: Spaced Repetition
+                    - generic [ref=e187]: Google Sheets API
+                - generic [ref=e189]:
+                  - link "Xem chi tiết" [ref=e190] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2gho001pby7slj6am7k1
+                    - button "Xem chi tiết" [ref=e191]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e192] [cursor=pointer]
+              - article [ref=e193]:
+                - generic [ref=e194]:
+                  - generic [ref=e195]:
+                    - generic [ref=e196]:
+                      - generic [ref=e198]: L
+                      - generic [ref=e199]:
+                        - generic [ref=e200]: LogiBiz Technology
+                        - heading "Tính năng tra cứu hành trình đơn vận chuyển theo realtime" [level=3] [ref=e201]
+                    - generic [ref=e202]: 100% match
+                  - paragraph [ref=e203]: Web app nhỏ + API REST cho phép tra cứu trạng thái vận đơn, hiển thị timeline lộ trình
+                  - generic [ref=e204]:
+                    - generic [ref=e205]:
+                      - img [ref=e206]
+                      - text: 3 tuần
+                    - generic [ref=e208]: Rất phù hợp
+                  - generic [ref=e209]:
+                    - generic [ref=e210]: Web Development
+                    - generic [ref=e211]: REST API
+                    - generic [ref=e212]: Back-end
+                - generic [ref=e214]:
+                  - link "Xem chi tiết" [ref=e215] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2end001hby7sboue3lj4
+                    - button "Xem chi tiết" [ref=e216]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e217] [cursor=pointer]
+              - article [ref=e218]:
+                - generic [ref=e219]:
+                  - generic [ref=e220]:
+                    - generic [ref=e221]:
+                      - generic [ref=e223]: X
+                      - generic [ref=e224]:
+                        - generic [ref=e225]: XW Fashion
+                        - heading "Tích hợp quản lý đơn hàng từ Shopee & TikTok Shop về 1 dashboard" [level=3] [ref=e226]
+                    - generic [ref=e227]: 100% match
+                  - paragraph [ref=e228]: Tool Python/Node tích hợp API Shopee và TikTok Shop, bảng dashboard tổng hợp đơn hàng real-time
+                  - generic [ref=e229]:
+                    - generic [ref=e230]:
+                      - img [ref=e231]
+                      - text: 6 tuần
+                    - generic [ref=e233]: Rất phù hợp
+                  - generic [ref=e234]:
+                    - generic [ref=e235]: API Integration
+                    - generic [ref=e236]: Shopee API
+                    - generic [ref=e237]: TikTok Shop API
+                    - generic [ref=e238]: "+1"
+                - generic [ref=e240]:
+                  - link "Xem chi tiết" [ref=e241] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2d68001bby7sdgvw3r2n
+                    - button "Xem chi tiết" [ref=e242]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e243] [cursor=pointer]
+              - article [ref=e244]:
+                - generic [ref=e245]:
+                  - generic [ref=e246]:
+                    - generic [ref=e247]:
+                      - generic [ref=e249]: S
+                      - generic [ref=e250]:
+                        - generic [ref=e251]: Saigon Trip Travel
+                        - heading "Tool tự động tổng hợp đánh giá từ Google Maps và TripAdvisor" [level=3] [ref=e252]
+                    - generic [ref=e253]: 100% match
+                  - paragraph [ref=e254]: Script Python scrape Google Maps và TripAdvisor, tổng hợp sentiment, gửi mail tóm tắt hàng tuần
+                  - generic [ref=e255]:
+                    - generic [ref=e256]:
+                      - img [ref=e257]
+                      - text: 2 tuần
+                    - generic [ref=e259]: Rất phù hợp
+                  - generic [ref=e260]:
+                    - generic [ref=e261]: Web Scraping
+                    - generic [ref=e262]: Python
+                    - generic [ref=e263]: NLP cơ bản
+                    - generic [ref=e264]: "+1"
+                - generic [ref=e266]:
+                  - link "Xem chi tiết" [ref=e267] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2bvt0017by7stsl6iwma
+                    - button "Xem chi tiết" [ref=e268]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e269] [cursor=pointer]
+              - article [ref=e270]:
+                - generic [ref=e271]:
+                  - generic [ref=e272]:
+                    - generic [ref=e273]:
+                      - generic [ref=e275]: T
+                      - generic [ref=e276]:
+                        - generic [ref=e277]: TechFarm Việt Nam
+                        - heading "App nhật ký canh tác trên điện thoại" [level=3] [ref=e278]
+                    - generic [ref=e279]: 100% match
+                  - paragraph [ref=e280]: App Flutter offline-first, đồng bộ lên cloud khi có internet, báo cáo nhật ký theo giai đoạn
+                  - generic [ref=e281]:
+                    - generic [ref=e282]:
+                      - img [ref=e283]
+                      - text: 5 tuần
+                    - generic [ref=e285]: Rất phù hợp
+                  - generic [ref=e286]:
+                    - generic [ref=e287]: Flutter
+                    - generic [ref=e288]: SQLite
+                    - generic [ref=e289]: Offline First
+                - generic [ref=e291]:
+                  - link "Xem chi tiết" [ref=e292] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2aer0011by7s0v1dl07c
+                    - button "Xem chi tiết" [ref=e293]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e294] [cursor=pointer]
+              - article [ref=e295]:
+                - generic [ref=e296]:
+                  - generic [ref=e297]:
+                    - generic [ref=e298]:
+                      - generic [ref=e300]: C
+                      - generic [ref=e301]:
+                        - generic [ref=e302]: Café Barista Club
+                        - heading "App mobile order nội bộ cho nhân viên" [level=3] [ref=e303]
+                    - generic [ref=e304]: 100% match
+                  - paragraph [ref=e305]: App Flutter đa nền tảng iOS/Android cho phép ghi order theo bàn và in bill
+                  - generic [ref=e306]:
+                    - generic [ref=e307]:
+                      - img [ref=e308]
+                      - text: 4 tuần
+                    - generic [ref=e310]: Rất phù hợp
+                    - generic [ref=e311]: Không được chọn
+                  - generic [ref=e312]:
+                    - generic [ref=e313]: Flutter
+                    - generic [ref=e314]: Firebase
+                    - generic [ref=e315]: UI/UX
+                - generic [ref=e317]:
+                  - link "Xem chi tiết" [ref=e318] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc28qy000tby7sdae8q8mt
+                    - button "Xem chi tiết" [ref=e319]:
+                      - text: Xem chi tiết
+                      - img
+                  - generic [ref=e320]: Theo dõi trạng thái ở trang chi tiết
+              - article [ref=e321]:
+                - generic [ref=e322]:
+                  - generic [ref=e323]:
+                    - generic [ref=e324]:
+                      - generic [ref=e326]: C
+                      - generic [ref=e327]:
+                        - generic [ref=e328]: Café Barista Club
+                        - heading "Website bán hàng cho doanh nghiệp" [level=3] [ref=e329]
+                    - generic [ref=e330]: No score
+                  - paragraph [ref=e331]: Website
+                  - generic [ref=e333]:
+                    - img [ref=e334]
+                    - text: 6-8 tuần
+                  - generic [ref=e336]:
+                    - generic [ref=e337]: WordPress
+                    - generic [ref=e338]: WooCommerce
+                - generic [ref=e340]:
+                  - link "Xem chi tiết" [ref=e341] [cursor=pointer]:
+                    - /url: /student/projects/cmn0zjx220001by20j9pmozby
+                    - button "Xem chi tiết" [ref=e342]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e343] [cursor=pointer]
+              - article [ref=e344]:
+                - generic [ref=e345]:
+                  - generic [ref=e346]:
+                    - generic [ref=e347]:
+                      - generic [ref=e349]: C
+                      - generic [ref=e350]:
+                        - generic [ref=e351]: Café Barista Club
+                        - heading "Website cho doanh nghiệp" [level=3] [ref=e352]
+                    - generic [ref=e353]: No score
+                  - paragraph [ref=e354]: Website
+                  - generic [ref=e356]:
+                    - img [ref=e357]
+                    - text: 3-5 tuần
+                  - generic [ref=e360]: UI/UX
+                - generic [ref=e362]:
+                  - link "Xem chi tiết" [ref=e363] [cursor=pointer]:
+                    - /url: /student/projects/cmmylpzlp0001by9o67369c34
+                    - button "Xem chi tiết" [ref=e364]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e365] [cursor=pointer]
+              - article [ref=e366]:
+                - generic [ref=e367]:
+                  - generic [ref=e368]:
+                    - generic [ref=e369]:
+                      - generic [ref=e371]: C
+                      - generic [ref=e372]:
+                        - generic [ref=e373]: công ty chí dĩnh
+                        - heading "Dashboard / phân tích dữ liệu cho doanh nghiệp" [level=3] [ref=e374]
+                    - generic [ref=e375]: No score
+                  - paragraph [ref=e376]: Dashboard / báo cáo dữ liệu
+                  - generic [ref=e378]:
+                    - img [ref=e379]
+                    - text: 3-4 tuần
+                  - generic [ref=e382]: Power BI
+                - generic [ref=e384]:
+                  - link "Xem chi tiết" [ref=e385] [cursor=pointer]:
+                    - /url: /student/projects/cmmxiwnmn0001l8048tpzolbh
+                    - button "Xem chi tiết" [ref=e386]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e387] [cursor=pointer]
+              - article [ref=e388]:
+                - generic [ref=e389]:
+                  - generic [ref=e390]:
+                    - generic [ref=e391]:
+                      - generic [ref=e393]: H
+                      - generic [ref=e394]:
+                        - generic [ref=e395]: HomeNest Interior
+                        - heading "Tool tự động bóc tách bảng vật liệu từ file CAD/thiết kế" [level=3] [ref=e396]
+                    - generic [ref=e397]: No score
+                  - paragraph [ref=e398]: Script Python hoặc tool web đọc file DXF/Excel thiết kế, xuất danh mục vật liệu tự động
+                  - generic [ref=e400]:
+                    - img [ref=e401]
+                    - text: 6 tuần
+                  - generic [ref=e403]:
+                    - generic [ref=e404]: Python
+                    - generic [ref=e405]: DXF Parser
+                    - generic [ref=e406]: Automation
+                - generic [ref=e408]:
+                  - link "Xem chi tiết" [ref=e409] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2kx20027by7stp2mvrkf
+                    - button "Xem chi tiết" [ref=e410]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e411] [cursor=pointer]
+              - article [ref=e412]:
+                - generic [ref=e413]:
+                  - generic [ref=e414]:
+                    - generic [ref=e415]:
+                      - generic [ref=e417]: M
+                      - generic [ref=e418]:
+                        - generic [ref=e419]: Medifood Việt Nam
+                        - heading "Công cụ so sánh và tra cứu sản phẩm cho nhân viên bán hàng" [level=3] [ref=e420]
+                    - generic [ref=e421]: No score
+                  - paragraph [ref=e422]: Web app tra cứu sản phẩm theo từ khóa, so sánh 2-3 sản phẩm cùng lúc, export PDF
+                  - generic [ref=e424]:
+                    - img [ref=e425]
+                    - text: 2 tuần
+                  - generic [ref=e427]:
+                    - generic [ref=e428]: Web Front-end
+                    - generic [ref=e429]: Search Algorithm
+                    - generic [ref=e430]: PDF Export
+                - generic [ref=e432]:
+                  - link "Xem chi tiết" [ref=e433] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2jfv0021by7slo7jtgk9
+                    - button "Xem chi tiết" [ref=e434]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e435] [cursor=pointer]
+              - article [ref=e436]:
+                - generic [ref=e437]:
+                  - generic [ref=e438]:
+                    - generic [ref=e439]:
+                      - generic [ref=e441]: M
+                      - generic [ref=e442]:
+                        - generic [ref=e443]: Medifood Việt Nam
+                        - heading "Phần mềm quản lý kho và nhập xuất sản phẩm" [level=3] [ref=e444]
+                    - generic [ref=e445]: No score
+                  - paragraph [ref=e446]: "Web app quản lý kho: nhập/xuất, tồn, cảnh báo gần hết hạn, báo cáo kiểm kê"
+                  - generic [ref=e448]:
+                    - img [ref=e449]
+                    - text: 5 tuần
+                  - generic [ref=e451]:
+                    - generic [ref=e452]: Web Development
+                    - generic [ref=e453]: Back-end
+                    - generic [ref=e454]: Database Design
+                - generic [ref=e456]:
+                  - link "Xem chi tiết" [ref=e457] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2j97001zby7sbf8dkxdu
+                    - button "Xem chi tiết" [ref=e458]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e459] [cursor=pointer]
+              - article [ref=e460]:
+                - generic [ref=e461]:
+                  - generic [ref=e462]:
+                    - generic [ref=e463]:
+                      - generic [ref=e465]: E
+                      - generic [ref=e466]:
+                        - generic [ref=e467]: EduStar Language School
+                        - heading "Hệ thống quản lý học viên và điểm danh" [level=3] [ref=e468]
+                    - generic [ref=e469]: No score
+                  - paragraph [ref=e470]: Ứng dụng web quản lý lớp, học viên, điểm danh có QR Code, xuất báo cáo sĩ số
+                  - generic [ref=e472]:
+                    - img [ref=e473]
+                    - text: 4 tuần
+                  - generic [ref=e475]:
+                    - generic [ref=e476]: Web Development
+                    - generic [ref=e477]: QR Code
+                    - generic [ref=e478]: Back-end
+                - generic [ref=e480]:
+                  - link "Xem chi tiết" [ref=e481] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2gaz001nby7stkb8bowl
+                    - button "Xem chi tiết" [ref=e482]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e483] [cursor=pointer]
+              - article [ref=e484]:
+                - generic [ref=e485]:
+                  - generic [ref=e486]:
+                    - generic [ref=e487]:
+                      - generic [ref=e489]: L
+                      - generic [ref=e490]:
+                        - generic [ref=e491]: LogiBiz Technology
+                        - heading "Tự động hóa báo cáo vận đơn hàng tháng qua Excel" [level=3] [ref=e492]
+                    - generic [ref=e493]: No score
+                  - paragraph [ref=e494]: Script Python tự động pull dữ liệu từ DB, xuất Excel báo cáo có biểu đồ, gửi mail tự động
+                  - generic [ref=e496]:
+                    - img [ref=e497]
+                    - text: 2 tuần
+                  - generic [ref=e499]:
+                    - generic [ref=e500]: Python
+                    - generic [ref=e501]: OpenPyXL
+                    - generic [ref=e502]: SQL
+                    - generic [ref=e503]: "+1"
+                - generic [ref=e505]:
+                  - link "Xem chi tiết" [ref=e506] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2f0p001jby7slmheyxx8
+                    - button "Xem chi tiết" [ref=e507]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e508] [cursor=pointer]
+              - article [ref=e509]:
+                - generic [ref=e510]:
+                  - generic [ref=e511]:
+                    - generic [ref=e512]:
+                      - generic [ref=e514]: X
+                      - generic [ref=e515]:
+                        - generic [ref=e516]: XW Fashion
+                        - heading "Chatbot tư vấn phối đồ tự động qua Zalo" [level=3] [ref=e517]
+                    - generic [ref=e518]: No score
+                  - paragraph [ref=e519]: Chatbot Zalo OA tích hợp catalog sản phẩm, tư vấn phối đồ bằng AI gọi LLM, dẫn link mua hàng
+                  - generic [ref=e521]:
+                    - img [ref=e522]
+                    - text: 5 tuần
+                  - generic [ref=e524]:
+                    - generic [ref=e525]: Chatbot
+                    - generic [ref=e526]: Zalo API
+                    - generic [ref=e527]: LLM API
+                    - generic [ref=e528]: "+1"
+                - generic [ref=e530]:
+                  - link "Xem chi tiết" [ref=e531] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2dcx001dby7sz8fqazhy
+                    - button "Xem chi tiết" [ref=e532]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e533] [cursor=pointer]
+              - article [ref=e534]:
+                - generic [ref=e535]:
+                  - generic [ref=e536]:
+                    - generic [ref=e537]:
+                      - generic [ref=e539]: S
+                      - generic [ref=e540]:
+                        - generic [ref=e541]: Saigon Trip Travel
+                        - heading "Website đặt tour du lịch mới" [level=3] [ref=e542]
+                    - generic [ref=e543]: No score
+                  - paragraph [ref=e544]: Website Next.js mới với trang listing tour, trang chi tiết, form đặt chỗ và gửi email xác nhận
+                  - generic [ref=e546]:
+                    - img [ref=e547]
+                    - text: 5 tuần
+                  - generic [ref=e549]:
+                    - generic [ref=e550]: Web Development
+                    - generic [ref=e551]: Next.js
+                    - generic [ref=e552]: Email API
+                - generic [ref=e554]:
+                  - link "Xem chi tiết" [ref=e555] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2bp50015by7smi3p14kj
+                    - button "Xem chi tiết" [ref=e556]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e557] [cursor=pointer]
+              - article [ref=e558]:
+                - generic [ref=e559]:
+                  - generic [ref=e560]:
+                    - generic [ref=e561]:
+                      - generic [ref=e563]: T
+                      - generic [ref=e564]:
+                        - generic [ref=e565]: TechFarm Việt Nam
+                        - heading "Dashboard giám sát cảm biến trang trại IoT" [level=3] [ref=e566]
+                    - generic [ref=e567]: No score
+                  - paragraph [ref=e568]: Web app đọc dữ liệu MQTT, hiển thị các biểu đồ real-time và cảnh báo vượt ngưỡng qua email/SMS
+                  - generic [ref=e570]:
+                    - img [ref=e571]
+                    - text: 6 tuần
+                  - generic [ref=e573]:
+                    - generic [ref=e574]: IoT
+                    - generic [ref=e575]: MQTT
+                    - generic [ref=e576]: React
+                    - generic [ref=e577]: "+1"
+                - generic [ref=e579]:
+                  - link "Xem chi tiết" [ref=e580] [cursor=pointer]:
+                    - /url: /student/projects/cmmxc2a82000zby7s96iuwfe9
+                    - button "Xem chi tiết" [ref=e581]:
+                      - text: Xem chi tiết
+                      - img
+                  - button "Ứng tuyển" [ref=e582] [cursor=pointer]
+  - alert [ref=e583]

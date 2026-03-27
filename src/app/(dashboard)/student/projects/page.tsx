@@ -74,20 +74,29 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
 
   const hasEmbedding = Boolean(profile?.embedding && profile.embedding.length > 0);
   const sortFilterValue = filters.sort === "relevance" ? "match" : filters.sort;
+  const visibleProjectCount = presentedProjects.length;
 
   return (
-    <div className="space-y-8 pb-12 fade-in">
-      <header className="portal-shell p-6 md:p-8">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="space-y-2">
+    <div className="space-y-6 pb-12 fade-in">
+      <header className="portal-shell p-5 md:p-6">
+        <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+          <div className="space-y-3">
             <p className="portal-kicker">Student discovery</p>
             <h1 className="text-3xl font-semibold text-slate-900 md:text-4xl">Khám phá dự án phù hợp năng lực</h1>
             <p className="max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
               AI gợi ý mức độ phù hợp từ hồ sơ kỹ năng của bạn. Hãy bắt đầu với các dự án có scope rõ ràng và đầu ra cụ thể.
             </p>
+            <div className="flex flex-wrap gap-2">
+              <Badge className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-emerald-700" variant="outline">
+                {visibleProjectCount} dự án đang hiển thị
+              </Badge>
+              <Badge className="rounded-full border border-border bg-white px-3 py-1 text-slate-700" variant="outline">
+                {hasEmbedding ? "AI match đã bật" : "Danh sách mặc định"}
+              </Badge>
+            </div>
           </div>
           <Link href="/student/profile">
-            <Button className="rounded-full border border-border bg-white text-slate-700 hover:bg-slate-50" variant="outline">
+            <Button className="h-11 rounded-full border border-border bg-white px-5 text-slate-700 hover:bg-slate-50" variant="outline">
               Cập nhật hồ sơ kỹ năng
             </Button>
           </Link>
@@ -108,8 +117,9 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
         </section>
       ) : null}
 
-      <div className="grid gap-6 xl:grid-cols-[280px_1fr]">
+      <div className="grid gap-5 xl:grid-cols-[240px_minmax(0,1fr)]">
         <FilterSidebar
+          className="sticky top-6 h-fit"
           description="Thu hẹp danh sách theo keyword, độ khó, và cách sắp xếp."
           title="Discovery filters"
         >
@@ -163,7 +173,7 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
               </select>
             </div>
 
-            <Button className="w-full rounded-full" type="submit">
+            <Button className="h-11 w-full rounded-full bg-emerald-700 text-white hover:bg-emerald-800" type="submit">
               Áp dụng bộ lọc
             </Button>
           </form>
@@ -194,6 +204,20 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
         </FilterSidebar>
 
         <section className="space-y-4">
+          <div className="flex flex-col gap-3 rounded-2xl border border-border/70 bg-white/80 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-slate-900">
+                {visibleProjectCount > 0 ? `${visibleProjectCount} dự án phù hợp để xem tiếp` : "Chưa có dự án phù hợp"}
+              </p>
+              <p className="text-sm leading-6 text-slate-500">
+                Ưu tiên đọc title, thời lượng, trạng thái và kỹ năng yêu cầu trước khi mở chi tiết.
+              </p>
+            </div>
+            <div className="inline-flex items-center rounded-full border border-border bg-slate-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">
+              Sort: {sortFilterValue === "match" ? "Match" : "Newest"}
+            </div>
+          </div>
+
           {!hasEmbedding ? (
             <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
               <div className="flex items-start gap-3">
@@ -213,7 +237,7 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
               </p>
             </div>
           ) : (
-            <div className="portal-listing-grid">
+            <div className="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
               {presentedProjects.map((project) => {
                 const fitDescription = describeMatchScore(project.matchScore, { hasSignal: hasEmbedding });
                 const canApply = project.interactionState === "READY_TO_APPLY";
@@ -222,9 +246,9 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
                 return (
                   <DiscoveryResultCard
                     actions={
-                      <>
+                      <div className="flex w-full flex-wrap items-center justify-between gap-2">
                         <Link href={`/student/projects/${project.id}`}>
-                          <Button className="rounded-full border border-border bg-white text-slate-700 hover:bg-slate-50" variant="outline">
+                          <Button className="h-10 rounded-full border border-border bg-white px-4 text-slate-700 hover:bg-slate-50" variant="outline">
                             Xem chi tiết <ArrowRight className="h-4 w-4" />
                           </Button>
                         </Link>
@@ -241,7 +265,7 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
                             Theo dõi trạng thái ở trang chi tiết
                           </div>
                         )}
-                      </>
+                      </div>
                     }
                     badges={
                       <>
@@ -261,6 +285,7 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
                       </>
                     }
                     eyebrow={project.companyName}
+                    className="h-full"
                     key={project.id}
                     leading={
                       project.companyAvatarUrl ? (
@@ -282,10 +307,10 @@ export default async function StudentProjectsPage({ searchParams }: StudentProje
                           <CalendarDays className="h-4 w-4" />
                           {project.duration}
                         </span>
+                        {project.matchScore > 0 ? <span>{fitDescription.label}</span> : null}
                         {project.interactionState !== "READY_TO_APPLY" ? (
                           <ApplicationStatusBadge className="max-w-full" state={project.interactionState} />
                         ) : null}
-                        {project.matchScore > 0 ? <span>{fitDescription.label}</span> : null}
                       </>
                     }
                     score={project.matchScore > 0 ? `${project.matchScore}% match` : "No score"}

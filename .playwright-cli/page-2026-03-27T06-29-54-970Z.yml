@@ -1,0 +1,44 @@
+- dialog "Unhandled Runtime Error" [ref=e32]:
+  - generic [ref=e33]:
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - navigation [ref=e36]:
+          - button "previous" [disabled] [ref=e37]:
+            - img "previous" [ref=e38]
+          - button "next" [disabled] [ref=e40]:
+            - img "next" [ref=e41]
+          - generic [ref=e43]: 1 of 1 error
+          - generic [ref=e44]:
+            - text: Next.js (14.2.35) is outdated
+            - link "(learn more)" [ref=e46] [cursor=pointer]:
+              - /url: https://nextjs.org/docs/messages/version-staleness
+        - button "Close" [ref=e47] [cursor=pointer]:
+          - img [ref=e49]
+      - heading "Unhandled Runtime Error" [level=1] [ref=e52]
+      - paragraph [ref=e53]: "ChunkLoadError: Loading chunk app/(dashboard)/layout failed. (error: http://localhost:3100/_next/static/chunks/app/(dashboard)/layout.js)"
+    - generic [ref=e54]:
+      - heading "Call Stack" [level=2] [ref=e55]
+      - group [ref=e56]:
+        - generic "Next.js" [ref=e57] [cursor=pointer]:
+          - img [ref=e58]
+          - img [ref=e60]
+          - text: Next.js
+      - generic [ref=e65]:
+        - heading "<unknown>" [level=3] [ref=e66]
+        - generic [ref=e68]: file:///D:/AI%20k%E1%BA%BFt%20n%E1%BB%91i%20sinh%20vi%C3%AAn%20v%E1%BB%9Bi%20b%C3%A0i%20t%E1%BA%ADp%20th%E1%BB%B1c%20chi%E1%BA%BFn%20t%E1%BB%AB%20doanh%20nghi%E1%BB%87p%20SME/ai-sme-platform-modules/.next/static/chunks/webpack.js (160:40)
+      - generic [ref=e69]:
+        - heading "Array.reduce" [level=3] [ref=e70]
+        - generic [ref=e72]: <anonymous>
+      - group [ref=e73]:
+        - generic "Next.js" [ref=e74] [cursor=pointer]:
+          - img [ref=e75]
+          - img [ref=e77]
+          - text: Next.js
+      - generic [ref=e82]:
+        - heading "fn.e" [level=3] [ref=e83]
+        - generic [ref=e85]: file:///D:/AI%20k%E1%BA%BFt%20n%E1%BB%91i%20sinh%20vi%C3%AAn%20v%E1%BB%9Bi%20b%C3%A0i%20t%E1%BA%ADp%20th%E1%BB%B1c%20chi%E1%BA%BFn%20t%E1%BB%AB%20doanh%20nghi%E1%BB%87p%20SME/ai-sme-platform-modules/.next/static/chunks/webpack.js (396:50)
+      - group [ref=e86]:
+        - generic "React" [ref=e87] [cursor=pointer]:
+          - img [ref=e88]
+          - img [ref=e90]
+          - text: React

@@ -6,13 +6,13 @@
     "node": "20.x"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3100",
     "dev:with-db": "npm run db:up && npm run dev",
     "build": "next build",
     "vercel-build": "prisma migrate deploy && prisma generate && next build",
     "vercel-build:demo": "prisma migrate deploy && prisma generate && npm run db:seed && next build",
     "analyze": "cross-env ANALYZE=true next build",
-    "start": "next start -H 0.0.0.0 -p 3000",
+    "start": "next start -H 0.0.0.0 -p 3100",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

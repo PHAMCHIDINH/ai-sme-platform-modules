@@ -1,0 +1,164 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Project Marketplace VnSMEMatch" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e7]
+        - generic [ref=e11]:
+          - generic [ref=e12]: Project Marketplace
+          - generic [ref=e13]: VnSMEMatch
+      - navigation [ref=e14]:
+        - link "Projects" [ref=e15] [cursor=pointer]:
+          - /url: /student/projects
+        - link "Students" [ref=e16] [cursor=pointer]:
+          - /url: /sme/students
+        - link "SMEs" [ref=e17] [cursor=pointer]:
+          - /url: /sme/projects
+        - link "AI Matching" [ref=e18] [cursor=pointer]:
+          - /url: /ai-standardization
+        - link "For Businesses" [ref=e19] [cursor=pointer]:
+          - /url: /about
+      - generic [ref=e20]:
+        - link "Search" [ref=e21] [cursor=pointer]:
+          - /url: /student/projects
+          - img [ref=e22]
+          - text: Search
+        - link "Đăng nhập" [ref=e25] [cursor=pointer]:
+          - /url: /login
+          - button "Đăng nhập" [ref=e26]:
+            - img
+            - text: Đăng nhập
+        - link "Dành cho SME" [ref=e27] [cursor=pointer]:
+          - /url: /register
+          - button "Dành cho SME" [ref=e28]:
+            - img
+            - text: Dành cho SME
+  - main [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - paragraph [ref=e32]: SME x Student Career Portal
+        - heading "Nơi SME và sinh viên gặp nhau bằng dự án thật" [level=1] [ref=e33]
+        - paragraph [ref=e34]: Khám phá dự án thực chiến từ SME, theo dõi mức độ phù hợp và bắt đầu hợp tác qua một workflow rõ ràng.
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - text: Từ khóa
+            - textbox "Từ khóa" [ref=e38]:
+              - /placeholder: "VD: React, CRM, automation, data pipeline..."
+          - generic [ref=e39]:
+            - text: Mục tiêu dự án
+            - textbox "Mục tiêu dự án" [ref=e40]:
+              - /placeholder: "VD: Tối ưu vận hành bán hàng, dashboard tài chính..."
+        - generic [ref=e41]:
+          - link "Khám phá dự án" [ref=e42] [cursor=pointer]:
+            - /url: /student/projects
+            - button "Khám phá dự án" [ref=e43]
+          - link "Đăng dự án cho SME" [ref=e44] [cursor=pointer]:
+            - /url: /register?role=sme
+            - button "Đăng dự án cho SME" [ref=e45]
+      - generic [ref=e46]:
+        - article [ref=e47]:
+          - paragraph [ref=e48]: Dự án đang mở
+          - paragraph [ref=e49]: 128+
+          - paragraph [ref=e50]: Bài toán thật từ SME
+        - article [ref=e51]:
+          - paragraph [ref=e52]: SME tham gia
+          - paragraph [ref=e53]: 70+
+          - paragraph [ref=e54]: Từ bán lẻ đến dịch vụ
+        - article [ref=e55]:
+          - paragraph [ref=e56]: Sinh viên hoạt động
+          - paragraph [ref=e57]: 540+
+          - paragraph [ref=e58]: Đang xây portfolio thực chiến
+        - article [ref=e59]:
+          - paragraph [ref=e60]: Tỷ lệ hoàn thành
+          - paragraph [ref=e61]: 84%
+          - paragraph [ref=e62]: Dự án có đầu ra rõ ràng
+      - generic [ref=e63]:
+        - link "Web App" [ref=e64] [cursor=pointer]:
+          - /url: /student/projects
+        - link "Automation" [ref=e65] [cursor=pointer]:
+          - /url: /student/projects
+        - link "Data Analysis" [ref=e66] [cursor=pointer]:
+          - /url: /student/projects
+        - link "AI Workflow" [ref=e67] [cursor=pointer]:
+          - /url: /student/projects
+        - link "Operations" [ref=e68] [cursor=pointer]:
+          - /url: /student/projects
+        - link "Customer Growth" [ref=e69] [cursor=pointer]:
+          - /url: /student/projects
+    - generic [ref=e70]:
+      - article [ref=e71]:
+        - paragraph [ref=e72]: Match score trung bình
+        - paragraph [ref=e73]: 86%
+        - paragraph [ref=e74]: Sau khi chuẩn hóa brief
+      - article [ref=e75]:
+        - paragraph [ref=e76]: Tỷ lệ phản hồi SME
+        - paragraph [ref=e77]: 91%
+        - paragraph [ref=e78]: Trong 72 giờ đầu
+      - article [ref=e79]:
+        - paragraph [ref=e80]: Dự án đang triển khai
+        - paragraph [ref=e81]: "34"
+        - paragraph [ref=e82]: Có nhật ký tiến độ
+      - article [ref=e83]:
+        - paragraph [ref=e84]: Portfolio đã hoàn tất
+        - paragraph [ref=e85]: 210+
+        - paragraph [ref=e86]: Có feedback từ SME
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - paragraph [ref=e89]: Explore platform tracks
+        - heading "Một marketplace, hai luồng discovery đối xứng" [level=2] [ref=e90]
+        - paragraph [ref=e91]: Sinh viên khám phá dự án, SME khám phá ứng viên. Cả hai dùng cùng ngôn ngữ dữ liệu và hành động.
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]: For Students
+            - generic [ref=e96]:
+              - img [ref=e97]
+              - text: Discovery cho Sinh viên
+          - generic [ref=e99]:
+            - paragraph [ref=e100]: Lọc theo kỹ năng, độ khó, thời lượng và trạng thái tuyển để tìm dự án phù hợp.
+            - link "Truy cập luồng" [ref=e101] [cursor=pointer]:
+              - /url: /student/projects
+              - button "Truy cập luồng" [ref=e102]:
+                - text: Truy cập luồng
+                - img
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e105]: For SMEs
+            - generic [ref=e106]:
+              - img [ref=e107]
+              - text: Sourcing cho SME
+          - generic [ref=e112]:
+            - paragraph [ref=e113]: Tìm ứng viên theo năng lực, mời hợp tác và theo dõi pipeline trong một luồng nhất quán.
+            - link "Truy cập luồng" [ref=e114] [cursor=pointer]:
+              - /url: /sme/students
+              - button "Truy cập luồng" [ref=e115]:
+                - text: Truy cập luồng
+                - img
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - generic [ref=e118]: AI Assisted
+            - generic [ref=e119]:
+              - img [ref=e120]
+              - text: AI Matching Layer
+          - generic [ref=e123]:
+            - paragraph [ref=e124]: Chuẩn hóa brief và diễn giải mức độ phù hợp để ra quyết định nhanh hơn.
+            - link "Truy cập luồng" [ref=e125] [cursor=pointer]:
+              - /url: /ai-standardization
+              - button "Truy cập luồng" [ref=e126]:
+                - text: Truy cập luồng
+                - img
+    - generic [ref=e127]:
+      - generic [ref=e128]:
+        - paragraph [ref=e129]: Start now
+        - heading "Bắt đầu với vai trò phù hợp của bạn" [level=3] [ref=e130]
+        - paragraph [ref=e131]: Student bắt đầu từ discovery và apply flow. SME bắt đầu từ đăng brief và sourcing flow.
+      - generic [ref=e132]:
+        - link "Tôi là Sinh viên" [ref=e133] [cursor=pointer]:
+          - /url: /register?role=student
+          - button "Tôi là Sinh viên" [ref=e134]
+        - link "Tôi là Doanh nghiệp" [ref=e135] [cursor=pointer]:
+          - /url: /register?role=sme
+          - button "Tôi là Doanh nghiệp" [ref=e136]:
+            - img
+            - text: Tôi là Doanh nghiệp
