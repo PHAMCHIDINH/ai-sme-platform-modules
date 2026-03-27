@@ -301,4 +301,36 @@ describe("student discovery query wrappers", () => {
       applications: [],
     });
   });
+
+  it("rehydrates cached date strings back into Date objects", async () => {
+    prismaMocks.project.findMany.mockResolvedValueOnce([
+      {
+        id: "project-4",
+        title: "Cached project",
+        description: "Từ cache",
+        standardizedBrief: null,
+        expectedOutput: "Website",
+        requiredSkills: ["Next.js"],
+        duration: "2 tuần",
+        budget: null,
+        difficulty: "MEDIUM",
+        status: "OPEN",
+        deadline: "2026-03-27T00:00:00.000Z",
+        createdAt: "2026-03-26T00:00:00.000Z",
+        embedding: [],
+        sme: {
+          companyName: "Cache SME",
+          avatarUrl: null,
+          industry: "Retail",
+          description: "Mô tả",
+        },
+        _count: { applications: 1 },
+      },
+    ]);
+
+    const [project] = await listStudentDiscoveryProjects(null);
+
+    expect(project.createdAt).toBeInstanceOf(Date);
+    expect(project.deadline).toBeInstanceOf(Date);
+  });
 });

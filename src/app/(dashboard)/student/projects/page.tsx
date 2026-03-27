@@ -5,9 +5,10 @@ import { applyStudentProjectFilters, normalizeStudentProjectFilters, presentStud
 import { Badge, Button, DiscoveryResultCard, FilterSidebar } from "@/modules/shared/ui";
 import {
   ACCESS_MESSAGES,
-  findStudentProfileWithEmbedding,
-  listStudentDiscoveryProjects,
-  listStudentInvitations,
+  findStudentProfileWithEmbeddingCached,
+  listStudentDiscoveryProjectsCached,
+  listStudentInvitationsCached,
+  measureAsync,
 } from "@/modules/shared";
 import { ArrowRight, CalendarDays, Search, Sparkles } from "lucide-react";
 import Link from "next/link";
@@ -39,17 +40,19 @@ type StudentProjectsPageProps = {
 };
 
 export default async function StudentProjectsPage({ searchParams }: StudentProjectsPageProps) {
-  const session = await auth();
+  const session = await measureAsync("auth.student.projects", () => auth());
   const studentUserId = getSessionUserIdByRole(session, "STUDENT");
   if (!studentUserId) return <div>{ACCESS_MESSAGES.UNAUTHORIZED_PAGE}</div>;
 
-  const profile = await findStudentProfileWithEmbedding(studentUserId);
-  const availableProjects = await listStudentDiscoveryProjects(profile?.id ?? null);
-
-  let invitations: StudentInvitation[] = [];
-  if (profile) {
-    invitations = await listStudentInvitations(profile.id);
-  }
+  const profile = await measureAsync("data.student.profile.embedding", () =>
+    findStudentProfileWithEmbeddingCached(studentUserId),
+  );
+  const [availableProjects, invitations] = await Promise.all([
+    measureAsync("data.student.discovery.projects", () => listStudentDiscoveryProjectsCached(profile?.id ?? null)),
+    profile
+      ? measureAsync("data.student.discovery.invitations", () => listStudentInvitationsCached(profile.id))
+      : Promise.resolve([] as StudentInvitation[]),
+  ]);
 
   type RankedProject = (typeof availableProjects)[number] & { matchScore: number };
   const rankedProjects: RankedProject[] =

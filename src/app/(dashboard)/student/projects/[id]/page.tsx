@@ -7,7 +7,7 @@ import { describeMatchScore, rankBySimilarity } from "@/modules/matching";
 import {
   ACCESS_MESSAGES,
   findStudentDiscoveryProjectById,
-  findStudentProfileWithEmbedding,
+  findStudentProfileWithEmbeddingCached,
 } from "@/modules/shared";
 import { Card, CardContent } from "@/modules/shared/ui";
 import { Button } from "@/modules/shared/ui";
@@ -39,7 +39,7 @@ export default async function StudentProjectDetailPage({
     return <div>{ACCESS_MESSAGES.UNAUTHORIZED_PAGE}</div>;
   }
 
-  const profile = await findStudentProfileWithEmbedding(studentUserId);
+  const profile = await findStudentProfileWithEmbeddingCached(studentUserId);
   const rawProject = await findStudentDiscoveryProjectById(params.id, profile?.id ?? null);
 
   if (!rawProject) {

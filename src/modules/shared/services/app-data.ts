@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../kernel/prisma";
+import { withReadCache } from "./read-cache";
 
 type CreateProjectInput = {
   smeUserId: string;
@@ -57,6 +58,8 @@ type StudentDiscoveryProjectApplication = {
 
 type StudentDiscoveryProjectLike = {
   applications?: StudentDiscoveryProjectApplication[];
+  createdAt?: Date | string;
+  deadline?: Date | string | null;
   [key: string]: unknown;
 };
 
@@ -126,9 +129,20 @@ function buildStudentDiscoveryProjectSelect(studentId: string | null) {
   });
 }
 
+function normalizeDateValue(value: Date | string | null | undefined) {
+  if (value == null || value instanceof Date) {
+    return value ?? null;
+  }
+
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? value : parsed;
+}
+
 function normalizeStudentDiscoveryProject<T extends StudentDiscoveryProjectLike>(project: T) {
   return {
     ...project,
+    createdAt: normalizeDateValue(project.createdAt),
+    deadline: normalizeDateValue(project.deadline),
     applications: project.applications ?? [],
   };
 }
@@ -296,6 +310,13 @@ export async function listStudentsForSmeSearch() {
         select: { name: true, email: true },
       },
     },
+  });
+}
+
+export async function listStudentsForSmeSearchCached() {
+  return withReadCache("sme-students", ["all"], () => listStudentsForSmeSearch(), {
+    revalidate: 60,
+    baseTag: "sme-students",
   });
 }
 
@@ -556,6 +577,14 @@ export async function findStudentProfileWithEmbedding(userId: string) {
   });
 }
 
+export async function findStudentProfileWithEmbeddingCached(userId: string) {
+  return withReadCache("student-profile-embedding", [userId], () => findStudentProfileWithEmbedding(userId), {
+    revalidate: 60,
+    baseTag: "student-profile-embedding",
+    scopedTag: userId,
+  });
+}
+
 export async function listAvailableProjectsForStudent(studentId: string | null) {
   return prisma.project.findMany({
     where: {
@@ -597,6 +626,22 @@ export async function listStudentDiscoveryProjects(studentId: string | null) {
   return normalizeStudentDiscoveryProjects(projects);
 }
 
+export async function listStudentDiscoveryProjectsCached(studentId: string | null) {
+  const scope = studentId ?? "guest";
+  const projects = await withReadCache(
+    "student-discovery-projects",
+    [scope],
+    () => listStudentDiscoveryProjects(studentId),
+    {
+      revalidate: 60,
+      baseTag: "student-discovery-projects",
+      scopedTag: scope,
+    },
+  );
+
+  return normalizeStudentDiscoveryProjects(projects);
+}
+
 export async function findStudentDiscoveryProjectById(projectId: string, studentId: string | null) {
   const project = await prisma.project.findFirst({
     where: {
@@ -623,6 +668,14 @@ export async function listStudentInvitations(studentId: string) {
         },
       },
     },
+  });
+}
+
+export async function listStudentInvitationsCached(studentId: string) {
+  return withReadCache("student-invitations", [studentId], () => listStudentInvitations(studentId), {
+    revalidate: 30,
+    baseTag: "student-invitations",
+    scopedTag: studentId,
   });
 }
 
@@ -659,6 +712,14 @@ export async function findStudentDashboardData(userId: string) {
     profileResult,
     evaluationSummary,
   };
+}
+
+export async function findStudentDashboardDataCached(userId: string) {
+  return withReadCache("student-dashboard", [userId], () => findStudentDashboardData(userId), {
+    revalidate: 60,
+    baseTag: "student-dashboard",
+    scopedTag: userId,
+  });
 }
 
 export async function findStudentProfileByUserId(userId: string) {

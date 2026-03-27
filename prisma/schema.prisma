@@ -115,6 +115,9 @@ model Project {
   applications      Application[]
   progress          ProjectProgress?
   evaluations       Evaluation[]
+
+  @@index([status, createdAt(sort: Desc)])
+  @@index([smeId, createdAt(sort: Desc)])
 }
 
 model Application {
@@ -130,6 +133,8 @@ model Application {
   student    StudentProfile    @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@unique([projectId, studentId])
+  @@index([studentId, status, initiatedBy])
+  @@index([projectId, status])
 }
 
 model ProjectProgress {
@@ -143,6 +148,8 @@ model ProjectProgress {
   deadline       DateTime
   project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
   student        StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, status])
 }
 
 model Evaluation {
@@ -163,4 +170,5 @@ model Evaluation {
   evaluatee    User     @relation("Evaluatee", fields: [evaluateeId], references: [id], onDelete: Cascade)
 
   @@unique([projectId, evaluatorId, type])
+  @@index([evaluateeId, type])
 }
