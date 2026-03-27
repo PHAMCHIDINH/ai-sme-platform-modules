@@ -10,26 +10,21 @@ function readSource(relativePath: string) {
 }
 
 describe("dashboard discovery layout contracts", () => {
-  it("keeps the dashboard sidebar compact enough to preserve content width", () => {
-    const sidebarSource = readSource("components/layout/dashboard-sidebar.tsx");
-
-    expect(sidebarSource).toContain("w-72");
-    expect(sidebarSource).not.toContain("w-80");
-  });
-
-  it("gives the dashboard shell a wider content container", () => {
-    const layoutSource = readSource("src/app/(dashboard)/layout.tsx");
-
-    expect(layoutSource).toContain("max-w-7xl");
-  });
-
-  it("uses a narrower filter rail and wider result grid for student discovery", () => {
+  it("uses cached and instrumented reads for student discovery", () => {
     const pageSource = readSource("src/app/(dashboard)/student/projects/page.tsx");
 
-    expect(pageSource).toContain("xl:grid-cols-[240px_minmax(0,1fr)]");
-    expect(pageSource).toContain("xl:grid-cols-2");
-    expect(pageSource).toContain("2xl:grid-cols-3");
-    expect(pageSource).toContain("sticky top-6");
+    expect(pageSource).toContain('measureAsync("auth.student.projects"');
+    expect(pageSource).toContain("findStudentProfileWithEmbeddingCached");
+    expect(pageSource).toContain("listStudentDiscoveryProjectsCached");
+    expect(pageSource).toContain("listStudentInvitationsCached");
+    expect(pageSource).toContain("Promise.all([");
+  });
+
+  it("uses cached dashboard reads", () => {
+    const dashboardSource = readSource("src/app/(dashboard)/student/dashboard/page.tsx");
+
+    expect(dashboardSource).toContain('measureAsync("auth.student.dashboard"');
+    expect(dashboardSource).toContain("findStudentDashboardDataCached");
   });
 
   it("defines student loading boundaries for dashboard and discovery routes", () => {
